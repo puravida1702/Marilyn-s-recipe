@@ -53,7 +53,7 @@ function show(id){
   h+=`</table>`;
   if(r.steps.length){h+=`<div class="sub">${t('prep')}</div><ol>`;r.steps.forEach((s,k)=>h+=`<li><b>${roman(k)}</b><span>${esc(s)}</span></li>`);h+=`</ol>`}
   if(r.notes&&r.notes.length)h+=`<div class="sub">${t('know')}</div>`+r.notes.map(n=>`<p class="note">${esc(n)}</p>`).join('');
-  h+=`<p class="tools"><button data-edit="${r.id}">${t('edit')}</button>`+(r.mine?` <button data-del="${r.id}">${t('del')}</button>`:'')+(ovr()[r.id]?` <button data-reset="${r.id}">${t('reset')}</button>`:'')+`</p>`;
+  h+=`<p class="tools"><button data-edit="${r.id}">${t('edit')}</button>`+(r.mine?` <button data-del="${r.id}">${t('del')}</button>`:'')+`</p>`;
   app.innerHTML=h;scrollTo(0,0);
 }
 
