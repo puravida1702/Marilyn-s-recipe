@@ -15,10 +15,16 @@ let lang=load('lang');if(!UI[lang])lang='en';
 const t=k=>UI[lang][k];
 const cl=c=>UI[lang].cats[c]||c;
 const view={name:'home',id:''};
-const custom=()=>load('custom')||[];
+const cache={custom:load('custom')||[],ovr:load('ovr')||{}};
+const custom=()=>cache.custom;
+const cloud=(f,...a)=>{try{window.Cloud&&window.Cloud[f](...a)}catch(e){}};
+function putCustom(r){cache.custom=cache.custom.filter(x=>x.id!==r.id).concat([r]);save('custom',cache.custom);cloud('put','custom',r.id,r)}
+function delCustom(id){cache.custom=cache.custom.filter(x=>x.id!==id);save('custom',cache.custom);cloud('del','custom',id)}
+function putOvr(id,o){cache.ovr[id]=o;save('ovr',cache.ovr);cloud('put','ovr',id,o)}
+function delOvr(id){delete cache.ovr[id];save('ovr',cache.ovr);cloud('del','ovr',id)}
 const all=()=>RECIPES.map((r,i)=>({...r,id:'b'+i})).concat(custom().map(r=>({...r,mine:true})));
 const find=id=>all().find(r=>r.id===id);
-const ovr=()=>load('ovr')||{};
+const ovr=()=>cache.ovr;
 const tr=r=>{const x=lang!=='en'&&!r.mine&&TR[lang]&&TR[lang][r.title];let o=x?{...r,...x}:r;
   const v=!r.mine&&ovr()[r.id];
   if(v){o={...o};if(v.cat)o.cat=v.cat;if(v[lang]){Object.assign(o,v[lang]);o.edited=true}}
@@ -71,10 +77,10 @@ const readForm=id=>({id:id||'',title:$('f-title').value.trim(),cat:$('f-cat').va
   ing:textToIng($('f-ing').value),steps:lines($('f-steps').value),notes:lines($('f-notes').value)});
 function saveForm(id){
   const r=readForm(id);if(!r.title){alert(t('needTitle'));return}
-  if(/^b\d+$/.test(id)){const o=ovr();o[id]=o[id]||{};o[id].cat=r.cat;
-    o[id][lang]={title:r.title,by:r.by,ing:r.ing,steps:r.steps,notes:r.notes};save('ovr',o);show(id);return}
+  if(/^b\d+$/.test(id)){const o=ovr()[id]?JSON.parse(JSON.stringify(ovr()[id])):{};o.cat=r.cat;
+    o[lang]={title:r.title,by:r.by,ing:r.ing,steps:r.steps,notes:r.notes};putOvr(id,o);show(id);return}
   r.id=id||'c'+Date.now();
-  const list=custom().filter(x=>x.id!==r.id);list.push(r);save('custom',list);show(r.id);
+  putCustom(r);show(r.id);
 }
 
 /* ---------- Language toggle ---------- */
@@ -96,10 +102,19 @@ app.addEventListener('click',e=>{
   if(x.id==='add')return form();
   if(x.id==='save')return saveForm(x.dataset.id);
   if(x.dataset.edit)return form(tr(find(x.dataset.edit)));
-  if(x.dataset.reset&&confirm(t('confirmReset'))){const o=ovr();delete o[x.dataset.reset];save('ovr',o);return show(x.dataset.reset)}
-  if(x.dataset.del&&confirm(t('confirmDel'))){save('custom',custom().filter(r=>r.id!==x.dataset.del));home()}
+  if(x.dataset.reset&&confirm(t('confirmReset'))){delOvr(x.dataset.reset);return show(x.dataset.reset)}
+  if(x.dataset.del&&confirm(t('confirmDel'))){delCustom(x.dataset.del);home()}
 });
 back.onclick=()=>{search.value='';home()};
 search.oninput=()=>home(search.value);
 setLang(lang,true);
+/* ---------- Shared sync (Firebase) ---------- */
+window.localData=kind=>kind==='custom'?Object.fromEntries(cache.custom.map(r=>[r.id,r])):cache.ovr;
+window.onCloudData=(kind,map)=>{
+  cache[kind]=kind==='custom'?Object.values(map):map;save(kind,cache[kind]);
+  const y=scrollY;
+  if(view.name==='home')home(search.value);else if(view.name==='show')show(view.id);
+  scrollTo(0,y);
+};
+import('./sync.js').catch(e=>console.warn('sync off',e));
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
