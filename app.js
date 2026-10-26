@@ -1,11 +1,11 @@
 const app=document.getElementById('app'),back=document.getElementById('back'),search=document.getElementById('search');
 const CATS=["Breakfast & Snacks","Drinks","Salads","Main Dishes","Desserts"];
 const UI={
-en:{summary:"Summary",search:"Search recipes or ingredients…",ingredients:"Ingredients",prep:"Preparation",know:"Good to know",by:"Recipe by ",recipe:"Recipe",add:"+ Add a recipe",edit:"Edit",del:"Delete",confirmDel:"Delete this recipe?",addTitle:"Add a recipe",editTitle:"Edit recipe",title:"Title",cat:"Category",byOpt:"Recipe by (optional)",ingLbl:"Ingredients",ingHelp:"one per line: quantity | ingredient (a line in capitals = section title)",stepsLbl:"Preparation",stepsHelp:"one step per line",notesLbl:"Good to know",notesHelp:"one note per line",save:"Save recipe",reset:"Reset to original",confirmReset:"Remove your changes to this recipe?",needTitle:"Please enter a title.",
+en:{summary:"Summary",search:"Search recipes or ingredients…",ingredients:"Ingredients",prep:"Preparation",know:"Good to know",by:"Recipe by ",recipe:"Recipe",add:"+ Add a recipe",edit:"Edit",del:"Delete",confirmDel:"Delete this recipe?",addTitle:"Add a recipe",editTitle:"Edit recipe",title:"Title",cat:"Category",byOpt:"Recipe by (optional)",ingLbl:"Ingredients",ingHelp:"one per line: quantity | ingredient (a line in capitals = section title)",stepsLbl:"Preparation",stepsHelp:"one step per line",notesLbl:"Good to know",notesHelp:"one note per line",save:"Save recipe",reset:"Reset to original",translating:"Translating to the other languages…",txDone:"Translated to the other languages ✓",txPartial:"Some lines could not be translated and were copied as written.",confirmReset:"Remove your changes to this recipe?",needTitle:"Please enter a title.",
  cats:{}},
-fr:{summary:"Sommaire",search:"Rechercher une recette ou un ingrédient…",ingredients:"Ingrédients",prep:"Préparation",know:"Bon à savoir",by:"Recette de ",recipe:"Recette",add:"+ Ajouter une recette",edit:"Modifier",del:"Supprimer",confirmDel:"Supprimer cette recette ?",addTitle:"Ajouter une recette",editTitle:"Modifier la recette",title:"Titre",cat:"Catégorie",byOpt:"Recette de (facultatif)",ingLbl:"Ingrédients",ingHelp:"un par ligne : quantité | ingrédient (une ligne en majuscules = titre de section)",stepsLbl:"Préparation",stepsHelp:"une étape par ligne",notesLbl:"Bon à savoir",notesHelp:"une note par ligne",save:"Enregistrer la recette",reset:"Rétablir l'original",confirmReset:"Annuler vos modifications de cette recette ?",needTitle:"Veuillez entrer un titre.",
+fr:{summary:"Sommaire",search:"Rechercher une recette ou un ingrédient…",ingredients:"Ingrédients",prep:"Préparation",know:"Bon à savoir",by:"Recette de ",recipe:"Recette",add:"+ Ajouter une recette",edit:"Modifier",del:"Supprimer",confirmDel:"Supprimer cette recette ?",addTitle:"Ajouter une recette",editTitle:"Modifier la recette",title:"Titre",cat:"Catégorie",byOpt:"Recette de (facultatif)",ingLbl:"Ingrédients",ingHelp:"un par ligne : quantité | ingrédient (une ligne en majuscules = titre de section)",stepsLbl:"Préparation",stepsHelp:"une étape par ligne",notesLbl:"Bon à savoir",notesHelp:"une note par ligne",save:"Enregistrer la recette",reset:"Rétablir l'original",translating:"Traduction vers les autres langues…",txDone:"Traduit dans les autres langues ✓",txPartial:"Certaines lignes n'ont pas pu être traduites et ont été copiées telles quelles.",confirmReset:"Annuler vos modifications de cette recette ?",needTitle:"Veuillez entrer un titre.",
  cats:{"Breakfast & Snacks":"Déjeuners et collations","Drinks":"Boissons","Salads":"Salades","Main Dishes":"Plats principaux","Desserts":"Desserts"}},
-es:{summary:"Índice",search:"Buscar recetas o ingredientes…",ingredients:"Ingredientes",prep:"Preparación",know:"Es bueno saber",by:"Receta de ",recipe:"Receta",add:"+ Agregar una receta",edit:"Editar",del:"Eliminar",confirmDel:"¿Eliminar esta receta?",addTitle:"Agregar una receta",editTitle:"Editar receta",title:"Título",cat:"Categoría",byOpt:"Receta de (opcional)",ingLbl:"Ingredientes",ingHelp:"uno por línea: cantidad | ingrediente (una línea en mayúsculas = título de sección)",stepsLbl:"Preparación",stepsHelp:"un paso por línea",notesLbl:"Es bueno saber",notesHelp:"una nota por línea",save:"Guardar receta",reset:"Restablecer original",confirmReset:"¿Quitar tus cambios en esta receta?",needTitle:"Por favor escribe un título.",
+es:{summary:"Índice",search:"Buscar recetas o ingredientes…",ingredients:"Ingredientes",prep:"Preparación",know:"Es bueno saber",by:"Receta de ",recipe:"Receta",add:"+ Agregar una receta",edit:"Editar",del:"Eliminar",confirmDel:"¿Eliminar esta receta?",addTitle:"Agregar una receta",editTitle:"Editar receta",title:"Título",cat:"Categoría",byOpt:"Receta de (opcional)",ingLbl:"Ingredientes",ingHelp:"uno por línea: cantidad | ingrediente (una línea en mayúsculas = título de sección)",stepsLbl:"Preparación",stepsHelp:"un paso por línea",notesLbl:"Es bueno saber",notesHelp:"una nota por línea",save:"Guardar receta",reset:"Restablecer original",translating:"Traduciendo a los otros idiomas…",txDone:"Traducido a los otros idiomas ✓",txPartial:"Algunas líneas no se pudieron traducir y se copiaron tal cual.",confirmReset:"¿Quitar tus cambios en esta receta?",needTitle:"Por favor escribe un título.",
  cats:{"Breakfast & Snacks":"Desayunos y meriendas","Drinks":"Bebidas","Salads":"Ensaladas","Main Dishes":"Platos principales","Desserts":"Postres"}}};
 const roman=n=>['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX'][n]||n+1;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -25,10 +25,14 @@ function delOvr(id){delete cache.ovr[id];save('ovr',cache.ovr);cloud('del','ovr'
 const all=()=>RECIPES.map((r,i)=>({...r,id:'b'+i})).concat(custom().map(r=>({...r,mine:true})));
 const find=id=>all().find(r=>r.id===id);
 const ovr=()=>cache.ovr;
-const tr=r=>{const x=lang!=='en'&&!r.mine&&TR[lang]&&TR[lang][r.title];let o=x?{...r,...x}:r;
-  const v=!r.mine&&ovr()[r.id];
-  if(v){o={...o};if(v.cat)o.cat=v.cat;if(v[lang]){Object.assign(o,v[lang]);o.edited=true}}
+const LANGS=['en','fr','es'];
+const ver=(r,l)=>{
+  if(r.mine){const v=r.v&&(r.v[l]||r.v[Object.keys(r.v)[0]]);return v?{...r,...v}:r}
+  const x=l!=='en'&&TR[l]&&TR[l][r.title];let o=x?{...r,...x}:r;
+  const w=ovr()[r.id];
+  if(w){o={...o};if(w.cat)o.cat=w.cat;if(w[l]){Object.assign(o,w[l]);o.edited=true}}
   return o};
+const tr=r=>ver(r,lang);
 
 function home(q=''){
   view.name='home';back.hidden=true;q=q.toLowerCase();
@@ -75,12 +79,76 @@ function form(r={}){
 }
 const readForm=id=>({id:id||'',title:$('f-title').value.trim(),cat:$('f-cat').value,by:$('f-by').value.trim(),
   ing:textToIng($('f-ing').value),steps:lines($('f-steps').value),notes:lines($('f-notes').value)});
+const BUILTIN=/^b\d+$/;
+const clone=o=>JSON.parse(JSON.stringify(o));
 function saveForm(id){
-  const r=readForm(id);if(!r.title){alert(t('needTitle'));return}
-  if(/^b\d+$/.test(id)){const o=ovr()[id]?JSON.parse(JSON.stringify(ovr()[id])):{};o.cat=r.cat;
-    o[lang]={title:r.title,by:r.by,ing:r.ing,steps:r.steps,notes:r.notes};putOvr(id,o);show(id);return}
-  r.id=id||'c'+Date.now();
-  putCustom(r);show(r.id);
+  const d=readForm(id);if(!d.title){alert(t('needTitle'));return}
+  const data={title:d.title,by:d.by,ing:d.ing,steps:d.steps,notes:d.notes};
+  const src=lang,before={};
+  if(BUILTIN.test(id)){
+    const raw=find(id);LANGS.forEach(l=>before[l]=ver(raw,l));
+    const o=ovr()[id]?clone(ovr()[id]):{};o.cat=d.cat;o[src]=data;putOvr(id,o);show(id);
+    autoTranslate(id,src,before,data,o);return;
+  }
+  const nid=id||'c'+Date.now();
+  const old=custom().find(x=>x.id===nid);
+  if(old)LANGS.forEach(l=>before[l]=ver({...old,mine:true},l));
+  const v=old&&old.v?clone(old.v):(old&&old.title?{[old.lang||'en']:{title:old.title,by:old.by||'',ing:old.ing||[],steps:old.steps||[],notes:old.notes||[]}}:{});
+  v[src]=data;
+  const nr={id:nid,cat:d.cat,v};putCustom(nr);show(nid);
+  autoTranslate(nid,src,before,data,nr);
+}
+
+/* ---------- Automatic translation (free MyMemory service) ---------- */
+const decodeHtml=x=>{const e=document.createElement('textarea');e.innerHTML=x;return e.value};
+async function translate(text,from,to){
+  text=text.trim();if(!/[A-Za-zÀ-ÿ]/.test(text))return text;
+  const key=from+'|'+to+'|'+text,c=load('txc')||{};if(c[key])return c[key];
+  const chunks=[];let cur='';
+  for(const p of text.split(/(?<=[.!?])\s+/)){if(cur&&(cur+' '+p).length>450){chunks.push(cur);cur=p}else cur=cur?cur+' '+p:p}
+  if(cur)chunks.push(cur);
+  const out=[];
+  for(const ch of chunks){
+    const r=await fetch('https://api.mymemory.translated.net/get?q='+encodeURIComponent(ch)+'&langpair='+from+'|'+to);
+    const j=await r.json();const tt=j&&j.responseData&&j.responseData.translatedText;
+    if(!tt||String(j.responseStatus)!=='200'||/MYMEMORY WARNING|QUERY LENGTH|INVALID/i.test(tt))return null;
+    out.push(decodeHtml(tt));
+  }
+  const res=out.join(' ');c[key]=res;save('txc',c);return res;
+}
+const fixCase=(src,res)=>{
+  if(/^[a-zà-ÿ]/.test(src))res=res.charAt(0).toLowerCase()+res.slice(1);
+  if(!/[.!?]$/.test(src))res=res.replace(/\.$/,'');
+  return res};
+async function translateData(n,oS,oT,from,to){
+  let failed=false;
+  const tx=async x=>{try{const r=await translate(x,from,to);if(r==null){failed=true;return x}return r}catch(e){failed=true;return x}};
+  const mapList=async(nl,ol,tl,fn)=>{const out=[];
+    for(const it of nl){const k=JSON.stringify(it),i=ol?ol.findIndex(x=>JSON.stringify(x)===k):-1;
+      out.push(i>=0&&tl&&tl.length===ol.length?tl[i]:await fn(it))}
+    return out};
+  const title=(oS&&oT&&oS.title===n.title)?oT.title:await tx(n.title);
+  const ing=await mapList(n.ing,oS&&oS.ing,oT&&oT.ing,async([q,x])=>x
+    ?[fixCase(q,await tx(q)),fixCase(x,await tx(x))]:[(await tx(q)).toUpperCase(),'']);
+  const steps=await mapList(n.steps,oS&&oS.steps,oT&&oT.steps,tx);
+  const notes=await mapList(n.notes,oS&&oS.notes,oT&&oT.notes,tx);
+  return {data:{title,by:n.by,ing,steps,notes},failed};
+}
+function toast(msg,ms){
+  let el=$('toast');if(!el){el=document.createElement('div');el.id='toast';document.body.appendChild(el)}
+  el.textContent=msg;el.style.display='block';clearTimeout(toast.t);if(ms)toast.t=setTimeout(()=>el.style.display='none',ms)}
+async function autoTranslate(id,src,before,data,obj){
+  toast(t('translating'));let failed=false;
+  try{
+    for(const to of LANGS){if(to===src)continue;
+      const r=await translateData(data,before[src],before[to],src,to);
+      if(r.failed)failed=true;
+      if(BUILTIN.test(id))obj[to]=r.data;else obj.v[to]=r.data;
+    }
+  }catch(e){failed=true}
+  if(BUILTIN.test(id))putOvr(id,obj);else putCustom(obj);
+  if(view.name==='show'&&view.id===id)show(id);
+  toast(failed?t('txPartial'):t('txDone'),failed?6000:2500);
 }
 
 /* ---------- Language toggle ---------- */
