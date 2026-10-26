@@ -10,7 +10,7 @@ const find=id=>all().find(r=>r.id===id);
 
 function home(q=''){
   back.hidden=true;q=q.toLowerCase();
-  let h=q?'':`<img class="logo" src="icons/icon-192.png" alt="Marilyn's Recipe"><h1>Summary</h1>`;
+  let h=q?'':`<img class="logo" src="icon-192.png" alt="Marilyn's Recipe"><h1>Summary</h1>`;
   const list=all().filter(r=>!q||(r.title+r.ing.map(x=>x[1]).join(' ')).toLowerCase().includes(q));
   CATS.concat([...new Set(list.map(r=>r.cat))].filter(c=>!CATS.includes(c))).forEach(c=>{
     const rs=list.filter(r=>r.cat===c);if(!rs.length)return;
