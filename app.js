@@ -13,6 +13,7 @@ const load=k=>{try{return JSON.parse(localStorage.getItem(k))}catch(e){return nu
 const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 let lang=load('lang');if(!UI[lang])lang='en';
 const t=k=>UI[lang][k];
+const L3=(a,b,c)=>lang==='fr'?b:lang==='es'?c:a;
 const cl=c=>UI[lang].cats[c]||c;
 const view={name:'home',id:''};
 const cache={custom:load('custom')||[],ovr:load('ovr')||{}};
@@ -42,7 +43,7 @@ function home(q=''){
     const rs=list.filter(r=>r.cat===c);if(!rs.length)return;
     h+=`<h2 class="cat">${esc(cl(c))}</h2>`+rs.map(r=>`<button class="item" data-id="${r.id}">${esc(r.title)}</button>`).join('');
   });
-  if(!q)h+=`<button class="add" id="add">${t('add')}</button>`;
+  if(!q)h+=`<button class="add" id="add">${t('add')}</button>`+`<button class="add" id="bk">${L3('Backup &amp; recover','Sauvegarde et récupération','Copia y recuperación')}</button>`;
   app.innerHTML=h;scrollTo(0,0);
 }
 function show(id){
@@ -160,7 +161,7 @@ function setLang(l,first){
   lang=l;save('lang',l);document.documentElement.lang=l;
   search.placeholder=t('search');back.textContent='‹ '+t('summary');
   [...lb.children].forEach(b=>b.classList.toggle('on',b.dataset.l===l));
-  if(d)form(d);else if(view.name==='show')show(view.id);else home(search.value);
+  if(d)form(d);else if(view.name==='show')show(view.id);else if(view.name==='backup')backupPage();else home(search.value);
 }
 lb.addEventListener('click',e=>{const l=e.target.dataset.l;if(l)setLang(l)});
 
@@ -168,6 +169,9 @@ app.addEventListener('click',e=>{
   const x=e.target,b=x.closest('.item');
   if(b)return show(b.dataset.id);
   if(x.id==='add')return form();
+  if(x.id==='bk')return backupPage();
+  if(x.id==='bk-exp')return exportBackup();
+  if(x.dataset.snap!==undefined)return restoreSnap(+x.dataset.snap);
   if(x.id==='save')return saveForm(x.dataset.id);
   if(x.dataset.edit)return form(tr(find(x.dataset.edit)));
   if(x.dataset.reset&&confirm(t('confirmReset'))){delOvr(x.dataset.reset);return show(x.dataset.reset)}
@@ -176,6 +180,43 @@ app.addEventListener('click',e=>{
 back.onclick=()=>{search.value='';home()};
 search.oninput=()=>home(search.value);
 setLang(lang,true);
+/* ---------- Backup & recover ---------- */
+function snap(){try{const d=new Date(),day=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  let S=load('snaps')||[];if(S.length&&S[0].d===day)return;
+  if(!cache.custom.length&&!Object.keys(cache.ovr).length)return;
+  S.unshift({d:day,custom:cache.custom,ovr:cache.ovr});save('snaps',S.slice(0,7))}catch(e){}}
+function applyData(c,o){
+  const oc=cache.custom,oo=cache.ovr;
+  cache.custom=c;cache.ovr=o;save('custom',c);save('ovr',o);
+  c.forEach(r=>cloud('put','custom',r.id,r));oc.filter(r=>!c.some(x=>x.id===r.id)).forEach(r=>cloud('del','custom',r.id));
+  Object.keys(o).forEach(k=>cloud('put','ovr',k,o[k]));Object.keys(oo).filter(k=>!(k in o)).forEach(k=>cloud('del','ovr',k));
+  backupPage();}
+function backupPage(){
+  view.name='backup';back.hidden=false;const S=load('snaps')||[];
+  app.innerHTML=`<h1>${L3('Backup &amp; recover','Sauvegarde et récupération','Copia y recuperación')}</h1>
+  <p class="note">${L3('One file with your own recipes and your changes to the original recipes. Keep it in Google Drive or send it to yourself.','Un fichier avec vos propres recettes et vos modifications aux recettes d\'origine. Gardez-le dans Google Drive ou envoyez-le vous-même.','Un archivo con sus propias recetas y sus cambios a las recetas originales. Guárdelo en Google Drive o envíelo a usted mismo.')}</p>
+  <button class="add" id="bk-exp">${L3('Export backup','Exporter la sauvegarde','Exportar copia')}</button>
+  <label class="add" style="display:block;text-align:center;cursor:pointer">${L3('Recover from a backup file','Récupérer depuis un fichier','Recuperar desde un archivo')}<input id="bk-file" type="file" accept=".json,application/json" hidden></label>
+  <div class="sub">${L3('Automatic copies','Copies automatiques','Copias automáticas')}</div>
+  <p class="note">${L3('A copy is saved on this phone once a day. The last 7 are kept.','Une copie est enregistrée sur ce téléphone chaque jour. Les 7 dernières sont gardées.','Se guarda una copia en este teléfono cada día. Se conservan las últimas 7.')}</p>`
+  +(S.length?S.map((s,i)=>`<button class="item" data-snap="${i}">${esc(s.d)} · ${s.custom.length} ${L3('own recipes','recettes à vous','recetas propias')} · ${Object.keys(s.ovr).length} ${L3('edits','modifs','cambios')}</button>`).join(''):`<p class="note">${L3('Nothing yet.','Rien pour l\'instant.','Nada por ahora.')}</p>`);
+  scrollTo(0,0);}
+function exportBackup(){
+  const d=new Date(),day=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'MarilynRecipe',v:1,saved:day,custom:cache.custom,ovr:cache.ovr})],{type:'application/json'}));
+  a.download='marilyns-recipe-backup-'+day+'.json';document.body.appendChild(a);a.click();setTimeout(()=>{a.remove();URL.revokeObjectURL(a.href)},500);
+  toast(L3('Backup file created ✓','Fichier de sauvegarde créé ✓','Archivo de copia creado ✓'),2500);}
+function restoreSnap(i){const s=(load('snaps')||[])[i];if(!s)return;
+  if(confirm(L3('Restore the copy of '+s.d+'? Your current recipes will be replaced.','Restaurer la copie du '+s.d+' ? Vos recettes actuelles seront remplacées.','¿Restaurar la copia del '+s.d+'? Sus recetas actuales serán reemplazadas.'))){snap();applyData(s.custom||[],s.ovr||{})}}
+app.addEventListener('change',e=>{
+  if(e.target.id!=='bk-file')return;const f=e.target.files[0];e.target.value='';if(!f)return;
+  const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);
+    if(!o||o.app!=='MarilynRecipe'||!Array.isArray(o.custom)||typeof o.ovr!=='object'||!o.ovr)throw 0;
+    if(!confirm(L3('Replace your recipes with this backup?','Remplacer vos recettes par cette sauvegarde ?','¿Reemplazar sus recetas con esta copia?')))return;
+    snap();applyData(o.custom,o.ovr);toast(L3('Backup restored ✓','Sauvegarde restaurée ✓','Copia restaurada ✓'),2500)}
+    catch(err){alert(L3('This file is not a valid backup.','Ce fichier n\'est pas une sauvegarde valide.','Este archivo no es una copia válida.'))}};
+  r.readAsText(f)});
+snap();
 /* ---------- Shared sync (Firebase) ---------- */
 window.localData=kind=>kind==='custom'?Object.fromEntries(cache.custom.map(r=>[r.id,r])):cache.ovr;
 window.onCloudData=(kind,map)=>{
