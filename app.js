@@ -1,11 +1,119 @@
+/* Tiny offline QR code generator: byte mode, error correction M, versions 1-10 (links up to ~210 characters).
+   QR.svg(text) returns an <svg> string, or '' if the text is too long. */
+const QR=(()=>{
+  const ECC=[-1,10,16,26,18,24,16,18,22,22,26],BLK=[-1,1,1,1,2,2,4,4,4,5,5];
+  const raw=v=>{let r=(16*v+128)*v+64;if(v>=2){const n=Math.floor(v/7)+2;r-=(25*n-10)*n-55;if(v>=7)r-=36}return r};
+  const dataWords=v=>Math.floor(raw(v)/8)-ECC[v]*BLK[v];
+  const bit=(x,i)=>((x>>>i)&1)===1;
+  /* Reed-Solomon over GF(256) */
+  const mul=(x,y)=>{let z=0;for(let i=7;i>=0;i--){z=(z<<1)^((z>>>7)*0x11D);z^=((y>>>i)&1)*x}return z&255};
+  const rsDiv=n=>{const r=new Array(n).fill(0);r[n-1]=1;let root=1;for(let i=0;i<n;i++){for(let j=0;j<n;j++){r[j]=mul(r[j],root);if(j+1<n)r[j]^=r[j+1]}root=mul(root,2)}return r};
+  const rsRem=(data,div)=>{const r=div.map(()=>0);for(const b of data){const f=b^r.shift();r.push(0);div.forEach((c,i)=>{r[i]^=mul(c,f)})}return r};
+
+  function encode(text){
+    const bytes=Array.from(new TextEncoder().encode(text));
+    let ver=1;
+    for(;ver<=10;ver++){if(4+(ver<10?8:16)+bytes.length*8<=dataWords(ver)*8)break}
+    if(ver>10)return null;
+    /* data bits */
+    const bits=[],put=(v,n)=>{for(let i=n-1;i>=0;i--)bits.push((v>>>i)&1)};
+    put(4,4);put(bytes.length,ver<10?8:16);bytes.forEach(b=>put(b,8));
+    const cap=dataWords(ver)*8;
+    put(0,Math.min(4,cap-bits.length));put(0,(8-bits.length%8)%8);
+    for(let p=0xEC;bits.length<cap;p^=0xEC^0x11)put(p,8);
+    const data=[];for(let i=0;i<bits.length;i+=8)data.push(parseInt(bits.slice(i,i+8).join(''),2));
+    /* error correction + interleave */
+    const nb=BLK[ver],el=ECC[ver],rawW=Math.floor(raw(ver)/8),ns=nb-rawW%nb,sl=Math.floor(rawW/nb);
+    const div=rsDiv(el),blocks=[];
+    for(let i=0,k=0;i<nb;i++){
+      const d=data.slice(k,k+sl-el+(i<ns?0:1));k+=d.length;
+      const e=rsRem(d,div);if(i<ns)d.push(0);blocks.push(d.concat(e));
+    }
+    const words=[];
+    for(let i=0;i<blocks[0].length;i++)blocks.forEach((b,j)=>{if(i!==sl-el||j>=ns)words.push(b[i])});
+    /* grid */
+    const size=ver*4+17,m=[],fn=[];
+    for(let i=0;i<size;i++){m.push(new Array(size).fill(false));fn.push(new Array(size).fill(false))}
+    const set=(x,y,d)=>{m[y][x]=d;fn[y][x]=true};
+    for(let i=0;i<size;i++){set(6,i,i%2===0);set(i,6,i%2===0)}
+    const finder=(cx,cy)=>{for(let dy=-4;dy<=4;dy++)for(let dx=-4;dx<=4;dx++){
+      const d=Math.max(Math.abs(dx),Math.abs(dy)),x=cx+dx,y=cy+dy;
+      if(x>=0&&x<size&&y>=0&&y<size)set(x,y,d!==2&&d!==4)}};
+    finder(3,3);finder(size-4,3);finder(3,size-4);
+    const ap=[];
+    if(ver>1){const n=Math.floor(ver/7)+2,step=Math.ceil((ver*4+4)/(n*2-2))*2;ap.push(6);for(let p=size-7,k=1;k<n;k++,p-=step)ap.splice(1,0,p)}
+    ap.forEach((ax,i)=>ap.forEach((ay,j)=>{
+      if((i===0&&j===0)||(i===0&&j===ap.length-1)||(i===ap.length-1&&j===0))return;
+      for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++)set(ax+dx,ay+dy,Math.max(Math.abs(dx),Math.abs(dy))!==1);
+    }));
+    const format=mask=>{ /* error correction level M = 0 */
+      let rem=mask;for(let i=0;i<10;i++)rem=(rem<<1)^((rem>>>9)*0x537);
+      const bits=((mask<<10)|rem)^0x5412;
+      for(let i=0;i<=5;i++)set(8,i,bit(bits,i));
+      set(8,7,bit(bits,6));set(8,8,bit(bits,7));set(7,8,bit(bits,8));
+      for(let i=9;i<15;i++)set(14-i,8,bit(bits,i));
+      for(let i=0;i<8;i++)set(size-1-i,8,bit(bits,i));
+      for(let i=8;i<15;i++)set(8,size-15+i,bit(bits,i));
+      set(8,size-8,true);
+    };
+    format(0);
+    if(ver>=7){
+      let rem=ver;for(let i=0;i<12;i++)rem=(rem<<1)^((rem>>>11)*0x1F25);
+      const bits=(ver<<12)|rem;
+      for(let i=0;i<18;i++){const c=bit(bits,i),a=size-11+i%3,b=Math.floor(i/3);set(a,b,c);set(b,a,c)}
+    }
+    /* place data */
+    let k=0;
+    for(let right=size-1;right>=1;right-=2){
+      if(right===6)right=5;
+      for(let vert=0;vert<size;vert++)for(let j=0;j<2;j++){
+        const x=right-j,y=(((right+1)&2)===0)?size-1-vert:vert;
+        if(!fn[y][x]&&k<words.length*8){m[y][x]=bit(words[k>>>3],7-(k&7));k++}
+      }
+    }
+    /* mask choice */
+    const cond=[(x,y)=>(x+y)%2===0,(x,y)=>y%2===0,(x,y)=>x%3===0,(x,y)=>(x+y)%3===0,
+      (x,y)=>(Math.floor(x/3)+Math.floor(y/2))%2===0,(x,y)=>x*y%2+x*y%3===0,
+      (x,y)=>(x*y%2+x*y%3)%2===0,(x,y)=>((x+y)%2+x*y%3)%2===0];
+    const apply=mk=>{for(let y=0;y<size;y++)for(let x=0;x<size;x++)if(!fn[y][x]&&cond[mk](x,y))m[y][x]=!m[y][x]};
+    const penalty=()=>{
+      let p=0,dark=0;
+      const rows=[];
+      for(let y=0;y<size;y++){rows.push(m[y].map(Number));m[y].forEach(v=>{if(v)dark++})}
+      for(let x=0;x<size;x++)rows.push(m.map(r=>Number(r[x])));
+      rows.forEach(l=>{
+        let run=1;
+        for(let i=1;i<=size;i++){if(i<size&&l[i]===l[i-1])run++;else{if(run>=5)p+=run-2;run=1}}
+        const s=l.join('');
+        for(let i=0;i+11<=size;i++){const w=s.substr(i,11);if(w==='10111010000'||w==='00001011101')p+=40}
+      });
+      for(let y=0;y<size-1;y++)for(let x=0;x<size-1;x++){const v=m[y][x];if(v===m[y][x+1]&&v===m[y+1][x]&&v===m[y+1][x+1])p+=3}
+      return p+Math.floor(Math.abs(dark*100/(size*size)-50)/5)*10;
+    };
+    let best=0,bestP=1e9;
+    for(let mk=0;mk<8;mk++){format(mk);apply(mk);const p=penalty();if(p<bestP){bestP=p;best=mk}apply(mk)}
+    format(best);apply(best);
+    return m;
+  }
+
+  function svg(text,quiet=4){
+    const q=encode(text);if(!q)return '';
+    const n=q.length+quiet*2;let d='';
+    q.forEach((row,y)=>{let x=0;while(x<row.length){
+      if(row[x]){const s=x;while(x<row.length&&row[x])x++;d+=`M${s+quiet} ${y+quiet}h${x-s}v1h${s-x}z`}else x++}});
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges" role="img" aria-label="QR code"><rect width="${n}" height="${n}" fill="#fff"/><path d="${d}" fill="#000"/></svg>`;
+  }
+  return {svg,encode};
+})();
+
 const app=document.getElementById('app'),back=document.getElementById('back'),search=document.getElementById('search');
 const CATS=["Breakfast & Snacks","Drinks","Salads","Main Dishes","Desserts"];
 const UI={
-en:{summary:"Summary",search:"Search recipes or ingredients…",ingredients:"Ingredients",prep:"Preparation",know:"Good to know",by:"Recipe by ",recipe:"Recipe",add:"+ Add a recipe",edit:"Edit",del:"Delete",confirmDel:"Delete this recipe?",addTitle:"Add a recipe",editTitle:"Edit recipe",title:"Title",cat:"Category",byOpt:"Recipe by (optional)",ingLbl:"Ingredients",ingHelp:"one per line: quantity | ingredient (a line in capitals = section title)",stepsLbl:"Preparation",stepsHelp:"one step per line",notesLbl:"Good to know",notesHelp:"one note per line",save:"Save recipe",reset:"Reset to original",translating:"Translating to the other languages…",txDone:"Translated to the other languages ✓",txPartial:"Some lines could not be translated and were copied as written.",confirmReset:"Remove your changes to this recipe?",needTitle:"Please enter a title.",
+en:{summary:"Summary",search:"Search recipes or ingredients…",ingredients:"Ingredients",prep:"Preparation",know:"Good to know",by:"Recipe by ",recipe:"Recipe",add:"+ Add a recipe",edit:"Edit",del:"Delete",confirmDel:"Delete this recipe?",addTitle:"Add a recipe",editTitle:"Edit recipe",title:"Title",cat:"Category",byOpt:"Recipe by (optional)",ingLbl:"Ingredients",ingHelp:"one per line: quantity | ingredient (a line in capitals = section title)",stepsLbl:"Preparation",stepsHelp:"one step per line",notesLbl:"Good to know",notesHelp:"one note per line",save:"Save recipe",reset:"Reset to original",translating:"Translating to the other languages…",txDone:"Translated to the other languages ✓",txPartial:"Some lines could not be translated and were copied as written.",confirmReset:"Remove your changes to this recipe?",needTitle:"Please enter a title.",share:"Share",scan:"Scan to open this recipe",shareBtn:"Share link",copied:"Link copied",
  cats:{}},
-fr:{summary:"Sommaire",search:"Rechercher une recette ou un ingrédient…",ingredients:"Ingrédients",prep:"Préparation",know:"Bon à savoir",by:"Recette de ",recipe:"Recette",add:"+ Ajouter une recette",edit:"Modifier",del:"Supprimer",confirmDel:"Supprimer cette recette ?",addTitle:"Ajouter une recette",editTitle:"Modifier la recette",title:"Titre",cat:"Catégorie",byOpt:"Recette de (facultatif)",ingLbl:"Ingrédients",ingHelp:"un par ligne : quantité | ingrédient (une ligne en majuscules = titre de section)",stepsLbl:"Préparation",stepsHelp:"une étape par ligne",notesLbl:"Bon à savoir",notesHelp:"une note par ligne",save:"Enregistrer la recette",reset:"Rétablir l'original",translating:"Traduction vers les autres langues…",txDone:"Traduit dans les autres langues ✓",txPartial:"Certaines lignes n'ont pas pu être traduites et ont été copiées telles quelles.",confirmReset:"Annuler vos modifications de cette recette ?",needTitle:"Veuillez entrer un titre.",
+fr:{summary:"Sommaire",search:"Rechercher une recette ou un ingrédient…",ingredients:"Ingrédients",prep:"Préparation",know:"Bon à savoir",by:"Recette de ",recipe:"Recette",add:"+ Ajouter une recette",edit:"Modifier",del:"Supprimer",confirmDel:"Supprimer cette recette ?",addTitle:"Ajouter une recette",editTitle:"Modifier la recette",title:"Titre",cat:"Catégorie",byOpt:"Recette de (facultatif)",ingLbl:"Ingrédients",ingHelp:"un par ligne : quantité | ingrédient (une ligne en majuscules = titre de section)",stepsLbl:"Préparation",stepsHelp:"une étape par ligne",notesLbl:"Bon à savoir",notesHelp:"une note par ligne",save:"Enregistrer la recette",reset:"Rétablir l'original",translating:"Traduction vers les autres langues…",txDone:"Traduit dans les autres langues ✓",txPartial:"Certaines lignes n'ont pas pu être traduites et ont été copiées telles quelles.",confirmReset:"Annuler vos modifications de cette recette ?",needTitle:"Veuillez entrer un titre.",share:"Partager",scan:"Scanner pour ouvrir cette recette",shareBtn:"Partager le lien",copied:"Lien copié",
  cats:{"Breakfast & Snacks":"Déjeuners et collations","Drinks":"Boissons","Salads":"Salades","Main Dishes":"Plats principaux","Desserts":"Desserts"}},
-es:{summary:"Índice",search:"Buscar recetas o ingredientes…",ingredients:"Ingredientes",prep:"Preparación",know:"Es bueno saber",by:"Receta de ",recipe:"Receta",add:"+ Agregar una receta",edit:"Editar",del:"Eliminar",confirmDel:"¿Eliminar esta receta?",addTitle:"Agregar una receta",editTitle:"Editar receta",title:"Título",cat:"Categoría",byOpt:"Receta de (opcional)",ingLbl:"Ingredientes",ingHelp:"uno por línea: cantidad | ingrediente (una línea en mayúsculas = título de sección)",stepsLbl:"Preparación",stepsHelp:"un paso por línea",notesLbl:"Es bueno saber",notesHelp:"una nota por línea",save:"Guardar receta",reset:"Restablecer original",translating:"Traduciendo a los otros idiomas…",txDone:"Traducido a los otros idiomas ✓",txPartial:"Algunas líneas no se pudieron traducir y se copiaron tal cual.",confirmReset:"¿Quitar tus cambios en esta receta?",needTitle:"Por favor escribe un título.",
+es:{summary:"Índice",search:"Buscar recetas o ingredientes…",ingredients:"Ingredientes",prep:"Preparación",know:"Es bueno saber",by:"Receta de ",recipe:"Receta",add:"+ Agregar una receta",edit:"Editar",del:"Eliminar",confirmDel:"¿Eliminar esta receta?",addTitle:"Agregar una receta",editTitle:"Editar receta",title:"Título",cat:"Categoría",byOpt:"Receta de (opcional)",ingLbl:"Ingredientes",ingHelp:"uno por línea: cantidad | ingrediente (una línea en mayúsculas = título de sección)",stepsLbl:"Preparación",stepsHelp:"un paso por línea",notesLbl:"Es bueno saber",notesHelp:"una nota por línea",save:"Guardar receta",reset:"Restablecer original",translating:"Traduciendo a los otros idiomas…",txDone:"Traducido a los otros idiomas ✓",txPartial:"Algunas líneas no se pudieron traducir y se copiaron tal cual.",confirmReset:"¿Quitar tus cambios en esta receta?",needTitle:"Por favor escribe un título.",share:"Compartir",scan:"Escanea para abrir esta receta",shareBtn:"Compartir enlace",copied:"Enlace copiado",
  cats:{"Breakfast & Snacks":"Desayunos y meriendas","Drinks":"Bebidas","Salads":"Ensaladas","Main Dishes":"Platos principales","Desserts":"Postres"}}};
 const roman=n=>['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX'][n]||n+1;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -34,6 +142,20 @@ const ver=(r,l)=>{
   if(w){o={...o};if(w.cat)o.cat=w.cat;if(w[l]){Object.assign(o,w[l]);o.edited=true}}
   return o};
 const tr=r=>ver(r,lang);
+/* ---------- QR code / share link ---------- */
+const slug=s=>String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+const keyOf=raw=>raw.mine?raw.id:slug(raw.title);          // original recipes: English title; your own: their id
+const byKey=k=>all().find(r=>r.mine?r.id===k:slug(r.title)===k)||find(k);
+const linkTo=raw=>location.href.split('#')[0]+'#'+keyOf(raw)+'@'+lang;   // opens the recipe in the language being viewed
+function qrBlock(raw,title){
+  const u=linkTo(raw),q=QR.svg(u);
+  return `<div class="sub">${t('share')}</div><div class="qr">${q}${q?`<p>${t('scan')}</p>`:''}<p class="tools"><button data-share="${esc(u)}" data-title="${esc(title)}">${t('shareBtn')}</button></p></div>`}
+function shareLink(u,title){
+  if(navigator.share)navigator.share({title,url:u}).catch(()=>{});
+  else if(navigator.clipboard)navigator.clipboard.writeText(u).then(()=>toast(t('copied'),2000),()=>{})}
+document.head.appendChild(Object.assign(document.createElement('style'),{textContent:
+`.qr{text-align:center}.qr svg{display:block;width:176px;height:176px;margin:0 auto;border:1px solid #e6d3b3;border-radius:8px}
+.qr p{margin:8px 0 0;color:var(--soft,#7a6a5c);font-style:italic}.qr .tools{margin-top:4px;font-style:normal}`}));
 
 function home(q=''){
   view.name='home';back.hidden=true;q=q.toLowerCase();
@@ -54,7 +176,7 @@ function show(id){
   h+=`</table>`;
   if(r.steps.length){h+=`<div class="sub">${t('prep')}</div><ol>`;r.steps.forEach((s,k)=>h+=`<li><b>${roman(k)}</b><span>${esc(s)}</span></li>`);h+=`</ol>`}
   if(r.notes&&r.notes.length)h+=`<div class="sub">${t('know')}</div>`+r.notes.map(n=>`<p class="note">${esc(n)}</p>`).join('');
-  h+=`<p class="tools"><button data-edit="${r.id}">${t('edit')}</button>`+(r.mine?` <button data-del="${r.id}">${t('del')}</button>`:'')+`</p>`;
+  h+=qrBlock(raw,r.title)+`<p class="tools"><button data-edit="${r.id}">${t('edit')}</button>`+(r.mine?` <button data-del="${r.id}">${t('del')}</button>`:'')+`</p>`;
   app.innerHTML=h;scrollTo(0,0);
 }
 
@@ -156,9 +278,9 @@ async function autoTranslate(id,src,before,data,obj){
 const lb=document.createElement('div');lb.id='lang';
 ['en','fr','es'].forEach(l=>{const b=document.createElement('button');b.textContent=l.toUpperCase();b.dataset.l=l;lb.appendChild(b)});
 document.getElementById('top').appendChild(lb);
-function setLang(l,first){
+function setLang(l,first,nosave){
   const d=(!first&&view.name==='form')?readForm($('save').dataset.id):null;
-  lang=l;save('lang',l);document.documentElement.lang=l;
+  lang=l;if(!nosave)save('lang',l);document.documentElement.lang=l;
   search.placeholder=t('search');back.textContent='‹ '+t('summary');
   [...lb.children].forEach(b=>b.classList.toggle('on',b.dataset.l===l));
   if(d)form(d);else if(view.name==='show')show(view.id);else if(view.name==='backup')backupPage();else home(search.value);
@@ -170,6 +292,7 @@ app.addEventListener('click',e=>{
   if(b)return show(b.dataset.id);
   if(x.id==='add')return form();
   if(x.id==='bk')return backupPage();
+  if(x.dataset.share)return shareLink(x.dataset.share,x.dataset.title);
   if(x.id==='bk-exp')return exportBackup();
   if(x.dataset.snap!==undefined)return restoreSnap(+x.dataset.snap);
   if(x.id==='save')return saveForm(x.dataset.id);
@@ -221,9 +344,23 @@ snap();
 window.localData=kind=>kind==='custom'?Object.fromEntries(cache.custom.map(r=>[r.id,r])):cache.ovr;
 window.onCloudData=(kind,map)=>{
   cache[kind]=kind==='custom'?Object.values(map):map;save(kind,cache[kind]);
+  if(want){const r=byKey(want);if(r){want=null;clearHash();show(r.id);return}}
   const y=scrollY;
   if(view.name==='home')home(search.value);else if(view.name==='show')show(view.id);
   scrollTo(0,y);
 };
+/* ---------- Shared links (#recipe-name@fr) ---------- */
+let want=null;
+const clearHash=()=>{try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}};
+function route(){
+  let h='';try{h=decodeURIComponent(location.hash.slice(1))}catch(e){}
+  if(!h)return;
+  const [k,l]=h.split('@');
+  if(LANGS.includes(l)&&l!==lang)setLang(l,true,true);
+  const r=byKey(k);
+  if(r){want=null;clearHash();show(r.id)}else want=k;   // maybe still syncing: opened as soon as it arrives
+}
+addEventListener('hashchange',route);
+route();
 import('./sync.js').catch(e=>console.warn('sync off',e));
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
