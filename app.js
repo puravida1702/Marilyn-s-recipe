@@ -109,11 +109,11 @@ const QR=(()=>{
 const app=document.getElementById('app'),back=document.getElementById('back'),search=document.getElementById('search');
 const CATS=["Breakfast & Snacks","Drinks","Salads","Main Dishes","Desserts"];
 const UI={
-en:{summary:"Summary",search:"Search recipes or ingredients…",ingredients:"Ingredients",prep:"Preparation",know:"Good to know",by:"Recipe by ",recipe:"Recipe",add:"+ Add a recipe",edit:"Edit",del:"Delete",confirmDel:"Delete this recipe?",addTitle:"Add a recipe",editTitle:"Edit recipe",title:"Title",cat:"Category",byOpt:"Recipe by (optional)",ingLbl:"Ingredients",ingHelp:"one per line: quantity | ingredient (a line in capitals = section title)",stepsLbl:"Preparation",stepsHelp:"one step per line",notesLbl:"Good to know",notesHelp:"one note per line",save:"Save recipe",reset:"Reset to original",translating:"Translating to the other languages…",txDone:"Translated to the other languages ✓",txPartial:"Some lines could not be translated and were copied as written.",confirmReset:"Remove your changes to this recipe?",needTitle:"Please enter a title.",share:"Share",scan:"Scan to open this recipe",shareBtn:"Share link",copied:"Link copied",
+en:{summary:"Summary",search:"Search recipes or ingredients…",ingredients:"Ingredients",prep:"Preparation",know:"Good to know",by:"Recipe by ",recipe:"Recipe",add:"+ Add a recipe",edit:"Edit",del:"Delete",confirmDel:"Delete this recipe?",addTitle:"Add a recipe",editTitle:"Edit recipe",title:"Title",cat:"Category",byOpt:"Recipe by (optional)",ingLbl:"Ingredients",ingHelp:"one per line: quantity | ingredient (a line in capitals = section title)",stepsLbl:"Preparation",stepsHelp:"one step per line",notesLbl:"Good to know",notesHelp:"one note per line",save:"Save recipe",reset:"Reset to original",translating:"Translating to the other languages…",txDone:"Translated to the other languages ✓",txPartial:"Some lines could not be translated and were copied as written.",confirmReset:"Remove your changes to this recipe?",needTitle:"Please enter a title.",share:"Share",scan:"Scan to open this recipe",shareBtn:"Share link",copied:"Link copied",loading:"Loading…",notFound:"This recipe is not available.",
  cats:{}},
-fr:{summary:"Sommaire",search:"Rechercher une recette ou un ingrédient…",ingredients:"Ingrédients",prep:"Préparation",know:"Bon à savoir",by:"Recette de ",recipe:"Recette",add:"+ Ajouter une recette",edit:"Modifier",del:"Supprimer",confirmDel:"Supprimer cette recette ?",addTitle:"Ajouter une recette",editTitle:"Modifier la recette",title:"Titre",cat:"Catégorie",byOpt:"Recette de (facultatif)",ingLbl:"Ingrédients",ingHelp:"un par ligne : quantité | ingrédient (une ligne en majuscules = titre de section)",stepsLbl:"Préparation",stepsHelp:"une étape par ligne",notesLbl:"Bon à savoir",notesHelp:"une note par ligne",save:"Enregistrer la recette",reset:"Rétablir l'original",translating:"Traduction vers les autres langues…",txDone:"Traduit dans les autres langues ✓",txPartial:"Certaines lignes n'ont pas pu être traduites et ont été copiées telles quelles.",confirmReset:"Annuler vos modifications de cette recette ?",needTitle:"Veuillez entrer un titre.",share:"Partager",scan:"Scanner pour ouvrir cette recette",shareBtn:"Partager le lien",copied:"Lien copié",
+fr:{summary:"Sommaire",search:"Rechercher une recette ou un ingrédient…",ingredients:"Ingrédients",prep:"Préparation",know:"Bon à savoir",by:"Recette de ",recipe:"Recette",add:"+ Ajouter une recette",edit:"Modifier",del:"Supprimer",confirmDel:"Supprimer cette recette ?",addTitle:"Ajouter une recette",editTitle:"Modifier la recette",title:"Titre",cat:"Catégorie",byOpt:"Recette de (facultatif)",ingLbl:"Ingrédients",ingHelp:"un par ligne : quantité | ingrédient (une ligne en majuscules = titre de section)",stepsLbl:"Préparation",stepsHelp:"une étape par ligne",notesLbl:"Bon à savoir",notesHelp:"une note par ligne",save:"Enregistrer la recette",reset:"Rétablir l'original",translating:"Traduction vers les autres langues…",txDone:"Traduit dans les autres langues ✓",txPartial:"Certaines lignes n'ont pas pu être traduites et ont été copiées telles quelles.",confirmReset:"Annuler vos modifications de cette recette ?",needTitle:"Veuillez entrer un titre.",share:"Partager",scan:"Scanner pour ouvrir cette recette",shareBtn:"Partager le lien",copied:"Lien copié",loading:"Chargement…",notFound:"Cette recette n'est pas disponible.",
  cats:{"Breakfast & Snacks":"Déjeuners et collations","Drinks":"Boissons","Salads":"Salades","Main Dishes":"Plats principaux","Desserts":"Desserts"}},
-es:{summary:"Índice",search:"Buscar recetas o ingredientes…",ingredients:"Ingredientes",prep:"Preparación",know:"Es bueno saber",by:"Receta de ",recipe:"Receta",add:"+ Agregar una receta",edit:"Editar",del:"Eliminar",confirmDel:"¿Eliminar esta receta?",addTitle:"Agregar una receta",editTitle:"Editar receta",title:"Título",cat:"Categoría",byOpt:"Receta de (opcional)",ingLbl:"Ingredientes",ingHelp:"uno por línea: cantidad | ingrediente (una línea en mayúsculas = título de sección)",stepsLbl:"Preparación",stepsHelp:"un paso por línea",notesLbl:"Es bueno saber",notesHelp:"una nota por línea",save:"Guardar receta",reset:"Restablecer original",translating:"Traduciendo a los otros idiomas…",txDone:"Traducido a los otros idiomas ✓",txPartial:"Algunas líneas no se pudieron traducir y se copiaron tal cual.",confirmReset:"¿Quitar tus cambios en esta receta?",needTitle:"Por favor escribe un título.",share:"Compartir",scan:"Escanea para abrir esta receta",shareBtn:"Compartir enlace",copied:"Enlace copiado",
+es:{summary:"Índice",search:"Buscar recetas o ingredientes…",ingredients:"Ingredientes",prep:"Preparación",know:"Es bueno saber",by:"Receta de ",recipe:"Receta",add:"+ Agregar una receta",edit:"Editar",del:"Eliminar",confirmDel:"¿Eliminar esta receta?",addTitle:"Agregar una receta",editTitle:"Editar receta",title:"Título",cat:"Categoría",byOpt:"Receta de (opcional)",ingLbl:"Ingredientes",ingHelp:"uno por línea: cantidad | ingrediente (una línea en mayúsculas = título de sección)",stepsLbl:"Preparación",stepsHelp:"un paso por línea",notesLbl:"Es bueno saber",notesHelp:"una nota por línea",save:"Guardar receta",reset:"Restablecer original",translating:"Traduciendo a los otros idiomas…",txDone:"Traducido a los otros idiomas ✓",txPartial:"Algunas líneas no se pudieron traducir y se copiaron tal cual.",confirmReset:"¿Quitar tus cambios en esta receta?",needTitle:"Por favor escribe un título.",share:"Compartir",scan:"Escanea para abrir esta receta",shareBtn:"Compartir enlace",copied:"Enlace copiado",loading:"Cargando…",notFound:"Esta receta no está disponible.",
  cats:{"Breakfast & Snacks":"Desayunos y meriendas","Drinks":"Bebidas","Salads":"Ensaladas","Main Dishes":"Platos principales","Desserts":"Postres"}}};
 const roman=n=>['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX'][n]||n+1;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -124,6 +124,7 @@ const t=k=>UI[lang][k];
 const L3=(a,b,c)=>lang==='fr'?b:lang==='es'?c:a;
 const cl=c=>UI[lang].cats[c]||c;
 const view={name:'home',id:''};
+let viewOnly=false,waited=false;   // viewOnly = opened from a shared QR link: that recipe only, no editing, no other recipes
 const cache={custom:load('custom')||[],ovr:load('ovr')||{}};
 const custom=()=>cache.custom;
 const cloud=(f,...a)=>{try{window.Cloud&&window.Cloud[f](...a)}catch(e){}};
@@ -146,7 +147,7 @@ const tr=r=>ver(r,lang);
 const slug=s=>String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
 const keyOf=raw=>raw.mine?raw.id:slug(raw.title);          // original recipes: English title; your own: their id
 const byKey=k=>all().find(r=>r.mine?r.id===k:slug(r.title)===k)||find(k);
-const linkTo=raw=>location.href.split('#')[0]+'#'+keyOf(raw)+'@'+lang;   // opens the recipe in the language being viewed
+const linkTo=raw=>location.href.split('#')[0]+'#view/'+keyOf(raw)+'@'+lang;   // view-only link, opens in the language being viewed
 function qrBlock(raw,title){
   const u=linkTo(raw),q=QR.svg(u);
   return `<div class="sub">${t('share')}</div><div class="qr">${q}${q?`<p>${t('scan')}</p>`:''}<p class="tools"><button data-share="${esc(u)}" data-title="${esc(title)}">${t('shareBtn')}</button></p></div>`}
@@ -157,7 +158,9 @@ document.head.appendChild(Object.assign(document.createElement('style'),{textCon
 `.qr{text-align:center}.qr svg{display:block;width:176px;height:176px;margin:0 auto;border:1px solid #e6d3b3;border-radius:8px}
 .qr p{margin:8px 0 0;color:var(--soft,#7a6a5c);font-style:italic}.qr .tools{margin-top:4px;font-style:normal}`}));
 
+function wait(){view.name='wait';back.hidden=true;app.innerHTML=`<p class="note">${t(waited?'notFound':'loading')}</p>`}
 function home(q=''){
+  if(viewOnly)return wait();
   view.name='home';back.hidden=true;q=q.toLowerCase();
   let h=q?'':`<img class="logo" src="icon-192.png" alt="Marilyn's Recipe"><h1>${t('summary')}</h1>`;
   const list=all().map(tr).filter(r=>!q||(r.title+' '+r.ing.map(x=>x[1]).join(' ')).toLowerCase().includes(q));
@@ -170,13 +173,13 @@ function home(q=''){
 }
 function show(id){
   const raw=find(id);if(!raw)return home();
-  const r=tr(raw);view.name='show';view.id=id;back.hidden=false;
+  const r=tr(raw);view.name='show';view.id=id;back.hidden=viewOnly;
   let h=`<div class="by">${r.by?t('by')+esc(r.by):t('recipe')}</div><h1>${esc(r.title)}</h1><div class="sub">${t('ingredients')}</div><table>`;
   r.ing.forEach(([q,n])=>h+=n?`<tr><td class="q">${esc(q)}</td><td>${esc(n)}</td></tr>`:`<tr><td class="g" colspan="2">${esc(q)}</td></tr>`);
   h+=`</table>`;
   if(r.steps.length){h+=`<div class="sub">${t('prep')}</div><ol>`;r.steps.forEach((s,k)=>h+=`<li><b>${roman(k)}</b><span>${esc(s)}</span></li>`);h+=`</ol>`}
   if(r.notes&&r.notes.length)h+=`<div class="sub">${t('know')}</div>`+r.notes.map(n=>`<p class="note">${esc(n)}</p>`).join('');
-  h+=qrBlock(raw,r.title)+`<p class="tools"><button data-edit="${r.id}">${t('edit')}</button>`+(r.mine?` <button data-del="${r.id}">${t('del')}</button>`:'')+`</p>`;
+  if(!viewOnly)h+=qrBlock(raw,r.title)+`<p class="tools"><button data-edit="${r.id}">${t('edit')}</button>`+(r.mine?` <button data-del="${r.id}">${t('del')}</button>`:'')+`</p>`;
   app.innerHTML=h;scrollTo(0,0);
 }
 
@@ -344,7 +347,7 @@ snap();
 window.localData=kind=>kind==='custom'?Object.fromEntries(cache.custom.map(r=>[r.id,r])):cache.ovr;
 window.onCloudData=(kind,map)=>{
   cache[kind]=kind==='custom'?Object.values(map):map;save(kind,cache[kind]);
-  if(want){const r=byKey(want);if(r){want=null;clearHash();show(r.id);return}}
+  if(want){const r=byKey(want);if(r){want=null;if(!viewOnly)clearHash();show(r.id);return}}
   const y=scrollY;
   if(view.name==='home')home(search.value);else if(view.name==='show')show(view.id);
   scrollTo(0,y);
@@ -355,10 +358,13 @@ const clearHash=()=>{try{history.replaceState(null,'',location.pathname+location
 function route(){
   let h='';try{h=decodeURIComponent(location.hash.slice(1))}catch(e){}
   if(!h)return;
+  viewOnly=h.startsWith('view/');if(viewOnly)h=h.slice(5);
+  search.style.display=viewOnly?'none':'';
   const [k,l]=h.split('@');
   if(LANGS.includes(l)&&l!==lang)setLang(l,true,true);
   const r=byKey(k);
-  if(r){want=null;clearHash();show(r.id)}else want=k;   // maybe still syncing: opened as soon as it arrives
+  if(r){want=null;if(!viewOnly)clearHash();show(r.id)}   // view-only links keep their address, so a reload stays view-only
+  else{want=k;if(viewOnly){wait();setTimeout(()=>{waited=true;if(view.name==='wait')wait()},10000)}}   // maybe still syncing: opened as soon as it arrives
 }
 addEventListener('hashchange',route);
 route();
