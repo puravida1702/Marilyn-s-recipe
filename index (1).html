@@ -1,0 +1,785 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Tree Garden</title><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#FBF8F3"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-512.png"><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;1,400&family=Lato:wght@400;700&display=swap" rel="stylesheet"><style>
+body{margin:0;background:#F1EBE0;font:16px Lato,system-ui,sans-serif;color:#1F1B16}a{color:#8A6A35;text-decoration:none}
+.pg{max-width:430px;margin:0 auto;padding:12px 12px 90px}.card{background:#FBF8F3;border:1.5px solid #B08D57;outline:1px solid #B08D57;outline-offset:-9px;padding:24px 26px 30px;text-align:center}
+.lab{font-size:12px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:#8A6A35;margin:0}h1{font:500 38px/1.1 Lora,serif;margin:10px 0 4px}.it{font:italic 17px Lora,serif;color:#6B5D4D;margin:2px 0}
+.dv{display:flex;align-items:center;justify-content:center;gap:10px;margin:14px 0}.dv i{width:50px;height:1px;background:#B08D57}.dv b{width:7px;height:7px;background:#B08D57;transform:rotate(45deg)}
+.sec{margin-top:26px}.bar{display:flex;justify-content:space-between;align-items:center}.lk{min-height:44px;display:inline-flex;align-items:center;font:700 12px Lato;letter-spacing:.2em;text-transform:uppercase;color:#8A6A35;background:none;border:0;padding:0}
+.b{min-height:48px;border:1px solid #1F1B16;background:#1F1B16;color:#FBF8F3;font:700 12px Lato;letter-spacing:.15em;text-transform:uppercase;padding:0 14px}.b.o{background:none;color:#1F1B16}.ad{display:block;width:100%;min-height:46px;margin-top:10px;border:1px dashed #B08D57;background:none;color:#8A6A35;font:700 12px Lato;letter-spacing:.15em;text-transform:uppercase}
+.tb{display:grid;grid-template-columns:1fr 1fr;text-align:left}.tb div{padding:8px 0}.tb .k{font:italic 17px Lora,serif;color:#6B5D4D;text-align:right;padding-right:14px;border-right:1px solid #B08D57}.tb .v{padding-left:14px}
+.st{display:grid;grid-template-columns:44px 1fr;text-align:left;padding:12px 0;border-top:1px solid #E6DCCB}.rn{font:30px Lora,serif;color:#8A6A35;text-align:center}.sl{font:700 11px Lato;letter-spacing:.3em;text-transform:uppercase;color:#6B5D4D;margin:0 0 4px}.sx{margin:0;line-height:1.4}
+.tag{font:700 10px Lato;letter-spacing:.15em;color:#8A6A35;border:1px solid #B08D57;padding:1px 6px;margin-left:6px}.mo{display:grid;grid-template-columns:repeat(12,1fr);gap:3px}.mo div{padding:9px 0;font:700 12px Lato;color:#6B5D4D;border:1px solid #E6DCCB}.mo .f{background:#8A6A35;border-color:#8A6A35;color:#fff}
+.nt{font:italic 17px/1.5 Lora,serif;color:#6B5D4D;margin:0}.row{display:flex;justify-content:space-between;align-items:center;gap:8px;text-align:left;padding:11px 0;border-top:1px solid #E6DCCB;color:#1F1B16}.row small{color:#6B5D4D;display:block}
+input,select{width:100%;box-sizing:border-box;min-height:46px;margin:6px 0;padding:0 12px;border:1px solid #B08D57;background:#fff;font:16px Lato}.ch{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:10px 0}.ch button{min-height:40px;padding:0 14px;border:1px solid #B08D57;background:none;font:700 12px Lato;color:#8A6A35}.ch .on{background:#8A6A35;color:#fff}
+a.tl{display:block;text-align:left;padding:16px 18px;margin:10px 0;border:1px solid #B08D57;background:#fff;color:#1F1B16}a.tl b{display:block;font:500 22px Lora,serif}a.tl small{color:#6B5D4D;font-size:14px}a.tl:hover{background:#F6EEDD}.big{font:italic 20px Lora,serif;color:#8A6A35;margin:6px 0}
+.cg{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}.cg b{font:700 12px Lato;color:#6B5D4D;padding:6px 0}.cg button{min-height:46px;border:1px solid #E6DCCB;background:none;font:700 13px Lato;color:#1F1B16}.cg small{display:block;font-size:10px;color:#8A6A35;min-height:12px}.cg .on{background:#8A6A35;color:#fff}.cg .on small{color:#fff}.cg .td{border-color:#1F1B16}
+.pg2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.pg2 figure{margin:0}.pg2 img{width:100%;aspect-ratio:1;object-fit:cover;border:1px solid #E6DCCB;display:block}.pg2 figcaption{font:700 12px Lato;letter-spacing:.1em;color:#6B5D4D;margin:6px 0;text-align:left}
+.lg{display:flex;justify-content:center;gap:6px;margin-bottom:10px}.lg button{min-width:48px;min-height:44px;border:1px solid #B08D57;background:none;font:700 12px Lato;letter-spacing:.1em;color:#8A6A35}.lg .on{background:#8A6A35;color:#fff}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;background:#1F1B16;padding-bottom:env(safe-area-inset-bottom)}nav a{flex:1;max-width:86px;min-height:56px;display:flex;align-items:center;justify-content:center;font:700 11px Lato;letter-spacing:.1em;text-transform:uppercase;color:#FBF8F3}
+@media print{nav,.noprint,.lg{display:none!important}body{background:#fff}.card{border:0;outline:0;padding:0;background:#fff}.pg{padding:0;max-width:none}@page{margin:10mm}}</style></head><body><div id="app"></div><script>const QR=(()=>{
+const V=[null,[26,7,1],[44,10,1],[70,15,1],[100,20,1],[134,26,1],[172,18,2]];
+const EX=new Array(512),LG2=new Array(256);{let x=1;for(let i=0;i<255;i++){EX[i]=x;LG2[x]=i;x<<=1;if(x&256)x^=0x11D}for(let i=255;i<512;i++)EX[i]=EX[i-255]}
+const mul=(a,b)=>a&&b?EX[LG2[a]+LG2[b]]:0;
+function rs(data,deg){const g=new Array(deg).fill(0);g[deg-1]=1;let r=1;for(let i=0;i<deg;i++){for(let j=0;j<deg;j++){g[j]=mul(g[j],r);if(j+1<deg)g[j]^=g[j+1]}r=mul(r,2)}const o=new Array(deg).fill(0);for(const b of data){const f=b^o.shift();o.push(0);for(let i=0;i<deg;i++)o[i]^=mul(g[i],f)}return o}
+function make(text){const bytes=[...new TextEncoder().encode(text)];let v=0;for(let i=1;i<=6;i++){const t=V[i],d=t[0]-t[1]*t[2];if(bytes.length<=d-2){v=i;break}}if(!v)throw new Error('too long');
+const [tot,ecb,nb]=V[v],dcw=tot-ecb*nb;const bits=[];const put=(val,n)=>{for(let i=n-1;i>=0;i--)bits.push((val>>>i)&1)};put(4,4);put(bytes.length,8);bytes.forEach(b=>put(b,8));put(0,Math.min(4,dcw*8-bits.length));while(bits.length%8)bits.push(0);const data=[];for(let i=0;i<bits.length;i+=8){let b=0;for(let j=0;j<8;j++)b=b<<1|bits[i+j];data.push(b)}for(let p=0xEC;data.length<dcw;p^=0xEC^0x11)data.push(p);
+const per=dcw/nb,blocks=[],ecs=[];for(let i=0;i<nb;i++){const d=data.slice(i*per,(i+1)*per);blocks.push(d);ecs.push(rs(d,ecb))}const all=[];for(let i=0;i<per;i++)blocks.forEach(b=>all.push(b[i]));for(let i=0;i<ecb;i++)ecs.forEach(e=>all.push(e[i]));
+const n=17+4*v,M=[],F=[];for(let i=0;i<n;i++){M.push(new Array(n).fill(false));F.push(new Array(n).fill(false))}
+const set=(x,y,d)=>{M[y][x]=d;F[y][x]=true};
+for(let i=0;i<n;i++){set(6,i,i%2==0);set(i,6,i%2==0)}
+const finder=(x,y)=>{for(let dy=-4;dy<=4;dy++)for(let dx=-4;dx<=4;dx++){const d=Math.max(Math.abs(dx),Math.abs(dy)),xx=x+dx,yy=y+dy;if(xx>=0&&xx<n&&yy>=0&&yy<n)set(xx,yy,d!=2&&d!=4)}};finder(3,3);finder(n-4,3);finder(3,n-4);
+if(v>=2){const c=n-7;for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++)set(c+dx,c+dy,Math.max(Math.abs(dx),Math.abs(dy))!=1)}
+const fmt=m=>{const d=(1<<3)|m;let r=d;for(let i=0;i<10;i++)r=(r<<1)^((r>>>9)*0x537);const b=((d<<10)|r)^0x5412,g=i=>((b>>>i)&1)==1;for(let i=0;i<=5;i++)set(8,i,g(i));set(8,7,g(6));set(8,8,g(7));set(7,8,g(8));for(let i=9;i<15;i++)set(14-i,8,g(i));for(let i=0;i<8;i++)set(n-1-i,8,g(i));for(let i=8;i<15;i++)set(8,n-15+i,g(i));set(8,n-8,true)};fmt(0);
+let k=0;for(let right=n-1;right>=1;right-=2){if(right==6)right=5;for(let vert=0;vert<n;vert++)for(let j=0;j<2;j++){const x=right-j,up=((right+1)&2)==0,y=up?n-1-vert:vert;if(!F[y][x]&&k<all.length*8){M[y][x]=((all[k>>>3]>>>(7-(k&7)))&1)==1;k++}}}
+const mk=[(x,y)=>(x+y)%2==0,(x,y)=>y%2==0,(x,y)=>x%3==0,(x,y)=>(x+y)%3==0,(x,y)=>(Math.floor(x/3)+Math.floor(y/2))%2==0,(x,y)=>x*y%2+x*y%3==0,(x,y)=>(x*y%2+x*y%3)%2==0,(x,y)=>((x+y)%2+x*y%3)%2==0];
+const apply=m=>{for(let y=0;y<n;y++)for(let x=0;x<n;x++)if(!F[y][x]&&mk[m](x,y))M[y][x]=!M[y][x]};
+const pen=()=>{let p=0;const line=g=>{let run=1;for(let i=1;i<n;i++){if(g(i)==g(i-1)){run++;if(run==5)p+=3;else if(run>5)p++}else run=1}};for(let y=0;y<n;y++)line(i=>M[y][i]);for(let x=0;x<n;x++)line(i=>M[i][x]);for(let y=0;y<n-1;y++)for(let x=0;x<n-1;x++){const c=M[y][x];if(c==M[y][x+1]&&c==M[y+1][x]&&c==M[y+1][x+1])p+=3}
+const pat=[1,0,1,1,1,0,1],chk=(g)=>{for(let i=0;i+11<=n;i++){let a=true,b=true;for(let j=0;j<7;j++){const c=g(i+j)?1:0;if(c!=pat[j])a=false;if(c!=pat[6-j])b=false}if(a||b){let ok=false;const w=[0,0,0,0];const e1=[7,8,9,10].every(j=>i+j<n&&!g(i+j)),e2=[-4,-3,-2,-1].every(j=>i+j>=0&&!g(i+j));if(e1||e2)p+=40}}};for(let y=0;y<n;y++)chk(i=>M[y][i]);for(let x=0;x<n;x++)chk(i=>M[i][x]);let d=0;for(let y=0;y<n;y++)for(let x=0;x<n;x++)if(M[y][x])d++;p+=Math.floor(Math.abs(d*20-n*n*10)/(n*n))*10;return p};
+let best=0,bp=1e9;for(let m=0;m<8;m++){apply(m);fmt(m);const q=pen();if(q<bp){bp=q;best=m}apply(m)}apply(best);fmt(best);return M}
+function svg(text,px){const M=make(text),n=M.length,b=3;let d='';for(let y=0;y<n;y++)for(let x=0;x<n;x++)if(M[y][x])d+='M'+(x+b)+','+(y+b)+'h1v1h-1z';return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+(n+2*b)+' '+(n+2*b)+'" shape-rendering="crispEdges" style="width:'+(px||'100%')+';height:auto;display:block;background:#fff"><path d="'+d+'" fill="#000"/></svg>'}
+return{make,svg}})();
+</script><script>
+const S=`carambola|Carambola dulce|Sweet starfruit|F|2-4|2 crops/yr|Sweet yellow starfruit
+jabuticaba|Jabuticaba|Jabuticaba|F|3-5 grafted, 8+ seed|1-3 crops/yr|Purple berries on the trunk
+allspice|Pimienta gorda|Allspice|F|5-8|Jul-Sep|Dried berries = allspice spice
+pachira|Pachira aquatica|Money tree|F|4-5|Pods ~6 mo after flower|Pods with edible nuts (roast first)
+mamey|Mamey|Mamey sapote|F|4-7 grafted, 6-10 seed|Feb-Jun|Red-orange creamy pulp
+aguacate|Aguacate|Avocado|F|5-8 seed, 3-4 grafted|May-Oct|Creamy flesh; type varies
+simons|Aguacate Simons|Avocado Simmons|F|3-5|Jun-Aug|West Indian type, light, watery
+higo|Higo|Fig|F|1-2|Varies|Figs; erratic in the tropics
+granada|Granada|Pomegranate|F|3-4|Varies|Red seeds in juicy arils
+nispero|Nispero|Sapodilla|F|5-8 seed, 3-4 grafted|Feb-May|Brown, sweet, malty sapodilla
+caimito|Caimito / Estrella|Star apple|F|5-8|Feb-Apr|Purple star apple: milky, sweet pulp
+abiu|Abiu / Caimito amarillo|Yellow sapote|F|4-6|Aug-Jan|Yellow, creamy, caramel-like pulp
+mangostan|Mangostan|Mangosteen|P|8-12 seed|Aug-Nov|White, sweet-tart juicy segments
+jorco|Jorco|Lemon drop mangosteen|P|5-8|Varies|Yellow, sweet-tart mangosteen relative
+achacha|Achacha|Bolivian mangosteen|P|4-6|Varies|Orange rind, juicy tangy pulp
+marang|Marang|Marang|P|5-8|Varies|Spiky fruit; sweet creamy pulp
+papaya|Papaya|Papaya|F|8-12 months|Year-round|Sweet orange pulp, large fruit
+pococi|Papaya Pococi|Pococi papaya|F|8-12 months|Year-round|Pococi papaya; sweet
+araza|Guayaba Araza|Araza|F|1-2|1-2 crops/yr|Sour yellow, strong juice fruit
+buda|Limon Mano de Buda|Buddha's hand citron|F|3-4|Nov-Feb|Fragrant citron; zest and candy
+isabella|Uva Isabella|Isabella grape|F|2-3|Varies|Slip-skin grapes; bunches
+pitanga|Cereza de Cayena / Pitanga|Surinam cherry|F|2-3|Apr-Jul|Small red ribbed, tart-sweet cherry
+bananoenano|Banano enano|Dwarf banana|F|1|Year-round|Short banana plant; sweet fruit
+cafe|Cafe Obata|Coffee|P|2-3|Oct-Feb|Red cherries; roast the beans
+palmaroja|Palma roja|Lipstick palm|P|Ornamental|-|Ornamental palm
+areca|Palma areca|Areca palm|P|Ornamental|Varies|Small orange fruit; not edible
+cuna|Cuna de Moisés|Peace lily|S|Ornamental|-|Ornamental; no fruit crop
+turnera|Turnera subulata|White alder|F|Flowers|Year-round|Pale flowers open in the morning, close by noon
+canna|Caña de las Indias|Canna lily|F|Flowers|Year-round|Ornamental flowers
+monstera|Costilla de Adán|Monstera deliciosa|P|-|-|Fruit edible only when fully ripe
+monstera2|Monstera|Monstera|P|-|-|Ornamental
+vainilla|Vainilla|Vanilla|P|3 (flowers)|-|Pods when hand-pollinated
+bluejava|Banano Blue Java|Blue Java banana|F|1-1.5|Year-round|Sweet, vanilla-like 'ice cream' banana
+platano|Banano / Plátano|Banana / plantain|F|1 (9-12 months)|Year-round|Banana/plantain bunch
+bananaroja|Banano rojo|Red banana|F|1|Year-round|Red banana
+anona|Anona / Anona Roseta|Custard apple|F|3-4|Jul-Nov|Custard apple: sweet, creamy
+biriba|Anona Biriba|Biriba|F|3-5|Jul-Nov|White, sweet custard pulp; bumpy skin
+pitahaya|Pitahaya|Dragon fruit|F|1-2|May-Oct|Dragon fruit; white or red pulp
+longan|Longan|Longan|F|5-7 seed, 3-4 grafted|Jul-Oct|Translucent sweet fruit in clusters
+limondulce|Limon dulce|Sweet lemon|F|3-4|Nov-Feb|Sweet lemon, mild
+mandarina|Mandarina dulce|Sweet tangerine|F|2-4|Nov-Feb|Sweet, easy-peel tangerine
+jamaica|Flor de Jamaica|Roselle|F|4-6 months|Nov-Jan|Red calyces for hibiscus tea
+rafano|Palma rafano|Lady palm|S|Ornamental|Varies|Small dark fruit; not eaten
+calliandra|Calliandra|Powder puff tree|F|1-2 (flowers)|Dry season|No edible fruit; pink flowers
+valencia|Naranja Valencia|Valencia orange|F|2-4|Nov-Apr|Late juice orange
+marango|Marango|Moringa|F|6-12 months|Year-round|Pods (drumsticks) and leaves
+calamandin|Limon Calamandin|Calamondin|F|2-3|Year-round|Small sour fruit; juice and marmalade
+lcaviar|Lima caviar|Finger lime|P|3-5|Varies|Citrus 'caviar' pearls
+veranera|Veranera|Bougainvillea|F|1-2 (flowers)|Dec-Apr|Not a fruit crop; colorful bracts
+uvilla|Uvilla|Cape gooseberry|F|4-6 months|Year-round|Cape gooseberry in a husk
+kumquat|Kumquat|Kumquat|F|1-3|Nov-Feb|Eat whole, peel and all
+peru|Guayaba de Peru|Peruvian guava|F|2-3|Jul-Nov|Round guava, pink or white pulp
+clementina|Clementina|Clementine|F|2-4|Nov-Feb|Sweet, seedless, easy-peel mandarin
+washington|Naranja Washington|Washington navel|F|2-3|Nov-Feb|Seedless navel orange
+panameno|Limon panameno|Panama lime|F|2-3|Year-round|Lime, similar to Tahiti
+pera|Guayaba pera|Pear guava|F|2-3|Jul-Nov|Pear-shaped sweet guava
+canela|Canela|Cinnamon|F|2-3 (first bark)|Cut any time|Spice, not fruit: inner bark
+mango|Mango|Mango|F|5-8 seed|Mar-Jun|Sweet, juicy, fibrous
+senna|Hoja de Sen|Senna tree|F|1-2|Varies|Not a fruit crop; leaves/pods for tea
+malinche|Malinche|Royal poinciana|F|5-8 (flowers)|Mar-May|Red flowers; long woody pods
+zneg|Zapote negro|Black sapote|F|4-7 seed, 3 grafted|Dec-Apr|Green skin; chocolate-pudding pulp
+guanabana|Guanabana|Soursop|P|3-4|Jun-Oct|Spiny fruit; white sour-sweet pulp
+tomate|Tomate cherry|Cherry tomato|F|2-3 months|Year-round|Cherry tomato
+granadilla|Granadilla|Grenadilla|F|1-2|Twice a year|Orange passionfruit, sweet
+conchita|Conchita azul|Butterfly pea|F|2-3 months|Year-round|Blue pea flowers for tea and color
+chile1|Chile picante alargado|Hot pepper|F|3-4 months|Year-round|Hot elongated pepper
+chile2|Chile picante tipo habanero|Habanero-type pepper|F|3-4 months|Year-round|Habanero-type hot pepper
+lanzones|Lanzones|Langsat|P|10-15 seed, 6-8 grafted|Jul-Oct|Clusters of sweet translucent fruit
+pomelo|Pomelo|Pomelo|F|3-6|Oct-Jan|Very large, mild citrus
+canistel|Canistel (Zapote amarillo)|Canistel|F|4-7 seed, 3-5 grafted|Varies|Yellow, dry, sweet canistel
+ylang|Ylang-ylang|Ylang-ylang|F|3-4 (flowers)|Year-round|Fragrant flowers for perfume and tea
+jade|Jade Turquesa|Turquoise jade vine|F|3-5 (flowers)|Feb-Apr|Turquoise flower clusters; not edible
+milagrosa|Fruta Milagrosa|Miracle fruit|P|2-3|Varies|Red berry; makes sour taste sweet
+mangojulia|Mango Julia|Mango (Julia)|F|2-4|Mar-Jun|Compact mango; sweet`.split('\n').map(l=>{const a=l.split('|');return{k:a[0],es:a[1],en:a[2],sun:a[3],y:a[4],m:a[5],u:a[6]}});
+const SP=Object.fromEntries(S.map(s=>[s.k,s]));
+const L=`carambola;G
+jabuticaba;G
+jabuticaba;G
+allspice;G
+pachira;G
+mamey;G
+aguacate;G
+higo;G
+granada;G
+nispero;G
+caimito;G
+abiu;G
+mangostan;G
+jorco;G
+achacha;G
+marang;G
+papaya;G
+araza;G
+buda;G
+isabella;G
+pitanga;G
+bananoenano;G
+cafe;G
+palmaroja;G
+areca;G
+cuna;G
+turnera;G
+canna;G;many plants
+monstera;G
+monstera2;G
+vainilla;G
+bluejava;G
+platano;G
+bananaroja;G
+anona;G
+biriba;G
+pitahaya;G
+longan;G
+limondulce;G
+mandarina;G
+jamaica;G
+rafano;G;2 plants
+calliandra;P:90 L
+valencia;P:70 L
+marango;P:90 L
+areca;P:100 L
+calamandin;P:30 L
+calamandin;P:30 L
+lcaviar;P:70 L
+veranera;P:70 L
+uvilla;P:50 L
+kumquat;P:50 L
+peru;P:50 L
+clementina;P:50 L
+washington;P:50 L
+panameno;P:50 L
+pera;P:30 L
+canela;P:30 L
+mango;P:14x12 in
+senna;P:11x10 in
+malinche;P:14x12 in
+zneg;P:11x12 in
+zneg;B:5x9 in
+zneg;B:5x9 in
+guanabana;P:11x10 in
+guanabana;B:5x9 in
+guanabana;B:5x9 in
+guanabana;B:5x9 in
+tomate;P:13x11 in;3 plants
+tomate;P:8x9 in;1 plant
+granadilla;P:11x9 in;3 plants
+conchita;P:8x8 in
+conchita;P:8x8 in
+chile1;P:13x12 in
+chile2;P:13x12 in
+rafano;P:11x10 in;2 plants
+lanzones;P:6x5 in
+pomelo;P:6x5 in
+canistel;P:6x5 in
+simons;B:10x14 in
+ylang;B:10x14 in
+jade;B:8x12 in
+milagrosa;B:8x12 in
+pococi;B:8x12 in
+mangojulia;B:8x12 in
+mangojulia;P:50 L`.split('\n').map((l,i)=>{const a=l.split(';');return{id:'p'+(i+1),k:a[0],loc:a[1],x:a[2]||''}});
+const cnt={};L.forEach(p=>cnt[p.k]=(cnt[p.k]||0)+1);const seen={};L.forEach(p=>{if(cnt[p.k]>1){seen[p.k]=(seen[p.k]||0)+1;p.n=seen[p.k]}});
+let D={};try{D=JSON.parse(localStorage.tg||'{}')}catch(e){}D.m=D.m||{};D.w=D.w||{};D.f=D.f||{};D.n=D.n||{};D.x=D.x||[];D.h=D.h||{};D.l=D.l||{};D.r=D.r||{};D.t=D.t||{};D.u=D.u||null;D.g=D.g||{};D.pd=D.pd||{};D.pl=D.pl||{};D.hv=D.hv||{};D.pu=D.pu||{};D.sp=D.sp||{};D.si=D.si||{};D.cm=D.cm||{};
+const save=()=>{D.ts=Date.now();localStorage.tg=JSON.stringify(D);syKick()},all=()=>L.concat(D.x).filter(p=>!D.h[p.id]).map(p=>D.l[p.id]?Object.assign({},p,{loc:D.l[p.id]}):p),$=id=>document.getElementById(id);
+const info=p=>p.k?SP[p.k]:{es:p.es,en:p.en,sun:'F',y:'-',m:'-',u:''};
+const SUN={F:'Full sun',P:'Part shade',S:'Shade'},MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const where=p=>p.loc=='G'?'Ground':(p.loc[0]=='B'?'Nursery bag, ':'Pot, ')+p.loc.slice(2);
+const nm=p=>names(p)[LG]+(p.n?' #'+p.n:'');
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')},add=(d,n)=>{const t=new Date(d);t.setUTCDate(t.getUTCDate()+n);return t.toISOString().slice(0,10)};
+const diff=d=>Math.round((new Date(d)-new Date(today()))/864e5);
+const mOf=d=>parseInt(d.slice(5,7))-1,dry=m=>[0,1,2,3].includes(m==null?new Date().getMonth():m),wInt=(p,d)=>{const w=dry(d?mOf(d):null);return p.loc=='G'?(w?5:10):(w?2:3)},fI=p=>p.loc=='G'?90:56,fT=p=>p.loc=='G'?'3 months':'8 weeks',fPause=d=>mOf(d)<=3,fAdj=d=>fPause(d)?d.slice(0,4)+'-05-01':d;
+const dose=p=>{if(p.loc=='G'){const v=lastH(p);return v?tier(DT,v):'10-40 g'}const m=p.loc.match(/^P:(\d+) L/);if(m)return m[1]<=30?'4-8 g':m[1]<=70?'6-13 g':'9-18 g';return p.loc[0]=='B'?'1-3 g':'3-6 g'};
+const dueW=p=>D.w[p.id]?add(D.w[p.id],wInt(p,D.w[p.id])):today(),dueF=p=>fAdj(D.f[p.id]?add(D.f[p.id],fI(p)):today());
+const when=d=>{const n=diff(d);return n<=0?(n<0?-n+' d late':'Today'):'in '+n+' d'};
+const dvd='<div class="dv"><i></i><b></b><i></i></div>';
+const navB=()=>{let w='',f='';if(SYC){const a=all();const bd=n=>' <span style="margin-left:3px;background:#B08D57;color:#fff;border-radius:9px;padding:1px 6px;letter-spacing:0">'+n+'</span>';w=bd(a.filter(p=>diff(dueW(p))<=0).length);f=bd(a.filter(p=>diff(dueF(p))<=0).length)}return '<nav><a href="#/">Home</a><a href="#/plants">Plants</a><a href="#/today">Today</a><a href="#/calw">Water'+w+'</a><a href="#/calf">Feed'+f+'</a></nav>'};
+const wrap=h=>'<div class="pg"><div class="card"><div class="lg">'+['en','fr','es'].map(l=>'<button class="'+(l==LG?'on':'')+'" onclick="setL(\''+l+'\')">'+l.toUpperCase()+'</button>').join('')+'</div>'+(!SYC&&location.hash.slice(0,6)!='#/sync'?gBanner():'')+h+'</div></div>'+navB();
+const bars=m=>{let on=Array(12).fill(0);if(/Year/.test(m))on.fill(1);const r=m.match(/([A-Z][a-z]{2})-([A-Z][a-z]{2})/);if(r){let a=MO.indexOf(r[1]),b=MO.indexOf(r[2]);if(a>=0&&b>=0)for(let i=a;;i=(i+1)%12){on[i]=1;if(i==b)break}}return'<div class="mo">'+MO.map((m,i)=>'<div class="'+(on[i]?'f':'')+'">'+(LG=='es'?'EFMAMJJASOND':'JFMAMJJASOND')[i]+'</div>').join('')+'</div>'};
+const chart=id=>{const a=(D.m[id]||[]).slice().sort((x,y)=>x.d<y.d?-1:1);if(a.length<2)return'<p class="nt">Add two or more measurements to see the growth chart.</p>'+(a[0]?'<p class="sx">Latest: '+a[0].h+' cm ('+a[0].d+')</p>':'');const mx=Math.max(...a.map(z=>z.h))*1.25,pts=a.map((z,i)=>[30+i*(240/(a.length-1)),130-z.h/mx*110,z]);return'<svg viewBox="0 0 300 160" width="100%"><line x1="20" y1="130" x2="290" y2="130" stroke="#E6DCCB"/><polyline fill="none" stroke="#8A6A35" stroke-width="2" points="'+pts.map(p=>p[0]+','+p[1]).join(' ')+'"/>'+pts.map(p=>'<circle cx="'+p[0]+'" cy="'+p[1]+'" r="4" fill="#8A6A35"/><text x="'+p[0]+'" y="'+(p[1]-9)+'" font-size="11" text-anchor="middle">'+p[2].h+'</text><text x="'+p[0]+'" y="150" font-size="10" text-anchor="middle" fill="#6B5D4D">'+p[2].d.slice(5)+'</text>').join('')+'</svg>'};
+let q='',f='All';
+function plantList(){const t=q.toLowerCase();const r=all().filter(p=>(f=='All'||(f=='Ground'&&p.loc=='G')||(f=='Pots'&&p.loc[0]=='P')||(f=='Bags'&&p.loc[0]=='B'))&&Object.values(names(p)).join(' ').toLowerCase().includes(t)).sort((a,b)=>nm(a).localeCompare(nm(b),LG,{sensitivity:'base'}));return r.map(p=>'<a class="row" href="#/p/'+p.id+'"><span>'+nm(p)+'<small>'+sub(p)+'</small></span><span style="text-align:right;color:#8A6A35;font-size:13px">'+where(p)+'<small>'+(p.x||'')+'</small></span></a>').join('')||'<p class="nt">No plants found.</p>'}
+function home(){return wrap('<p class="lab">Tree Garden</p><h1>My Plants</h1><p class="it">'+all().length+' pages</p>'+dvd+'<input id="q" placeholder="Search English or Spanish" value="'+q+'" oninput="q=this.value;$(\'ls\').innerHTML=untr(tr(plantList()))"><div class="ch">'+['All','Ground','Pots','Bags'].map(x=>'<button class="'+(x==f?'on':'')+'" onclick="f=\''+x+'\';route()">'+x+'</button>').join('')+'</div><div id="ls" style="text-align:left">'+plantList()+'</div>'+(nRem()?'<a class="ad" style="display:flex;align-items:center;justify-content:center" href="#/remove">'+L4('Removed plants','Plantes supprimées','Plantas quitadas')+' ('+nRem()+')</a>':''))}
+const lastH=p=>{const a=(D.m[p.id]||[]).slice().sort((x,y)=>x.d<y.d?-1:1);return a.length?a[a.length-1].h:0},WT=[[50,'2-4 L'],[150,'5-10 L'],[300,'10-20 L'],[1e9,'20-40 L']],DT=[[50,'10-15 g'],[150,'15-25 g'],[300,'25-40 g'],[1e9,'40-60 g']],tier=(t,v)=>t.find(x=>v<x[0])[1];
+const wAmt=p=>{if(p.loc=='G'){const v=lastH(p);return v?tier(WT,v):'5-10 L'}const m=p.loc.match(/^P:(\d+) L/);if(m)return Math.max(1,Math.round(m[1]/10))+'-'+Math.max(2,Math.round(m[1]/5))+' L';return'until it drains'};
+const askQ=t=>'https://claude.ai/new?q='+encodeURIComponent(t);
+const inS=(x,m)=>{if(/Year/.test(x))return 1;const r=x.match(/([A-Z][a-z]{2})-([A-Z][a-z]{2})/);if(!r)return 0;let i=MO.indexOf(r[1]),b=MO.indexOf(r[2]);if(i<0||b<0)return 0;for(;;i=(i+1)%12){if(MO[i]==m)return 1;if(i==b)return 0}};
+const MX=Object.fromEntries('carambola:5-8 m;jabuticaba:4-8 m;allspice:8-12 m;pachira:8-12 m;mamey:8-15 m;aguacate:10-18 m;simons:10-15 m;higo:3-7 m;granada:3-6 m;nispero:8-15 m;caimito:10-18 m;abiu:6-12 m;mangostan:6-12 m;jorco:8-15 m;achacha:6-10 m;marang:10-15 m;papaya:3-6 m;pococi:3-6 m;araza:3-5 m;buda:2-4 m;isabella:vine, 3-6 m;pitanga:2-5 m;bananoenano:1.5-2.5 m;cafe:2-3 m pruned;palmaroja:5-8 m;areca:6-9 m;cuna:0.4-0.9 m;turnera:0.5-1 m;canna:1-2 m;monstera:climber, 3-6 m;monstera2:climber, 2-4 m;vainilla:vine, 10 m+;bluejava:4-6 m;platano:3-6 m;bananaroja:3-5 m;anona:5-8 m;biriba:8-12 m;pitahaya:climber, 3-5 m;longan:10-15 m;limondulce:3-6 m;mandarina:3-5 m;jamaica:1.5-2.5 m;rafano:3-4.5 m;calliandra:2-4 m;valencia:5-8 m;marango:5-10 m;calamandin:3-5 m;lcaviar:3-6 m;veranera:vine, 3-10 m;uvilla:1-2 m;kumquat:2-4 m;peru:4-7 m;clementina:3-5 m;washington:4-6 m;panameno:3-5 m;pera:5-8 m;canela:6-15 m;mango:10-25 m;senna:3-6 m;malinche:8-12 m;zneg:8-15 m;guanabana:5-8 m;tomate:1-2 m;granadilla:vine, 4-8 m;conchita:vine, 3-5 m;chile1:0.6-1.2 m;chile2:0.6-1.2 m;lanzones:10-18 m;pomelo:5-10 m;canistel:8-15 m;ylang:8-12 m;jade:vine, 10-20 m;milagrosa:2-4 m;mangojulia:3-5 m'.split(';').map(x=>x.split(':')));
+const MN=Object.fromEntries('carambola:1.5-2 m;jabuticaba:1.5-2 m grafted;allspice:3-4 m;pachira:2-3 m;mamey:1.5-2.5 m grafted;aguacate:2-3 m;simons:2-3 m;higo:0.6-1 m;granada:1-1.5 m;nispero:1.5-2.5 m grafted;caimito:2-3 m;abiu:2-3 m;mangostan:1.5-2 m;jorco:3-4 m;achacha:1.5-2.5 m;marang:3-4 m;papaya:1-1.5 m;pococi:1-1.5 m;araza:1-1.5 m;buda:0.6-1 m;isabella:vine 1.5-2 m;pitanga:1-1.5 m;bananoenano:1.2-1.5 m;cafe:1-1.5 m;monstera:climber 1.5-2 m;vainilla:vine 2-3 m;bluejava:2-3 m;platano:2-3 m;bananaroja:2-3 m;anona:1.5-2.5 m;biriba:2-3 m;pitahaya:1.5-2 m on a post;longan:2-3 m;limondulce:1-1.5 m;mandarina:1-1.5 m;jamaica:0.8-1.2 m;valencia:1-1.5 m;marango:1.5-2 m;calamandin:0.5-0.8 m;lcaviar:1-1.5 m;uvilla:0.4-0.6 m;kumquat:0.5-0.8 m;peru:1-1.5 m;clementina:1-1.5 m;washington:1-1.5 m;panameno:0.6-1 m;pera:1-1.5 m;canela:2-3 m;mango:1.5-3 m;zneg:2-3 m;guanabana:1.5-2.5 m;tomate:0.5-0.8 m;granadilla:vine 1.5-2 m;conchita:vine 0.5-1 m;chile1:0.3-0.5 m;chile2:0.3-0.5 m;lanzones:2-3 m;pomelo:1.5-2 m;canistel:2-3 m;ylang:2-3 m;jade:vine 3 m+;milagrosa:0.5-0.8 m;mangojulia:1.5-2 m'.split(';').map(x=>x.split(':')));
+const IDB=new Promise((res,rej)=>{const q=indexedDB.open('tg',1);q.onupgradeneeded=()=>q.result.createObjectStore('ph',{keyPath:'id',autoIncrement:true}).createIndex('p','pid');q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)});IDB.catch(()=>0);
+const tx=(m,f)=>IDB.then(db=>new Promise((res,rej)=>{const t=db.transaction('ph',m),r=f(t.objectStore('ph'));t.oncomplete=()=>res(r.result);t.onerror=()=>rej(t.error)}));
+const ymd=ms=>{const d=new Date(ms||Date.now());return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+async function shrink(f){const bm=await createImageBitmap(f),k=Math.min(1,1200/Math.max(bm.width,bm.height)),c=document.createElement('canvas');c.width=Math.round(bm.width*k);c.height=Math.round(bm.height*k);c.getContext('2d').drawImage(bm,0,0,c.width,c.height);return new Promise(r=>c.toBlob(r,'image/jpeg',.8))}
+function photos(id){const p=all().find(x=>x.id==id);if(!p)return home();const lb=(t,cap)=>'<label class="b'+(cap?' o':'')+'" style="flex:1;display:flex;align-items:center;justify-content:center;min-height:52px;text-align:center;cursor:pointer">'+t+'<input type="file" accept="image/*" '+(cap?'capture="environment" ':'multiple ')+'hidden onchange="addPh(\''+id+'\',this)"></label>';return wrap('<div class="bar"><a class="lk" href="#/p/'+id+'">&larr; '+nm(p)+'</a></div><p class="lab" style="margin-top:12px">Photos</p><h1>'+nm(p)+'</h1><p class="it">'+sub(p)+'</p>'+dvd+'<div style="display:flex;gap:10px">'+lb('From gallery',0)+lb('Take photo',1)+'</div><p class="nt" id="phn" style="margin-top:12px">Loading...</p><div id="phg" class="pg2"></div>')}
+async function loadPh(id){try{const a=(await tx('readonly',s=>s.index('p').getAll(id))).sort((x,y)=>x.d<y.d?1:-1);$('phn').textContent=T(a.length?a.length+' photo'+(a.length>1?'s':'')+', newest first':'No photos yet. Add the first one above.');$('phg').innerHTML=tr(a.map(z=>'<figure><img alt="Photo '+z.d+'" src="'+URL.createObjectURL(z.blob)+'" onclick="big(this.src)"><button class="b o" style="width:100%;margin-top:8px" onclick="delPh(\''+id+'\','+z.id+',\''+(z.u||'')+'\')">Delete</button></figure>').join(''))}catch(e){$('phn').textContent=T('Photos are not available in this browser.')}}
+async function addPh(id,inp){const fs=[...inp.files];if(!fs.length)return;$('phn').textContent=T('Saving '+fs.length+' photo'+(fs.length>1?'s':'')+'...');try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist();for(const f of fs){const b=await shrink(f);await tx('readwrite',s=>s.add({pid:id,d:ymd(f.lastModified),blob:b,u:phU()}))}}catch(e){alert(T('Could not save the photo'))}inp.value='';loadPh(id);syKick()}
+function delPh(id,k,u){if(confirm(T('Delete this photo?'))){if(u){D.pd[u]=1;save()}tx('readwrite',s=>s.delete(k)).then(()=>loadPh(id))}}
+function big(src){const d=document.createElement('div');d.style.cssText='position:fixed;inset:0;z-index:9;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center';d.innerHTML='<img src="'+src+'" style="max-width:100%;max-height:100%">';d.onclick=()=>d.remove();document.body.appendChild(d)}
+const FRN=Object.fromEntries(`carambola:Carambole douce;jabuticaba:Jabuticaba;allspice:Piment de la Jamaïque;pachira:Pachira aquatique;mamey:Mamey (sapotillier);aguacate:Avocatier;simons:Avocatier Simmons;higo:Figuier;granada:Grenadier;nispero:Sapotillier;caimito:Caimitier (pomme étoilée);abiu:Abiu (caimito jaune);mangostan:Mangoustan;jorco:Jorco (mangoustan jaune);achacha:Achacha;marang:Marang;papaya:Papayer;pococi:Papayer Pococí;araza:Goyave araza;buda:Main de Bouddha (cédrat);isabella:Vigne Isabelle;pitanga:Cerise de Cayenne (pitanga);bananoenano:Bananier nain;cafe:Caféier Obata;palmaroja:Palmier rouge;areca:Palmier aréca;cuna:Lys de paix;turnera:Turnera blanche;canna:Balisier (canna);monstera:Monstera deliciosa;monstera2:Monstera;vainilla:Vanillier;bluejava:Bananier Blue Java;platano:Bananier / plantain;bananaroja:Bananier rouge;anona:Anone (pomme cannelle);biriba:Biriba;pitahaya:Pitaya (fruit du dragon);longan:Longane;limondulce:Citron doux;mandarina:Mandarine douce;jamaica:Roselle (bissap);rafano:Palmier lady (rhapis);calliandra:Calliandre;valencia:Orange Valencia;marango:Moringa;calamandin:Calamondin;lcaviar:Lime caviar (citron caviar);veranera:Bougainvillier;uvilla:Physalis du Pérou;kumquat:Kumquat;peru:Goyave du Pérou;clementina:Clémentine;washington:Orange Washington navel;panameno:Citron vert du Panama;pera:Goyave poire;canela:Cannelier;mango:Manguier;senna:Séné;malinche:Flamboyant (poinciana royal);zneg:Sapote noire;guanabana:Corossol;tomate:Tomate cerise;granadilla:Grenadille;conchita:Pois bleu (clitoria);chile1:Piment fort allongé;chile2:Piment type habanero;lanzones:Lanzones (langsat);pomelo:Pomelo;canistel:Canistel;ylang:Ylang-ylang;jade:Vigne de jade;milagrosa:Fruit miraculeux;mangojulia:Manguier Julia`.split(';').map(x=>x.split(':')));
+const names=p=>{const s=info(p);return{es:s.es,en:s.en,fr:p.k?FRN[p.k]||s.en:(p.fr||s.en)}};
+const sub=p=>{const n=names(p);return[...new Set(['en','fr','es'].map(l=>n[l]))].filter(v=>v!=n[LG]).join(' · ')};
+const TRL=`All plants|Toutes les plantes|Todas las plantas
+Share|Partager|Compartir
+Plant|Plante|Planta
+Photos|Photos|Fotos
+Mark as watered|Marquer comme arrosée|Marcar como regada
+Mark as fertilized|Marquer comme fertilisée|Marcar como fertilizada
+Watered today|Arrosée aujourd'hui|Regada hoy
+Fertilized today|Fertilisée aujourd'hui|Fertilizada hoy
+At a glance|En un coup d'œil|De un vistazo
+Location|Emplacement|Ubicación
+Ground|En terre|En el suelo
+Edit|Modifier|Editar
+Sun|Soleil|Sol
+Full sun|Plein soleil|Sol directo
+Part shade|Mi-ombre|Media sombra
+Shade|Ombre|Sombra
+First fruit|Première récolte|Primera cosecha
+Season|Saison|Temporada
+Height|Hauteur|Altura
+add below|à ajouter ci-dessous|agregar abajo
+Max size|Taille max|Tamaño máx
+TYPICAL|TYPIQUE|TÍPICO
+Target size|Taille visée|Tamaño objetivo
+set your goal|fixez votre objectif|fije su meta
+set|à définir|definir
+Min size to fruit|Taille min pour fructifier|Tamaño mín para fructificar
+none (no fruit)|aucune (pas de fruit)|ninguno (sin fruto)
+Fruit &amp; use|Fruit et usage|Fruto y uso
+Care|Soins|Cuidados
+Watering|Arrosage|Riego
+Fertilizer|Engrais|Fertilizante
+SAMPLE|EXEMPLE|EJEMPLO
+Repotting &amp; moves|Rempotage et déplacements|Trasplante y cambios
+None logged. Use Edit next to Location when you repot.|Rien d'enregistré. Utilisez Modifier à côté d'Emplacement lors d'un rempotage.|Nada registrado. Use Editar junto a Ubicación al trasplantar.
+Fruit season|Saison des fruits|Temporada de frutos
+Growth|Croissance|Crecimiento
+Add two or more measurements to see the growth chart.|Ajoutez deux mesures ou plus pour voir le graphique de croissance.|Agregue dos o más mediciones para ver el gráfico de crecimiento.
+Add measurement (cm)|Ajouter une mesure (cm)|Agregar medición (cm)
+Latest:|Dernière :|Última:
+Notes|Notes|Notas
+Name (French)|Nom (français)|Nombre (francés)
+Sync phones|Synchroniser les téléphones|Sincronizar teléfonos
+Same data on every phone|Mêmes données sur chaque téléphone|Mismos datos en cada teléfono
+Phones|Téléphones|Teléfonos
+Connected|Connecté|Conectado
+Use the same link and secret code on every phone. Photos are synced too.|Utilisez le même lien et le même code secret sur chaque téléphone. Les photos sont aussi synchronisées.|Use el mismo enlace y código secreto en cada teléfono. Las fotos también se sincronizan.
+Database link|Lien de la base de données|Enlace de la base de datos
+Secret code|Code secret|Código secreto
+Connect and sync|Connecter et synchroniser|Conectar y sincronizar
+Sync now|Synchroniser maintenant|Sincronizar ahora
+Disconnect|Déconnecter|Desconectar
+Synced|Synchronisé à|Sincronizado a las
+Could not sync. Will retry.|Synchronisation impossible. Nouvel essai bientôt.|No se pudo sincronizar. Se reintentará.
+Could not connect. Check the link.|Connexion impossible. Vérifiez le lien.|No se pudo conectar. Revise el enlace.
+Check the link and the secret code (8 characters or more).|Vérifiez le lien et le code secret (8 caractères ou plus).|Revise el enlace y el código secreto (8 caracteres o más).
+Data found online. OK = use the online data on this phone. Cancel = keep this phone data and replace the online data.|Données trouvées en ligne. OK = utiliser les données en ligne sur ce téléphone. Annuler = garder les données de ce téléphone et remplacer celles en ligne.|Datos encontrados en línea. OK = usar los datos en línea en este teléfono. Cancelar = conservar los datos de este teléfono y reemplazar los de línea.
+Disconnect this phone? Your data stays on the phone.|Déconnecter ce téléphone ? Vos données restent sur le téléphone.|¿Desconectar este teléfono? Sus datos se quedan en el teléfono.
+Growth per year|Croissance par an|Crecimiento por año
+Undo|Annuler|Deshacer
+Pruning|Taille|Poda
+Soil pH|pH du sol|pH del suelo
+Good to know|Bon à savoir|Bueno saber
+Nothing yet.|Rien pour l'instant.|Nada por ahora.
+Write a tip|Écrire une info|Escribir un dato
+Pruning notes|Notes de taille|Notas de poda
+Soil pH, for example 6.0-6.5|pH du sol, par exemple 6,0-6,5|pH del suelo, por ejemplo 6,0-6,5
+No notes yet.|Aucune note.|Aún no hay notas.
+Add note|Ajouter une note|Agregar nota
+Delete|Supprimer|Eliminar
+Ask Claude about this plant|Demander à Claude à propos de cette plante|Preguntar a Claude sobre esta planta
+Ask Claude about a tree|Demander à Claude à propos d'un arbre|Preguntar a Claude sobre un árbol
+Home|Accueil|Inicio
+Plants|Plantes|Plantas
+Water|Arroser|Regar
+Feed|Nourrir|Abonar
+Help|Aide|Ayuda
+Pot, |Pot, |Maceta, 
+Nursery bag, |Sac de pépinière, |Bolsa de vivero, 
+Pot|Pot|Maceta
+Nursery bag|Sac de pépinière|Bolsa de vivero
+Pots|Pots|Macetas
+Bags|Sacs|Bolsas
+All|Tout|Todo
+Welcome to|Bienvenue dans|Bienvenido a
+My Garden|Mon Jardin|Mi Jardín
+plant pages|pages de plantes|páginas de plantas
+Today|Aujourd'hui|Hoy
+to water|à arroser|por regar
+to feed|à nourrir|por abonar
+See which plants and how much|Voir quelles plantes et quelle quantité|Ver qué plantas y cuánto
+Yara Mila 12-11-18, dose per plant|Yara Mila 12-11-18, dose par plante|Yara Mila 12-11-18, dosis por planta
+plants can fruit in|plantes peuvent fructifier en|plantas pueden dar fruto en
+My plants|Mes plantes|Mis plantas
+My Plants|Mes plantes|Mis plantas
+Search and open any plant|Chercher et ouvrir une plante|Buscar y abrir una planta
+Watering calendar|Calendrier d'arrosage|Calendario de riego
+Month view, tap a day|Vue du mois, touchez un jour|Vista del mes, toque un día
+Fertilizer calendar|Calendrier d'engrais|Calendario de fertilizante
+Troubleshooting|Dépannage|Solución de problemas
+Symptoms, and ask Claude|Symptômes, et demandez à Claude|Síntomas, y pregunte a Claude
+Add a plant|Ajouter une plante|Agregar una planta
+New tree, pot or bag|Nouvel arbre, pot ou sac|Nuevo árbol, maceta o bolsa
+Remove a plant|Supprimer une plante|Quitar una planta
+Delete a page, or restore one|Supprimer une page, ou en restaurer une|Quitar una página, o restaurar una
+Sample ranges. Water only if the top 3-5 cm of soil is dry|Plages indicatives. Arrosez seulement si les 3-5 cm de terre du dessus sont secs|Rangos de ejemplo. Riegue solo si los 3-5 cm superiores del suelo están secos
+Yara Mila 12-11-18. Start low. Soil only, not in drought or flooding|Yara Mila 12-11-18. Commencez bas. Sur le sol seulement, pas en sécheresse ni inondation|Yara Mila 12-11-18. Empiece con poco. Solo al suelo, no en sequía ni inundación
+Mark all done|Tout marquer comme fait|Marcar todo como hecho
+All done for today.|Tout est fait pour aujourd'hui.|Todo hecho por hoy.
+Undo last|Annuler le dernier|Deshacer el último
+Done|Fait|Hecho
+See calendar|Voir le calendrier|Ver calendario
+until it drains|jusqu'à ce que l'eau s'écoule|hasta que drene
+&larr; Prev|&larr; Précédent|&larr; Anterior
+Next &rarr;|Suivant &rarr;|Siguiente &rarr;
+Nothing due.|Rien à faire.|Nada pendiente.
+Next:|Prochain :|Próximo:
+Last:|Dernier :|Último:
+Yellow leaves|Feuilles jaunes|Hojas amarillas
+Overwatering, poor drainage or hunger. Check the soil, then feed lightly.|Trop d'eau, mauvais drainage ou manque de nutriments. Vérifiez le sol, puis nourrissez légèrement.|Exceso de riego, mal drenaje o falta de nutrientes. Revise el suelo y luego abone ligeramente.
+Leaf drop or wilting|Chute des feuilles ou flétrissement|Caída de hojas o marchitez
+Dry roots, waterlogging or transplant shock. Water deeply, shade for a few days.|Racines sèches, sol détrempé ou choc de transplantation. Arrosez en profondeur, mettez à l'ombre quelques jours.|Raíces secas, encharcamiento o estrés por trasplante. Riegue a fondo y dé sombra unos días.
+Brown leaf tips|Pointes de feuilles brunes|Puntas de hojas marrones
+Salt build-up or dry air. Flush the pot with plain water.|Accumulation de sel ou air sec. Rincez le pot à l'eau claire.|Acumulación de sales o aire seco. Lave la maceta con agua sola.
+No flowers or fruit|Pas de fleurs ni de fruits|Sin flores ni frutos
+Too young, too much shade or too much nitrogen. Check first-fruit years.|Trop jeune, trop d'ombre ou trop d'azote. Vérifiez les années avant la première récolte.|Muy joven, demasiada sombra o demasiado nitrógeno. Revise los años hasta el primer fruto.
+Flowers or fruit dropping|Chute des fleurs ou des fruits|Caída de flores o frutos
+Water stress or heavy rain. Keep watering even.|Stress hydrique ou fortes pluies. Arrosez de façon régulière.|Estrés hídrico o lluvia fuerte. Mantenga un riego constante.
+Pests (scale, mites, ants)|Parasites (cochenilles, acariens, fourmis)|Plagas (cochinillas, ácaros, hormigas)
+Wipe off, spray neem in the evening, repeat weekly.|Essuyez, pulvérisez du neem le soir, répétez chaque semaine.|Limpie, rocíe neem por la tarde y repita cada semana.
+Seedling collapses|Le semis s'effondre|La plántula se cae
+Damping off. Less water, more air, clean soil.|Fonte des semis. Moins d'eau, plus d'air, terre propre.|Mal de semillero. Menos agua, más aire, suelo limpio.
+Roots circling or poking out|Racines qui tournent ou sortent|Raíces enroscadas o que salen
+Time to repot into the next size up.|Il est temps de rempoter dans la taille supérieure.|Es hora de trasplantar a la siguiente medida.
+New plant|Nouvelle plante|Nueva planta
+Add|Ajouter|Agregar
+Save plant|Enregistrer la plante|Guardar planta
+Name (Spanish)|Nom (espagnol)|Nombre (español)
+Name (English)|Nom (anglais)|Nombre (inglés)
+Size, e.g. 50 L or 8x12 in|Taille, ex. 50 L ou 8x12 in|Tamaño, ej. 50 L u 8x12 in
+Remove|Supprimer|Quitar
+Removed|Supprimées|Quitadas
+Restore|Restaurer|Restaurar
+Search English or Spanish|Chercher en français, anglais ou espagnol|Buscar en español, inglés o francés
+pages|pages|páginas
+many plants|plusieurs plantes|varias plantas
+plants|plantes|plantas
+plant|plante|planta
+From gallery|Depuis la galerie|Desde la galería
+Take photo|Prendre une photo|Tomar foto
+Loading...|Chargement...|Cargando...
+No photos yet. Add the first one above.|Aucune photo. Ajoutez la première ci-dessus.|Aún no hay fotos. Agregue la primera arriba.
+Height in cm|Hauteur en cm|Altura en cm
+New note|Nouvelle note|Nueva nota
+Edit this note|Modifier cette note|Editar esta nota
+Where is it now? Type G for ground, P for pot or B for nursery bag|Où est-elle maintenant ? Tapez G pour pleine terre (ground), P pour pot ou B pour sac de pépinière (bag)|¿Dónde está ahora? Escriba G para suelo (ground), P para maceta o B para bolsa de vivero (bag)
+Size, for example 70 L or 11x10 in|Taille, par exemple 70 L ou 11x10 in|Tamaño, por ejemplo 70 L u 11x10 in
+Target size, for example 3 m|Taille visée, par exemple 3 m|Tamaño objetivo, por ejemplo 3 m
+Minimum size to fruit, for example 1.5 m|Taille minimale pour fructifier, par exemple 1,5 m|Tamaño mínimo para fructificar, por ejemplo 1,5 m
+Max size, for example 6-8 m|Taille max, par exemple 6-8 m|Tamaño máx, por ejemplo 6-8 m
+Remove this plant page? You can restore it later.|Supprimer cette page ? Vous pourrez la restaurer plus tard.|¿Quitar esta página? Podrá restaurarla después.
+Delete this photo?|Supprimer cette photo ?|¿Eliminar esta foto?
+Delete this note?|Supprimer cette note ?|¿Eliminar esta nota?
+Link copied|Lien copié|Enlace copiado
+Could not save the photo|Impossible d'enregistrer la photo|No se pudo guardar la foto
+Photos are not available in this browser.|Les photos ne sont pas disponibles dans ce navigateur.|Las fotos no están disponibles en este navegador.
+seed|semis|semilla
+grafted|greffé|injertado
+months|mois|meses
+(flowers)|(fleurs)|(flores)
+Flowers|Fleurs|Flores
+(first bark)|(première écorce)|(primera corteza)
+Varies|Variable|Variable
+Year-round|Toute l'année|Todo el año
+Dry season|Saison sèche|Temporada seca
+Cut any time|Coupe en tout temps|Corte en cualquier momento
+Twice a year|Deux fois par an|Dos veces al año
+2 crops/yr|2 récoltes/an|2 cosechas/año
+1-2 crops/yr|1-2 récoltes/an|1-2 cosechas/año
+1-3 crops/yr|1-3 récoltes/an|1-3 cosechas/año
+Pods ~6 mo after flower|Gousses ~6 mois après la fleur|Vainas ~6 meses tras la flor
+vine|liane|enredadera
+climber|grimpante|trepadora
+pruned|taillé|podado
+on a post|sur un tuteur|sobre un poste
+Ornamental|Ornemental|Ornamental
+Sweet yellow starfruit|Carambole jaune douce|Carambola amarilla dulce
+Purple berries on the trunk|Baies violettes sur le tronc|Bayas moradas en el tronco
+Dried berries = allspice spice|Baies séchées = piment de la Jamaïque (épice)|Bayas secas = pimienta gorda (especia)
+Pods with edible nuts (roast first)|Gousses aux noix comestibles (à griller d'abord)|Vainas con nueces comestibles (tostar primero)
+Red-orange creamy pulp|Pulpe crémeuse rouge-orange|Pulpa cremosa rojo-naranja
+Creamy flesh; type varies|Chair crémeuse ; varie selon le type|Pulpa cremosa; varía según el tipo
+West Indian type, light, watery|Type antillais, léger, aqueux|Tipo antillano, ligero, aguado
+Figs; erratic in the tropics|Figues ; irrégulier sous les tropiques|Higos; irregular en el trópico
+Red seeds in juicy arils|Graines rouges dans des arilles juteux|Semillas rojas en arilos jugosos
+Brown, sweet, malty sapodilla|Sapotille brune, douce, maltée|Níspero marrón, dulce, achocolatado
+Purple star apple: milky, sweet pulp|Pomme étoilée violette : pulpe laiteuse et sucrée|Caimito morado: pulpa lechosa y dulce
+Yellow, creamy, caramel-like pulp|Pulpe jaune, crémeuse, goût caramel|Pulpa amarilla, cremosa, sabor caramelo
+White, sweet-tart juicy segments|Segments blancs, juteux, aigres-doux|Gajos blancos, jugosos, agridulces
+Yellow, sweet-tart mangosteen relative|Cousin jaune du mangoustan, aigre-doux|Pariente amarillo del mangostán, agridulce
+Orange rind, juicy tangy pulp|Écorce orange, pulpe juteuse et acidulée|Cáscara naranja, pulpa jugosa y ácida
+Spiky fruit; sweet creamy pulp|Fruit épineux ; pulpe sucrée et crémeuse|Fruto espinoso; pulpa dulce y cremosa
+Sweet orange pulp, large fruit|Pulpe orange sucrée, gros fruit|Pulpa naranja dulce, fruto grande
+Pococi papaya; sweet|Papaye Pococí ; sucrée|Papaya Pococí; dulce
+Sour yellow, strong juice fruit|Fruit jaune acide, très juteux|Fruto amarillo ácido, muy jugoso
+Fragrant citron; zest and candy|Cédrat parfumé ; zeste et confit|Cidra aromática; ralladura y dulce
+Slip-skin grapes; bunches|Raisins à peau glissante ; grappes|Uvas de piel suelta; racimos
+Small red ribbed, tart-sweet cherry|Petite cerise rouge côtelée, aigre-douce|Cereza pequeña roja acostillada, agridulce
+Short banana plant; sweet fruit|Petit bananier ; fruit sucré|Bananero enano; fruto dulce
+Red cherries; roast the beans|Cerises rouges ; torréfier les grains|Cerezas rojas; tostar los granos
+Ornamental palm|Palmier ornemental|Palma ornamental
+Small orange fruit; not edible|Petit fruit orange ; non comestible|Fruto naranja pequeño; no comestible
+Ornamental; no fruit crop|Ornemental ; pas de fruits|Ornamental; sin cosecha de frutos
+Pale flowers open in the morning, close by noon|Fleurs pâles qui s'ouvrent le matin et se ferment à midi|Flores pálidas que abren por la mañana y cierran al mediodía
+Ornamental flowers|Fleurs ornementales|Flores ornamentales
+Fruit edible only when fully ripe|Fruit comestible seulement bien mûr|Fruto comestible solo bien maduro
+Pods when hand-pollinated|Gousses si pollinisée à la main|Vainas si se poliniza a mano
+Sweet, vanilla-like 'ice cream' banana|Banane « crème glacée » sucrée, goût vanille|Banano «helado» dulce, sabor vainilla
+Banana/plantain bunch|Régime de bananes/plantains|Racimo de banano/plátano
+Red banana|Banane rouge|Banano rojo
+Custard apple: sweet, creamy|Pomme cannelle : sucrée, crémeuse|Anona: dulce y cremosa
+White, sweet custard pulp; bumpy skin|Pulpe blanche, sucrée, type crème ; peau bosselée|Pulpa blanca, dulce, tipo crema; piel rugosa
+Dragon fruit; white or red pulp|Fruit du dragon ; pulpe blanche ou rouge|Fruta del dragón; pulpa blanca o roja
+Translucent sweet fruit in clusters|Fruits sucrés translucides en grappes|Frutos dulces translúcidos en racimos
+Sweet lemon, mild|Citron doux, léger|Limón dulce, suave
+Sweet, easy-peel tangerine|Mandarine sucrée, facile à peler|Mandarina dulce, fácil de pelar
+Red calyces for hibiscus tea|Calices rouges pour la tisane d'hibiscus|Cálices rojos para té de jamaica
+Small dark fruit; not eaten|Petit fruit foncé ; non consommé|Fruto pequeño oscuro; no se come
+No edible fruit; pink flowers|Pas de fruit comestible ; fleurs roses|Sin fruto comestible; flores rosadas
+Late juice orange|Orange à jus tardive|Naranja de jugo tardía
+Pods (drumsticks) and leaves|Gousses (« drumsticks ») et feuilles|Vainas («drumsticks») y hojas
+Small sour fruit; juice and marmalade|Petit fruit acide ; jus et marmelade|Fruto pequeño ácido; jugo y mermelada
+Citrus 'caviar' pearls|Perles de « caviar » d'agrume|Perlas de «caviar» cítrico
+Not a fruit crop; colorful bracts|Pas une culture fruitière ; bractées colorées|No es cultivo frutal; brácteas coloridas
+Cape gooseberry in a husk|Physalis dans sa cosse|Uchuva en su cáliz
+Eat whole, peel and all|Se mange entier, avec la peau|Se come entero, con cáscara
+Round guava, pink or white pulp|Goyave ronde, pulpe rose ou blanche|Guayaba redonda, pulpa rosada o blanca
+Sweet, seedless, easy-peel mandarin|Mandarine douce, sans pépins, facile à peler|Mandarina dulce, sin semillas, fácil de pelar
+Seedless navel orange|Orange navel sans pépins|Naranja navel sin semillas
+Lime, similar to Tahiti|Citron vert, proche du Tahiti|Lima, parecida a la Tahití
+Pear-shaped sweet guava|Goyave sucrée en forme de poire|Guayaba dulce en forma de pera
+Spice, not fruit: inner bark|Épice, pas un fruit : écorce intérieure|Especia, no fruto: corteza interior
+Sweet, juicy, fibrous|Sucrée, juteuse, fibreuse|Dulce, jugosa, fibrosa
+Not a fruit crop; leaves/pods for tea|Pas une culture fruitière ; feuilles/gousses pour tisane|No es cultivo frutal; hojas/vainas para té
+Red flowers; long woody pods|Fleurs rouges ; longues gousses ligneuses|Flores rojas; vainas largas y leñosas
+Green skin; chocolate-pudding pulp|Peau verte ; pulpe façon pudding au chocolat|Piel verde; pulpa tipo pudín de chocolate
+Spiny fruit; white sour-sweet pulp|Fruit épineux ; pulpe blanche aigre-douce|Fruto espinoso; pulpa blanca agridulce
+Cherry tomato|Tomate cerise|Tomate cherry
+Orange passionfruit, sweet|Fruit de la passion orange, sucré|Maracuyá naranja, dulce
+Blue pea flowers for tea and color|Fleurs de pois bleu pour tisane et couleur|Flores de conchita azul para té y color
+Hot elongated pepper|Piment fort allongé|Chile picante alargado
+Habanero-type hot pepper|Piment fort de type habanero|Chile picante tipo habanero
+Clusters of sweet translucent fruit|Grappes de fruits sucrés translucides|Racimos de frutos dulces translúcidos
+Very large, mild citrus|Très gros agrume doux|Cítrico muy grande y suave
+Yellow, dry, sweet canistel|Canistel jaune, sec et sucré|Canistel amarillo, seco y dulce
+Fragrant flowers for perfume and tea|Fleurs parfumées pour parfum et tisane|Flores aromáticas para perfume y té
+Turquoise flower clusters; not edible|Grappes de fleurs turquoise ; non comestibles|Racimos de flores turquesa; no comestibles
+Red berry; makes sour taste sweet|Baie rouge ; rend l'acide sucré|Baya roja; hace dulce lo ácido
+Compact mango; sweet|Mangue compacte ; sucrée|Mango compacto; dulce`;
+const DM={fr:{},es:{}},DRE={};
+TRL.split('\n').forEach(l=>{const a=l.split('|');DM.fr[a[0]]=a[1];DM.es[a[0]]=a[2]});
+const rx=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+['fr','es'].forEach(g=>{const ks=Object.keys(DM[g]).sort((a,b)=>b.length-a.length);DRE[g]=new RegExp(ks.map(k=>(/^[A-Za-z]/.test(k)?'(?<![A-Za-z])':'')+rx(k)+(/[A-Za-z]$/.test(k)?'(?![A-Za-z])':'')).join('|'),'g')});
+const MON={fr:['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'],es:['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic']},MRE=new RegExp('(?<![A-Za-z])('+MO.join('|')+')(?![A-Za-z])','g');
+let LG=D.lang||'en';D.ns=D.ns||{};Object.keys(D.n||{}).forEach(k=>{if(D.n[k]&&!D.ns[k])D.ns[k]=[{d:today(),t:D.n[k]}]});D.n={};
+function x(t){if(LG=='en')return t;const fr=LG=='fr';t=t.replace(/\bin (\d+) d\b/g,fr?'dans $1 j':'en $1 d').replace(/(\d+) d late/g,fr?'$1 j de retard':'$1 d de retraso').replace(/^Check every (\d+) days\. If the top 3-5 cm of soil is dry, water: (.*?)\. Last: /,fr?'Vérifier tous les $1 jours. Si les 3-5 cm de terre du dessus sont secs, arroser : $2. Dernier : ':'Revisar cada $1 días. Si los 3-5 cm superiores del suelo están secos, regar: $2. Último: ').replace(/^Yara Mila 12-11-18, about (.*?) every (\d+ months|\d+ weeks)\. Soil only, never in drought or flooding\. Start low\. Last: /,(m,a,b)=>fr?'Yara Mila 12-11-18, environ '+a+' tous les '+b.replace('months','mois').replace('weeks','semaines')+'. Sur le sol seulement, jamais en sécheresse ni inondation. Commencez bas. Dernier : ':'Yara Mila 12-11-18, unos '+a+' cada '+b.replace('months','meses').replace('weeks','semanas')+'. Solo al suelo, nunca en sequía ni inundación. Empiece con poco. Último: ').replace(/^(\d+) photos?, newest first/,fr?"$1 photo(s), les plus récentes d'abord":'$1 foto(s), las más recientes primero').replace(/^Saving (\d+) photos?\.\.\./,fr?'Enregistrement de $1 photo(s)...':'Guardando $1 foto(s)...');return t.replace(DRE[LG],m=>DM[LG][m]).replace(MRE,m=>MON[LG][MO.indexOf(m)])}
+const T=s=>x(s);
+const UT=[],U=s=>{UT.push(String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])));return'\u0001'+(UT.length-1)+'\u0002'},untr=h=>h.replace(/\u0001(\d+)\u0002/g,(m,i)=>UT[i]);
+const tr=h=>LG=='en'?h:h.replace(/>([^<>]+)<|placeholder="([^"]*)"/g,(m,t,ph)=>ph!==undefined?'placeholder="'+x(ph)+'"':'>'+x(t)+'<');
+function setL(l){D.lang=l;LG=l;localStorage.tg=JSON.stringify(D);route()}
+function addN(id){const v=prompt(T('New note'));if(v&&v.trim()){(D.ns[id]=D.ns[id]||[]).unshift({d:today(),t:v.trim()});save();route()}}
+function editN(id,i){const n=D.ns[id][i],v=prompt(T('Edit this note'),n.t);if(v!==null&&v.trim()){n.t=v.trim();save();route()}}
+function delN(id,i){if(confirm(T('Delete this note?'))){D.ns[id].splice(i,1);save();route()}}
+function editLoc(id){const p=all().find(x=>x.id==id);const t=(prompt(T('Where is it now? Type G for ground, P for pot or B for nursery bag'),p.loc[0])||'').toUpperCase();if(!t||!'GPB'.includes(t))return;let loc='G';if(t!='G'){const sz=prompt(T('Size, for example 70 L or 11x10 in'),p.loc.slice(2));if(!sz)return;loc=t+':'+sz}if(loc==p.loc)return;(D.r[id]=D.r[id]||[]).push({d:today(),a:where(p),b:where({loc})});D.l[id]=loc;save();route()}
+function editT(id,k){const v=prompt(T(k=='t'?'Target size, for example 3 m':k=='n'?'Minimum size to fruit, for example 1.5 m':'Max size, for example 6-8 m'),(D.t[id]||{})[k]||'');if(v!==null){D.t[id]=Object.assign(D.t[id]||{},{[k]:v});save();route()}}
+function front(){const a=all(),w=a.filter(p=>diff(dueW(p))<=0).length,f=a.filter(p=>diff(dueF(p))<=0).length,m=MO[new Date().getMonth()],n=a.filter(p=>inS(info(p).m,m)).length;return wrap(bkBanner()+'<p class="lab">Welcome to</p><h1>My Garden</h1><p class="it">Lagunas &middot; '+a.length+' plant pages</p>'+dvd+'<p class="big">Today</p>'+(function(){const t=w+f+a.filter(p=>{const d=dueP(p);return d&&diff(d)<=0}).length+a.filter(p=>{const d=dueS(p);return d&&diff(d)<=0}).length+a.filter(p=>{const d=dueCm(p);return d&&diff(d)<=0}).length;return '<a class="tl" href="#/today"><b>'+t+' '+L4(t==1?'task':'tasks',t==1?'tâche':'tâches',t==1?'tarea':'tareas')+'</b><small>'+L4('Water, feed, prune and spray in one list','Arroser, fertiliser, tailler et traiter en une liste','Regar, fertilizar, podar y tratar en una lista')+'</small></a>'})()+'<a class="tl" href="#/today"><b>'+w+' to water</b><small>See which plants and how much</small></a><a class="tl" href="#/today"><b>'+f+' to feed</b><small>Yara Mila 12-11-18, dose per plant</small></a><p class="sx" style="color:#6B5D4D;margin-top:10px">'+n+' plants can fruit in '+m+'</p>'+(function(){const k=a.filter(p=>{const d=dueP(p);return d&&diff(d)<=0}).length;return k?'<p class="sx" style="color:#6B5D4D;margin-top:4px">'+k+' '+L4(k==1?'plant due for pruning':'plants due for pruning',k==1?'plante à tailler':'plantes à tailler',k==1?'planta por podar':'plantas por podar')+'</p>':''})()+dvd+'<a class="tl" href="#/plants"><b>My plants</b><small>Search and open any plant</small></a><a class="tl" href="#/calw"><b>Watering calendar</b><small>Month view, tap a day</small></a><a class="tl" href="#/calf"><b>Fertilizer calendar</b><small>Month view, tap a day</small></a><a class="tl" href="#/help"><b>Troubleshooting</b><small>Symptoms, and ask Claude</small></a><a class="tl" href="#/add"><b>Add a plant</b><small>New tree, pot or bag</small></a><a class="tl" href="#/qrs"><b>'+L4('QR labels','Étiquettes QR','Etiquetas QR')+'</b><small>'+L4('Print a code for each plant','Imprimer un code par plante','Imprimir un código por planta')+'</small></a><a class="tl" href="#/sync"><b>Sync phones</b><small>Same data on every phone</small></a>')}
+const PR={"T": {"en": "After harvest, remove dead, crossing and very low branches. Keep the height workable with one light shaping a year.", "fr": "Après la récolte, couper le bois mort, les branches qui se croisent et les plus basses. Garder une hauteur praticable, une taille légère par an.", "es": "Tras la cosecha, quitar ramas muertas, cruzadas y muy bajas. Mantener una altura manejable con una poda ligera al año."}, "C": {"en": "Light prune after harvest: dead wood, suckers below the graft and crowded inner branches. Never cut hard.", "fr": "Taille légère après la récolte : bois mort, gourmands sous la greffe et branches intérieures trop serrées. Ne jamais tailler fort.", "es": "Poda ligera tras la cosecha: ramas muertas, chupones bajo el injerto y ramas interiores apretadas. Nunca podar fuerte."}, "B": {"en": "Cut dead leaves. Keep one mother plant and one or two followers; remove extra suckers. Cut the stem after harvest.", "fr": "Couper les feuilles mortes. Garder un pied mère et un ou deux rejets, supprimer les autres. Couper le pseudo-tronc après la récolte.", "es": "Cortar hojas muertas. Dejar una planta madre y uno o dos hijuelos; quitar los demás. Cortar el tallo tras la cosecha."}, "P": {"en": "No real pruning. Remove dead lower leaves. Replace the plant after 2-3 years.", "fr": "Pas de vraie taille. Enlever les feuilles basses mortes. Remplacer le plant après 2-3 ans.", "es": "Sin poda real. Quitar hojas bajas muertas. Reemplazar la planta tras 2-3 años."}, "M": {"en": "Cut only fully brown fronds. Never cut green fronds or the crown.", "fr": "Couper seulement les palmes entièrement brunes. Jamais les vertes ni le cœur.", "es": "Cortar solo hojas totalmente marrones. Nunca las verdes ni el cogollo."}, "V": {"en": "Train on a strong support. After harvest or flowering, cut back excess growth and remove dead stems.", "fr": "Palisser sur un support solide. Après récolte ou floraison, raccourcir l'excès de pousses et enlever les tiges mortes.", "es": "Guiar sobre un soporte fuerte. Tras la cosecha o floración, recortar el exceso y quitar tallos muertos."}, "F": {"en": "Prune once a year after harvest. Remove suckers and open the centre for light and air.", "fr": "Tailler une fois par an après la récolte. Enlever les gourmands et aérer le centre.", "es": "Podar una vez al año tras la cosecha. Quitar chupones y abrir el centro para luz y aire."}, "S": {"en": "Prune right after flowering: cut back by about a third and remove dead or crossing stems.", "fr": "Tailler juste après la floraison : raccourcir d'environ un tiers, enlever les tiges mortes ou croisées.", "es": "Podar justo después de la floración: recortar un tercio y quitar tallos muertos o cruzados."}, "H": {"en": "Cut spent stems and leaves at the base. Divide the clump every few years.", "fr": "Couper à la base les tiges et feuilles fanées. Diviser la touffe tous les quelques ans.", "es": "Cortar en la base tallos y hojas marchitos. Dividir la mata cada pocos años."}, "K": {"en": "After harvest, cut old fruiting branches. Keep 3-4 main stems and cap the height at about 2 m.", "fr": "Après la récolte, couper les vieilles branches ayant fructifié. Garder 3-4 tiges principales et plafonner à environ 2 m.", "es": "Tras la cosecha, cortar ramas viejas que ya fructificaron. Dejar 3-4 tallos y limitar la altura a unos 2 m."}, "TO": {"en": "Stake the plant. Remove side shoots (suckers) weekly and old lower leaves. Pull the plant out after the crop.", "fr": "Tuteurer. Enlever chaque semaine les gourmands et les vieilles feuilles basses. Arracher le plant après la récolte.", "es": "Entutorar. Quitar chupones cada semana y hojas bajas viejas. Arrancar la planta tras la cosecha."}, "CH": {"en": "Pinch the tip when young to branch. Little pruning after; remove dead parts. Replace after 2-3 years.", "fr": "Pincer le bout quand il est jeune pour ramifier. Peu de taille ensuite, enlever le bois mort. Remplacer après 2-3 ans.", "es": "Pellizcar la punta de joven para ramificar. Poca poda después; quitar partes muertas. Reemplazar tras 2-3 años."}, "JA": {"en": "Pinch the tips when young to make it bushy. Pull the plants out after harvest.", "fr": "Pincer les extrémités jeune pour la rendre touffue. Arracher les plants après la récolte.", "es": "Pellizcar las puntas de joven para que ramifique. Arrancar las plantas tras la cosecha."}, "G": {"en": "Cut back hard to 1-1.5 m once or twice a year. It branches and stays easy to harvest.", "fr": "Recéper à 1-1,5 m une ou deux fois par an. Elle se ramifie et reste facile à récolter.", "es": "Recortar fuerte a 1-1,5 m una o dos veces al año. Ramifica y es fácil de cosechar."}, "N": {"en": "Almost no pruning. Remove only dead or broken wood.", "fr": "Presque pas de taille. Enlever seulement le bois mort ou cassé.", "es": "Casi sin poda. Quitar solo ramas muertas o rotas."}, "PH": {"en": "After harvest, remove excess hanging stems and keep 8-12 main stems on the post. Remove dead parts.", "fr": "Après la récolte, enlever l'excès de tiges retombantes et garder 8-12 tiges principales sur le tuteur. Enlever les parties mortes.", "es": "Tras la cosecha, quitar el exceso de tallos colgantes y dejar 8-12 principales en el poste. Quitar partes muertas."}, "VA": {"en": "Keep the vine at working height by looping it down. Cut only dead parts.", "fr": "Garder la liane à hauteur de travail en la repliant vers le bas. Couper seulement les parties mortes.", "es": "Mantener la liana a altura de trabajo doblándola hacia abajo. Cortar solo partes muertas."}, "O": {"en": "Remove yellow or dead leaves and spent flowers. Trim to size when needed.", "fr": "Enlever les feuilles jaunes ou mortes et les fleurs fanées. Raccourcir si besoin.", "es": "Quitar hojas amarillas o muertas y flores marchitas. Recortar si hace falta."}, "Y": {"en": "Keep it to about 3-4 m by topping the main stem. Thin crowded branches after the flowering peak.", "fr": "Limiter à 3-4 m en étêtant la tige principale. Éclaircir les branches serrées après le pic de floraison.", "es": "Mantener en 3-4 m despuntando el tallo principal. Aclarar ramas apretadas tras el pico de floración."}, "CN": {"en": "Cut stems back (coppice) to harvest bark and to keep a bushy shape. It regrows from the base.", "fr": "Recéper les tiges pour récolter l'écorce et garder une forme touffue. Elle repousse de la base.", "es": "Cortar los tallos (rebrote) para cosechar corteza y mantener forma tupida. Rebrota desde la base."}},PX=Object.fromEntries(`carambola:T:5.5-6.5
+jabuticaba:N:5.0-6.0
+allspice:T:5.5-6.5
+pachira:T:5.5-7.0
+mamey:T:6.0-7.5
+aguacate:T:5.5-6.5
+simons:T:5.5-7.0
+higo:F:6.0-7.0
+granada:F:5.5-7.0
+nispero:N:6.0-8.0
+caimito:T:5.5-7.0
+abiu:T:5.5-6.5
+mangostan:N:5.0-6.5
+jorco:N:5.0-6.5
+achacha:N:5.5-6.5
+marang:N:5.5-6.5
+papaya:P:6.0-6.5
+pococi:P:6.0-6.5
+araza:T:5.5-6.5
+buda:C:6.0-7.0
+isabella:V:5.5-6.5
+pitanga:T:5.5-6.5
+bananoenano:B:5.5-7.0
+cafe:K:5.0-6.0
+palmaroja:M:5.5-6.5
+areca:M:5.5-6.5
+cuna:O:5.8-6.5
+turnera:S:5.5-7.0
+canna:H:5.5-6.5
+monstera:O:5.5-7.0
+monstera2:O:5.5-7.0
+vainilla:VA:6.0-7.0
+bluejava:B:5.5-7.0
+platano:B:5.5-7.0
+bananaroja:B:5.5-7.0
+anona:T:6.0-7.0
+biriba:T:6.0-7.0
+pitahaya:PH:6.0-7.0
+longan:T:5.5-6.5
+limondulce:C:6.0-7.0
+mandarina:C:6.0-7.0
+jamaica:JA:5.5-6.5
+rafano:M:5.5-6.5
+calliandra:S:5.5-7.0
+valencia:C:6.0-7.0
+marango:G:6.3-7.0
+calamandin:C:6.0-7.0
+lcaviar:C:6.0-7.0
+veranera:S:5.5-7.0
+uvilla:CH:5.5-6.8
+kumquat:C:6.0-7.0
+peru:T:5.5-7.0
+clementina:C:6.0-7.0
+washington:C:6.0-7.0
+panameno:C:6.0-7.0
+pera:T:5.5-7.0
+canela:CN:4.5-6.5
+mango:T:5.5-7.0
+senna:S:6.0-7.5
+malinche:S:6.0-7.5
+zneg:T:5.5-7.0
+guanabana:T:5.5-6.5
+tomate:TO:6.0-6.8
+granadilla:V:6.0-6.5
+conchita:V:5.5-7.0
+chile1:CH:6.0-6.8
+chile2:CH:6.0-6.8
+lanzones:N:5.5-6.5
+pomelo:C:6.0-7.0
+canistel:T:6.0-7.5
+ylang:Y:5.5-6.5
+jade:V:5.5-6.5
+milagrosa:N:4.5-5.8
+mangojulia:T:5.5-7.0`.split('\n').map(l=>{const a=l.split(':');return[a[0],{c:a[1],ph:a[2]}]}));
+function editX(id,k){const t=D.t[id]=D.t[id]||{},v=prompt(T(k=='pr'?'Pruning notes':'Soil pH, for example 6.0-6.5'),t[k]||'');if(v!==null){t[k]=v.trim();save();route()}}
+function editG(id){const v=prompt(T('Good to know'),D.g[id]||'');if(v!==null){if(v.trim())D.g[id]=v.trim();else delete D.g[id];save();route()}}
+function markP(k,id){D.pv=D.pv||{};const key=k+id;if(D[k][id]==today()){if(D.pv[key])D[k][id]=D.pv[key];else delete D[k][id];delete D.pv[key]}else{if(D[k][id])D.pv[key]=D[k][id];else delete D.pv[key];D[k][id]=today()}save();route()}
+const GR=Object.fromEntries(`abiu:0.4-0.7:M
+achacha:0.3-0.5:M
+aguacate:1-1.5:F
+simons:1-1.5:F
+anona:0.7-1:M
+biriba:0.8-1.2:F
+platano:2-3:V
+bluejava:2-3:V
+bananaroja:2-3:V
+bananoenano:1.5-2:F
+cafe:0.4-0.6:M
+caimito:0.5-0.8:M
+calliandra:1-1.5:F
+canela:1-2:F
+carambola:0.6-1:M
+pitanga:0.5-0.8:M
+chile1:0.6-1.2:M
+chile2:0.6-1.2:M
+clementina:0.4-0.7:M
+conchita:2-4:V:v
+jamaica:1.5-2.5:V
+milagrosa:0.2-0.4:S
+granada:0.5-0.8:M
+granadilla:2-4:V:v
+guanabana:0.7-1:M
+araza:1-1.5:F
+peru:1-1.5:F
+pera:1-1.5:F
+higo:0.8-1.2:F
+senna:1-1.5:F
+jabuticaba:0.15-0.3:S
+jade:2-4:V:v
+jorco:0.2-0.4:S
+kumquat:0.2-0.4:S
+lanzones:0.2-0.4:S
+lcaviar:0.5-0.8:M
+calamandin:0.4-0.6:M
+limondulce:0.4-0.7:M
+buda:0.5-1:M
+panameno:0.5-0.8:M
+longan:0.5-0.8:M
+malinche:1-2:F
+mamey:0.4-0.7:M
+mandarina:0.5-0.8:M
+mango:1-1.5:F
+mangojulia:0.5-0.8:M
+mangostan:0.1-0.3:S
+marang:0.6-1:M
+marango:2-4:V
+valencia:0.5-0.8:M
+washington:0.4-0.7:M
+nispero:0.3-0.6:M
+pachira:1-2:F
+areca:0.4-0.7:M
+palmaroja:0.3-0.6:M
+rafano:0.1-0.3:S
+papaya:1.5-3:V
+pococi:1.5-3:V
+allspice:0.4-0.7:M
+pitahaya:1-2:F:v
+pomelo:0.5-0.8:M
+tomate:1.5-2.5:V
+isabella:2-4:V:v
+uvilla:0.8-1.2:F
+veranera:1-2:F
+ylang:1-2:F
+canistel:0.5-0.8:M
+zneg:0.8-1.2:F
+vainilla:0.5-1.5:F:v`.split('\n').map(l=>{const a=l.split(':');return[a[0],{r:a[1],g:a[2],v:a[3]}]})),GL={V:{en:'Very fast',fr:'Très rapide',es:'Muy rápido'},F:{en:'Fast',fr:'Rapide',es:'Rápido'},M:{en:'Moderate',fr:'Modéré',es:'Moderado'},S:{en:'Slow',fr:'Lent',es:'Lento'}},GV={en:'vine',fr:'liane',es:'enredadera'};
+const growthRow=p=>{const g=GR[p.k];return g?'<div class="k">Growth per year</div><div class="v">'+U(g.r+' m'+(g.v?' ('+GV[LG]+')':''))+' <span style="color:#6B5D4D">'+U(GL[g.g][LG])+'</span></div>':''};
+/* ---- Planted date, pruning log, harvest log, rain, backup ---- */
+const L3=(a,b,c)=>LG=='fr'?b:LG=='es'?c:a,L4=(a,b,c)=>{UT.push(L3(a,b,c));return'\u0001'+(UT.length-1)+'\u0002'};
+const PI={T:365,C:365,B:90,P:0,M:180,V:180,F:365,S:365,H:180,K:365,TO:30,CH:90,JA:90,G:90,N:365,PH:365,VA:180,O:90,Y:180,CN:365};
+const pruneInt=p=>{const tt=D.t[p.id]||{};if(tt.pr||!PX[p.k])return 180;return PI[PX[p.k].c]};
+const dueP=p=>{const n=pruneInt(p);return D.pu[p.id]&&n?add(D.pu[p.id],n):null};
+const mname=i=>(LG=='fr'?MON.fr:LG=='es'?MON.es:MO)[i];
+function ageTxt(d){const days=-diff(d);if(days<0)return'';if(days<60)return days+' '+(days==1?L3('day','jour','día'):L3('days','jours','días'));const mo=Math.round(days/30.4);if(mo<24)return mo+' '+L3('months','mois','meses');return (days/365.25).toFixed(1)+' '+L3('years','ans','años')}
+function expF(y,d){y=String(y);if(/Orn|^-/.test(y))return'';let a,b,mon=0,m=y.match(/(\d+(?:\.\d+)?)(?:-(\d+(?:\.\d+)?))? months/);if(m){mon=1}else m=y.match(/^(\d+(?:\.\d+)?)(?:-(\d+(?:\.\d+)?))?/);if(!m)return'';a=+m[1];b=+(m[2]||m[1]);const s=new Date(d+'T12:00:00'),f=(x)=>{const t=new Date(s);t.setMonth(t.getMonth()+Math.round(mon?x:x*12));return t};const A=f(a),B=f(b);if(mon){const t=x=>mname(x.getMonth())+' '+x.getFullYear();return A.getTime()==B.getTime()?t(A):t(A)+' - '+t(B)}return A.getFullYear()==B.getFullYear()?''+A.getFullYear():A.getFullYear()+'-'+B.getFullYear()}
+function plantedRows(id,s){const d=D.pl[id],dm='<span style="color:#6B5D4D">',e=expF(s.y||'',d||'');return '<div class="k">'+L4('Planted','Planté le','Plantado el')+'</div><div class="v">'+(d?U(d):dm+L4('set the date','à définir','definir')+'</span>')+' <button class="lk" onclick="editP(\''+id+'\')">'+L4('Edit','Modifier','Editar')+'</button></div>'+(d?'<div class="k">'+L4('Plant age','Âge','Edad')+'</div><div class="v">'+U(ageTxt(d))+'</div>':'')+(d&&e?'<div class="k">'+L4('Expected first fruit','Premier fruit prévu','Primer fruto previsto')+'</div><div class="v">'+U(e)+'</div>':'')}
+function editP(id){const v=prompt(L3('Planted on (YYYY-MM-DD). Leave empty to clear.','Planté le (AAAA-MM-JJ). Laisser vide pour effacer.','Plantado el (AAAA-MM-DD). Vacío para borrar.'),D.pl[id]||today());if(v===null)return;const t=v.trim();if(!t){delete D.pl[id]}else{if(!/^\d{4}-\d{2}-\d{2}$/.test(t)||isNaN(new Date(t+'T12:00:00'))){alert(L3('Use the format YYYY-MM-DD, for example 2026-10-25.','Utilisez le format AAAA-MM-JJ, par exemple 2026-10-25.','Use el formato AAAA-MM-DD, por ejemplo 2026-10-25.'));return}D.pl[id]=t}save();route()}
+/* ---- Neem spray, Today screen, QR labels ---- */
+const sprayInt=p=>parseInt(D.si[p.id])||14,dueS=p=>D.sp[p.id]?add(D.sp[p.id],sprayInt(p)):null;
+function sprayRow(p,id){const nx=dueS(p);return '<div class="st"><div class="rn">&bull;</div><div><p class="sl">'+L4('Neem oil spray','Pulvérisation d\'huile de neem','Aplicación de aceite de neem')+'</p><p class="sx">'+L4('Every','Tous les','Cada')+' '+sprayInt(p)+' '+L4('days','jours','días')+' <button class="lk" onclick="editS(\''+id+'\')">'+L4('Edit','Modifier','Editar')+'</button></p><p class="sx" style="margin-top:6px">'+L4('Last sprayed','Dernière application','Última aplicación')+': '+(D.sp[id]||'—')+' · '+L4('Next','Prochaine','Próxima')+': '+(nx?when(nx):'—')+'</p><button class="ad" style="margin-top:8px" onclick="markP(\'sp\',\''+id+'\')">'+(D.sp[id]==today()?L4('Sprayed today &check; &middot; Undo','Appliqué aujourd\'hui &check; &middot; Annuler','Aplicado hoy &check; &middot; Deshacer'):L4('Mark as sprayed','Marquer comme appliqué','Marcar como aplicado'))+'</button><p class="nt" style="margin-top:8px;font-size:15px">'+L4('Spray early morning or late afternoon, never in full sun or before rain. Skip open flowers.','Pulvériser tôt le matin ou en fin d\'après-midi, jamais en plein soleil ni avant la pluie. Éviter les fleurs ouvertes.','Aplicar temprano en la mañana o al final de la tarde, nunca a pleno sol ni antes de la lluvia. Evitar las flores abiertas.')+'</p></div></div>'}
+function editS(id){const p=all().find(x=>x.id==id),v=prompt(L3('Spray every how many days? Neem oil: 14 days to prevent, 7 days if pests are present.','Pulvériser tous les combien de jours ? Huile de neem : 14 jours en prévention, 7 jours en cas de ravageurs.','¿Cada cuántos días aplicar? Aceite de neem: 14 días para prevenir, 7 días si hay plagas.'),sprayInt(p));if(v===null)return;const n=parseInt(v);if(!(n>=1&&n<=90)){alert(L3('Enter a number of days between 1 and 90.','Entrez un nombre de jours entre 1 et 90.','Ingrese un número de días entre 1 y 90.'));return}D.si[id]=n;save();route()}
+function todayPage(){const a=all(),by=(x,y)=>nm(x).localeCompare(nm(y),LG,{sensitivity:'base'}),dueX=f=>a.filter(p=>{const d=f(p);return d&&diff(d)<=0}).sort((x,y)=>diff(f(x))-diff(f(y))||by(x,y)),
+G=[[L3('to water','à arroser','por regar'),a.filter(p=>diff(dueW(p))<=0).sort((x,y)=>diff(dueW(x))-diff(dueW(y))||by(x,y)),p=>where(p)+' · '+wAmt(p),id=>"mark('w','"+id+"')",dueW,'<button class="b o" style="width:100%;margin-bottom:6px" onclick="mark(\'w\')">'+L4('Mark all done','Tout marquer comme fait','Marcar todo como hecho')+'</button><button class="ad" style="margin:0 0 6px" onclick="rain()">'+L4('Rained today (ground plants)','Il a plu aujourd\'hui (plantes en terre)','Llovió hoy (plantas en tierra)')+'</button>'],[L3('to feed','à fertiliser','por fertilizar'),a.filter(p=>diff(dueF(p))<=0).sort((x,y)=>diff(dueF(x))-diff(dueF(y))||by(x,y)),p=>where(p)+' · '+dose(p),id=>"mark('f','"+id+"')",dueF,'<button class="b o" style="width:100%;margin-bottom:6px" onclick="mark(\'f\')">'+L4('Mark all done','Tout marquer comme fait','Marcar todo como hecho')+'</button>'],[L3('to prune','à tailler','por podar'),dueX(dueP),p=>where(p),id=>"markP('pu','"+id+"')",dueP],[L3('to spray (neem oil)','à traiter (huile de neem)','por aplicar (aceite de neem)'),dueX(dueS),p=>where(p),id=>"markP('sp','"+id+"')",dueS],[L3('compost + mulch','compost + paillis','compost + mantillo'),dueX(dueCm),p=>where(p),id=>"markP('cm','"+id+"')",p=>today()]],
+tot=G.reduce((s,g)=>s+g[1].length,0),g0={loc:'G'},ses=dry()?L3('Dry season','Saison sèche','Temporada seca'):L3('Rainy season','Saison des pluies','Temporada de lluvias');
+return wrap('<p class="lab">'+L4('Today','Aujourd\'hui','Hoy')+'</p><h1>'+tot+' '+L4(tot==1?'task':'tasks',tot==1?'tâche':'tâches',tot==1?'tarea':'tareas')+'</h1><p class="it">'+L4(ses+': ground plants every '+wInt(g0)+' days'+(fPause(today())?', no fertilizer until May':', fertilizer every '+fT(g0)),ses+' : plantes en terre tous les '+wInt(g0)+' jours'+(fPause(today())?', pas d\'engrais jusqu\'en mai':', engrais tous les '+fT(g0).replace('months','mois').replace('weeks','semaines')),ses+': plantas en tierra cada '+wInt(g0)+' días'+(fPause(today())?', sin abono hasta mayo':', abono cada '+fT(g0).replace('months','meses').replace('weeks','semanas')))+'</p>'+dvd+(tot?G.filter(g=>g[1].length).map(g=>'<p class="lab" style="margin:18px 0 4px;text-align:left">'+g[1].length+' '+g[0]+'</p>'+(g[5]||'')+'<div style="text-align:left">'+g[1].map(p=>'<div class="row"><a href="#/p/'+p.id+'" style="color:#1F1B16">'+nm(p)+'<small>'+g[2](p)+(diff(g[4](p))<0?' &middot; <span style="color:#9A3B2E;font-weight:700">'+when(g[4](p))+'</span>':'')+'</small></a><button class="b o" onclick="'+g[3](p.id)+'">'+L4('Done','Fait','Hecho')+'</button></div>').join('')+'</div>').join(''):'<p class="nt">'+L4('All done for today.','Tout est fait pour aujourd\'hui.','Todo hecho por hoy.')+'</p>')+(D.u?'<button class="ad" onclick="undo()">Undo last</button>':''))}
+const plantUrl=id=>location.href.split('#')[0]+'#/p/'+id;
+function qrPage(id){const p=all().find(x=>x.id==id);if(!p)return home();return wrap('<div class="bar noprint"><a class="lk" href="#/p/'+id+'">&larr; '+L4('Back','Retour','Volver')+'</a></div><h1>'+nm(p)+'</h1><p class="it">'+sub(p)+'</p>'+dvd+'<div style="max-width:300px;margin:0 auto">'+QR.svg(plantUrl(id))+'</div><button class="b noprint" style="width:100%;margin-top:16px" onclick="print()">'+L4('Print','Imprimer','Imprimir')+'</button><p class="nt noprint" style="margin-top:12px">'+L4('Print it or take a screenshot, and stick it on the pot or the stake. Scanning it opens this plant.','Imprimez-le ou faites une capture d\'écran, puis collez-le sur le pot ou le tuteur. Le scanner ouvre cette plante.','Imprímalo o tome una captura y péguelo en la maceta o la estaca. Al escanearlo se abre esta planta.')+'</p>')}
+let qsz=30;
+function qrsPage(){const l=all().sort((x,y)=>nm(x).localeCompare(nm(y),LG,{sensitivity:'base'}));return wrap('<p class="lab">QR</p><h1>'+L4('QR labels','Étiquettes QR','Etiquetas QR')+'</h1><p class="it">'+L4('One code per plant','Un code par plante','Un código por planta')+'</p>'+dvd+'<button class="b noprint" style="width:100%" onclick="print()">'+L4('Print','Imprimer','Imprimir')+'</button><div class="ch noprint"><span style="align-self:center;font:700 12px Lato;color:#6B5D4D">'+L4('Size','Taille','Tamaño')+'</span>'+[[25,'2.5 cm'],[30,'3 cm'],[40,'4 cm']].map(z=>'<button class="'+(qsz==z[0]?'on':'')+'" onclick="qsz='+z[0]+';route()">'+z[1]+'</button>').join('')+'</div><div style="display:grid;grid-template-columns:repeat(auto-fill,'+qsz+'mm);gap:5mm 4mm;justify-content:center;margin-top:12px">'+l.map(p=>'<figure style="margin:0;break-inside:avoid;width:'+qsz+'mm"><a href="#/qr/'+p.id+'" style="display:block">'+QR.svg(plantUrl(p.id))+'</a><figcaption style="text-align:center;font:700 9px/1.15 Lato;color:#1F1B16;margin-top:1mm;word-break:break-word">'+nm(p)+'</figcaption></figure>').join('')+'</div>')}
+
+const inCm=d=>{const m=mOf(d),n=parseInt(d.slice(8));return(m==10&&n>=25)||m==11};
+const dueCm=p=>{const t=today();if(!inCm(t))return null;const s=t.slice(0,4)+'-11-25';return D.cm[p.id]&&D.cm[p.id]>=s?null:s};
+function cmRow(p,id){return '<div class="st"><div class="rn">&bull;</div><div><p class="sl">'+L4('Compost &amp; mulch','Compost et paillis','Compost y mantillo')+'</p><p class="sx">'+L4('Every year from November 25 to December 31: spread compost and add extra mulch around the plant, a hand\'s width away from the trunk. No fertilizer from January to April (dry season).','Chaque année du 25 novembre au 31 décembre : étaler du compost et ajouter du paillis autour de la plante, à une main du tronc. Pas d\'engrais de janvier à avril (saison sèche).','Cada año del 25 de noviembre al 31 de diciembre: esparcir compost y añadir mantillo alrededor de la planta, a un palmo del tronco. Sin abono de enero a abril (temporada seca).')+'</p><p class="sx" style="margin-top:6px">'+L4('Last done','Dernière fois','Última vez')+': '+(D.cm[id]||'—')+'</p><button class="ad" style="margin-top:8px" onclick="markP(\'cm\',\''+id+'\')">'+(D.cm[id]==today()?L4('Done today &check; &middot; Undo','Fait aujourd\'hui &check; &middot; Annuler','Hecho hoy &check; &middot; Deshacer'):L4('Mark as done','Marquer comme fait','Marcar como hecho'))+'</button></div></div>'}
+function calNote(mo){return mo<=3?'<p class="nt" style="margin-bottom:10px">'+L4('Fertilizer is paused in January-April (dry season).','Engrais en pause de janvier à avril (saison sèche).','Abono en pausa de enero a abril (temporada seca).')+'</p>':(mo==10||mo==11)?'<p class="nt" style="margin-bottom:10px">'+L4('Compost and extra mulch for all plants from November 25 to December 31 (marked with a dot).','Compost et paillis en plus pour toutes les plantes du 25 novembre au 31 décembre (point sur le calendrier).','Compost y mantillo extra para todas las plantas del 25 de noviembre al 31 de diciembre (punto en el calendario).')+'</p>':''}
+
+/* ---- Guest mode: a device not connected to sync is read only ---- */
+const gBanner=()=>'<p class="sx" style="background:#F6EEDD;border:1px solid #B08D57;padding:8px 10px;margin:0 0 12px;text-align:left">'+L4('Guest view: read only.','Mode invité : lecture seule.','Vista de invitado: solo lectura.')+' <a href="#/sync" style="font-weight:700">'+L4('Connect this phone','Connecter ce téléphone','Conectar este teléfono')+'</a></p>';
+function guestStrip(){const A=$('app');A.querySelectorAll('button').forEach(b=>{if(!/^(setL|share|f=|q=|qsz|print|gUnlock)/.test(b.getAttribute('onclick')||''))b.remove()});A.querySelectorAll('a').forEach(a=>{if(/^#\/(today|water|fert|calw|calf|add|remove|backup)/.test(a.getAttribute('href')||''))a.remove()});A.querySelectorAll('.big,label.ad').forEach(e=>e.remove())}
+
+/* ---- Guest photos (view only, optional easy code) ---- */
+const GURL='https://mygarden-576c2-default-rtdb.firebaseio.com',gNorm=v=>String(v||'').toLowerCase().replace(/[^a-z0-9]/g,''),gKey=()=>localStorage.tgg||'open';
+function gBlock(){const on=D.ga&&D.ga.k;return '<div class="sec"><p class="lab">'+L4('Guest photos','Photos pour invités','Fotos para invitados')+'</p>'+dvd+'<p class="nt" style="margin-bottom:10px">'+L4('Guests can view your photos (view only) after typing an easy code. With no code, anyone who opens the app can view them.','Les invités peuvent voir vos photos (lecture seule) après avoir tapé un code simple. Sans code, toute personne qui ouvre l\'app peut les voir.','Los invitados pueden ver sus fotos (solo lectura) tras escribir un código fácil. Sin código, cualquiera que abra la app puede verlas.')+'</p>'+(on?'<p class="sx"><b>'+L4('On','Activé','Activado')+'</b> · '+L4('Code','Code','Código')+': '+(D.ga.k=='open'?L4('none (open to everyone)','aucun (ouvert à tous)','ninguno (abierto a todos)'):U(D.ga.k))+'</p>':'<p class="sx"><b>'+L4('Off','Désactivé','Desactivado')+'</b></p>')+'<button class="b" style="width:100%;margin-top:10px" onclick="gSet()">'+(on?L4('Change the code','Changer le code','Cambiar el código'):L4('Turn on guest photos','Activer les photos invités','Activar fotos de invitados'))+'</button>'+(on?'<button class="ad" onclick="gOff()">'+L4('Turn off','Désactiver','Desactivar')+'</button>':'')+'</div>'}
+async function gClear(k){try{await fetch(GURL+'/v_'+k+'_ph.json',{method:'PUT',body:'null'});await fetch(GURL+'/v_'+k+'_ix.json',{method:'PUT',body:'null'})}catch(e){}}
+async function gSet(){const v=prompt(L3('Guest code for photos. Use something easy (a word or a number). Leave empty to let everyone view the photos.','Code invité pour les photos. Choisissez quelque chose de simple (un mot ou un nombre). Laissez vide pour que tout le monde puisse voir les photos.','Código de invitado para las fotos. Use algo fácil (una palabra o un número). Déjelo vacío para que todos puedan ver las fotos.'),D.ga&&D.ga.k!='open'?D.ga.k:'');if(v===null)return;const k=gNorm(v)||'open';if(D.ga&&D.ga.k&&D.ga.k!=k)await gClear(D.ga.k);D.ga={k:k};save();route()}
+async function gOff(){if(!confirm(L3('Turn off guest photos? Guests will no longer see them.','Désactiver les photos invités ? Les invités ne les verront plus.','¿Desactivar las fotos de invitados? Ya no las verán.')))return;if(D.ga&&D.ga.k)await gClear(D.ga.k);D.ga=null;save();route()}
+function guestPhotos(id){const p=all().find(x=>x.id==id);return wrap('<div class="bar"><a class="lk" href="#/p/'+id+'">&larr; '+L4('Back','Retour','Volver')+'</a></div><h1>'+(p?nm(p):'')+'</h1><p class="it">'+L4('Photos','Photos','Fotos')+'</p>'+dvd+'<p class="nt" id="gmsg">'+L4('Loading...','Chargement...','Cargando...')+'</p><div id="gbox"></div><div id="gcode" style="display:none"><input id="gk" placeholder="'+L3('Access code','Code d\'accès','Código de acceso')+'" autocapitalize="off" autocorrect="off"><button class="b" style="width:100%;margin-top:10px" onclick="gUnlock()">'+L4('Unlock','Déverrouiller','Desbloquear')+'</button></div>')}
+async function loadGuestPh(id){const m=$('gmsg'),box=$('gbox');if(!m)return;try{const r=await fetch(GURL+'/v_'+gKey()+'_ph/'+id+'.json',{cache:'no-store'});if(!r.ok)throw 0;const o=await r.json(),a=Object.values(o||{}).filter(z=>z&&/^data:image\//.test(z.img)).sort((x,y)=>x.d<y.d?1:-1);if(!a.length){m.textContent=L3('No photos here, or the access code is not right.','Aucune photo ici, ou le code d\'accès n\'est pas le bon.','No hay fotos aquí, o el código de acceso no es correcto.');$('gcode').style.display='block';return}m.textContent=a.length+' '+L3('photo(s)','photo(s)','foto(s)');$('gcode').style.display='none';box.className='pg2';box.innerHTML=a.map(z=>'<figure><img alt="" src="'+z.img+'" onclick="big(this.src)"></figure>').join('')}catch(e){m.textContent=L3('Could not load the photos. Check your connection.','Impossible de charger les photos. Vérifiez votre connexion.','No se pudieron cargar las fotos. Revise su conexión.')}}
+function gUnlock(){const k=gNorm($('gk').value);if(k)localStorage.tgg=k;else localStorage.removeItem('tgg');route()}
+
+function remNew(){const hh=L.concat(D.x).filter(p=>D.h[p.id]).sort((a,b)=>nm(a).localeCompare(nm(b),LG,{sensitivity:'base'}));return wrap('<div class="bar"><a class="lk" href="#/plants">&larr; '+L4('All plants','Toutes les plantes','Todas las plantas')+'</a></div><p class="lab" style="margin-top:12px">'+L4('Removed','Supprimées','Quitadas')+'</p><h1>'+L4('Removed plants','Plantes supprimées','Plantas quitadas')+'</h1>'+dvd+(hh.length?'<div style="text-align:left">'+hh.map(p=>'<div class="row"><span>'+nm(p)+'</span><button class="b o" onclick="D.h[\''+p.id+'\']=0;save();route()">'+L4('Restore','Restaurer','Restaurar')+'</button></div>').join('')+'</div>':'<p class="nt">'+L4('No removed plants.','Aucune plante supprimée.','No hay plantas quitadas.')+'</p>'))}
+const nRem=()=>Object.keys(D.h).filter(k=>D.h[k]).length;
+/* ---- Backup inside the Sync page + monthly reminder ---- */
+function bkBlock(){return '<div class="sec"><p class="lab">'+L4('Backup','Sauvegarde','Copia')+'</p>'+dvd+'<p class="nt" style="margin-bottom:10px">'+L4('The file holds your plants data: watering, notes, harvests, measurements. Photos are not included.','Le fichier contient les données des plantes : arrosages, notes, récoltes, mesures. Les photos ne sont pas incluses.','El archivo contiene los datos de las plantas: riegos, notas, cosechas, medidas. Las fotos no están incluidas.')+'</p><button class="b" style="width:100%" onclick="exportB()">'+L4('Export backup','Exporter la sauvegarde','Exportar copia')+'</button><label class="ad" style="display:flex;align-items:center;justify-content:center;cursor:pointer">'+L4('Import backup','Importer une sauvegarde','Importar copia')+'<input type="file" accept=".json,application/json" style="display:none" onchange="importB(this)"></label></div>'}
+const bkBanner=()=>{if(!SYC)return'';const l=localStorage.tgbk,s=localStorage.tgbs;if(!l){localStorage.tgbk=today();return''}if(s&&s>today())return'';return -diff(l)>=30?'<p class="sx" style="background:#F6EEDD;border:1px solid #B08D57;padding:8px 10px;margin:0 0 12px;text-align:left">'+L4('Time for your monthly backup.','C\'est l\'heure de votre sauvegarde mensuelle.','Es hora de su copia mensual.')+' <button class="lk" onclick="exportB();route()">'+L4('Export now','Exporter','Exportar')+'</button> <button class="lk" onclick="bkLater()">'+L4('Later','Plus tard','Más tarde')+'</button></p>':''};
+function bkLater(){localStorage.tgbs=add(today(),7);route()}
+/* ---- Add a plant: pick the species from the list ---- */
+function spPick(){$('anm').style.display=$('asp').value?'none':'block'}
+function addp(){const opts=S.map(s=>({k:s.k,n:names({k:s.k})[LG]})).sort((a,b)=>a.n.localeCompare(b.n,LG,{sensitivity:'base'}));return wrap('<p class="lab">'+L4('New plant','Nouvelle plante','Nueva planta')+'</p><h1>'+L4('Add','Ajouter','Agregar')+'</h1>'+dvd+'<p class="sx" style="text-align:left;margin:0 0 4px">'+L4('Choose the plant from the list, and everything fills in by itself.','Choisissez la plante dans la liste, tout se remplit tout seul.','Elija la planta de la lista y todo se llena solo.')+'</p><select id="asp" onchange="spPick()"><option value="">'+L4('Other (not in the list)','Autre (pas dans la liste)','Otra (no está en la lista)')+'</option>'+opts.map(o=>'<option value="'+o.k+'">'+U(o.n)+'</option>').join('')+'</select><div id="anm"><input id="an" placeholder="Name (Spanish)"><input id="ae" placeholder="Name (English)"><input id="af" placeholder="Name (French)"></div><select id="al"><option value="G">Ground</option><option value="P">Pot</option><option value="B">Nursery bag</option></select><input id="as" placeholder="Size, e.g. 50 L or 8x12 in"><button class="b" style="width:100%;margin-top:12px" onclick="saveAdd()">Save plant</button>')}
+function saveAdd(){const sk=$('asp').value,l=$('al').value,sz=$('as').value.trim(),loc=l=='G'?'G':l+':'+sz;if(sk){const same=all().filter(p=>p.k==sk).length,o={id:'x'+Date.now(),k:sk,loc:loc,x:''};if(same)o.n=same+1;D.x.push(o);save();location.hash='#/plants';return}const es=$('an').value.trim();if(!es)return;D.x.push({id:'x'+Date.now(),k:'',es:es,en:$('ae').value.trim()||es,fr:$('af').value.trim(),loc:loc,x:''});save();location.hash='#/plants'}
+
+function editNames(id){const o=D.x.find(x=>x.id==id);if(!o)return;const a=prompt(L3('Name in Spanish','Nom en espagnol','Nombre en español'),o.es);if(a===null)return;const b=prompt(L3('Name in English','Nom en anglais','Nombre en inglés'),o.en);if(b===null)return;const c=prompt(L3('Name in French','Nom en français','Nombre en francés'),o.fr||'');if(c===null)return;if(a.trim())o.es=a.trim();if(b.trim())o.en=b.trim();o.fr=c.trim();save();route()}
+
+function tgtAdvice(p,id,tt){const c=(PX[p.k]||{}).c||'';if(!tt.t||/^(P|M|B)$/.test(c))return'';const s=String(tt.t),nums=(s.match(/\d+(?:[.,]\d+)?/g)||[]).map(x=>parseFloat(x.replace(',','.')));if(!nums.length)return'';let T=Math.max(...nums);if(/cm/i.test(s))T/=100;else if(/ft|feet/i.test(s))T*=.3048;if(!(T>0&&T<60))return'';
+const X=Math.round(T*1.15*10)/10,fm=x=>String(Math.round(x*10)/10),H=lastH(p)/100,k=/^(T|C|N|Y|CN|K)$/.test(c)?1:c=='F'?2:c=='S'?3:c=='G'?4:/^(V|PH|VA)$/.test(c)?5:0;
+const a=L3('To keep it at about '+fm(T)+' m, cut the top back to '+fm(T)+' m when it reaches about '+fm(X)+' m.','Pour la garder à environ '+fm(T)+' m : couper le haut à '+fm(T)+' m quand elle atteint environ '+fm(X)+' m.','Para mantenerla en unos '+fm(T)+' m: cortar la parte superior a '+fm(T)+' m cuando llegue a unos '+fm(X)+' m.');
+const B=[['Cut the tallest stems back when they pass this height.','Couper les tiges les plus hautes quand elles dépassent cette hauteur.','Cortar los tallos más altos cuando pasen esta altura.'],['Do it right after harvest, and shorten the long side branches by about a third so the crown stays compact.','À faire juste après la récolte, et raccourcir les longues branches latérales d\'environ un tiers pour garder une cime compacte.','Hacerlo justo después de la cosecha y acortar las ramas laterales largas en un tercio para mantener la copa compacta.'],['Do it right after harvest. Shorten new shoots to 2-3 buds.','À faire juste après la récolte. Raccourcir les nouvelles pousses à 2-3 yeux.','Hacerlo justo después de la cosecha. Acortar los brotes nuevos a 2-3 yemas.'],['Do it right after flowering.','À faire juste après la floraison.','Hacerlo justo después de la floración.'],['Cut back hard each time, it regrows quickly.','Recéper à chaque fois, elle repousse vite.','Recortar fuerte cada vez; rebrota rápido.'],['Loop or cut back stems that pass the top of the support.','Replier ou couper les tiges qui dépassent le haut du support.','Doblar o cortar los tallos que pasen la parte alta del soporte.']][k];
+const b=L3(B[0],B[1],B[2]);
+const m=H?(H>X?L3('Last measurement: '+fm(H)+' m, above the limit. Time to prune.','Dernière mesure : '+fm(H)+' m, au-dessus de la limite. C\'est le moment de tailler.','Última medida: '+fm(H)+' m, por encima del límite. Es hora de podar.'):L3('Last measurement: '+fm(H)+' m.','Dernière mesure : '+fm(H)+' m.','Última medida: '+fm(H)+' m.')):'';
+return '<p class="sx" style="margin-top:6px">'+U(a+' '+b+(m?' '+m:''))+'</p>'}
+function pruneRow(p,id,tt){const n=pruneInt(p),dn=D.pu[id]==today(),nx=dueP(p);return tgtAdvice(p,id,tt)+'<p class="sx" style="margin-top:6px">'+L4('Last pruned','Dernière taille','Última poda')+': '+(D.pu[id]||'—')+(n?' · '+L4('Next','Prochaine','Próxima')+': '+(nx?when(nx):'—'):'')+'</p><button class="ad" style="margin-top:8px" onclick="markP(\'pu\',\''+id+'\')">'+(dn?L4('Pruned today &check; &middot; Undo','Taillée aujourd\'hui &check; &middot; Annuler','Podada hoy &check; &middot; Deshacer'):L4('Mark as pruned','Marquer comme taillée','Marcar como podada'))+'</button>'}
+function harvestSec(id){const hv=(D.hv[id]||[]).map((z,i)=>({z:z,i:i})).sort((a,b)=>a.z.d<b.z.d?1:a.z.d>b.z.d?-1:b.i-a.i),yr=today().slice(0,4),cur=hv.filter(x=>x.z.d.slice(0,4)==yr),un=new Set();let tot=0,ok=cur.length>0;cur.forEach(x=>{const m=String(x.z.q).match(/^(\d+(?:[.,]\d+)?)\s*(.*)$/);if(!m){ok=false;return}tot+=parseFloat(m[1].replace(',','.'));un.add(m[2].trim().toLowerCase())});
+return '<div class="sec"><p class="lab">'+L4('Harvest log','Récoltes','Cosechas')+'</p>'+dvd+(hv.length?'<p class="sx" style="margin-bottom:6px;color:#6B5D4D">'+U(cur.length+' '+L3(cur.length==1?'harvest':'harvests',cur.length==1?'récolte':'récoltes',cur.length==1?'cosecha':'cosechas')+' '+yr+(ok&&un.size==1?' · Total '+(Math.round(tot*100)/100)+(([...un][0])?' '+[...un][0]:''):''))+'</p>'+hv.map(x=>'<div class="row"><span><b>'+x.z.d+'</b> &middot; '+U(x.z.q)+'</span><button class="lk" onclick="delH(\''+id+'\','+x.i+')">'+L4('Delete','Supprimer','Eliminar')+'</button></div>').join(''):'<p class="nt">'+L4('Nothing harvested yet.','Rien récolté pour l\'instant.','Nada cosechado todavía.')+'</p>')+'<button class="ad" onclick="addH(\''+id+'\')">'+L4('Add harvest','Ajouter une récolte','Agregar cosecha')+'</button></div>'}
+function addH(id){const v=prompt(L3('Harvest today: how many or how much? Example: 12 or 2 kg','Récolte du jour : combien ? Exemple : 12 ou 2 kg','Cosecha de hoy: ¿cuántos? Ejemplo: 12 o 2 kg'),'');if(v&&v.trim()){(D.hv[id]=D.hv[id]||[]).push({d:today(),q:v.trim()});save();route()}}
+function delH(id,i){if(confirm(L3('Delete this harvest?','Supprimer cette récolte ?','¿Eliminar esta cosecha?'))){D.hv[id].splice(i,1);save();route()}}
+function rain(){const ids=all().filter(p=>p.loc=='G').map(p=>p.id);if(!ids.length)return;D.pv=D.pv||{};D.u={k:'w',i:ids.map(x=>[x,D.w[x]])};ids.forEach(x=>{if(D.w[x]&&D.w[x]!=today())D.pv['w'+x]=D.w[x];D.w[x]=today()});save();route()}
+function backupPage(){return wrap('<p class="lab">'+L4('Backup','Sauvegarde','Copia')+'</p><h1>'+L4('Backup','Sauvegarde','Copia')+'</h1><p class="it">'+L4('Save all your data in one file','Tout enregistrer dans un fichier','Guardar todos sus datos en un archivo')+'</p>'+dvd+'<p class="nt" style="margin-bottom:12px">'+L4('The file holds your plants data: watering, notes, harvests, measurements. Photos are not included.','Le fichier contient les données des plantes : arrosages, notes, récoltes, mesures. Les photos ne sont pas incluses.','El archivo contiene los datos de las plantas: riegos, notas, cosechas, medidas. Las fotos no están incluidas.')+'</p><button class="b" style="width:100%" onclick="exportB()">'+L4('Export backup','Exporter la sauvegarde','Exportar copia')+'</button><label class="ad" style="display:flex;align-items:center;justify-content:center;cursor:pointer">'+L4('Import backup','Importer une sauvegarde','Importar copia')+'<input type="file" accept=".json,application/json" style="display:none" onchange="importB(this)"></label>')}
+function exportB(){localStorage.tgbk=today();const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'MyGarden',v:1,saved:today(),d:JSON.parse(syPack())})],{type:'application/json'}));a.download='mygarden-backup-'+today()+'.json';document.body.appendChild(a);a.click();setTimeout(()=>{a.remove();URL.revokeObjectURL(a.href)},500)}
+function importB(inp){const f=inp.files[0];inp.value='';if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);if(!o||o.app!='MyGarden'||!o.d||typeof o.d!='object')throw 0;if(!confirm(L3('Replace the data on this phone with the backup?','Remplacer les données de ce téléphone par la sauvegarde ?','¿Reemplazar los datos de este teléfono con la copia?')))return;const keep=D.lang;Object.keys(D).forEach(k=>delete D[k]);Object.assign(D,o.d);D.lang=keep;syNorm();save();route();alert(L3('Backup restored.','Sauvegarde restaurée.','Copia restaurada.'))}catch(e){alert(L3('This file is not a valid backup.','Ce fichier n\'est pas une sauvegarde valide.','Este archivo no es una copia válida.'))}};r.readAsText(f)}
+
+function plant(id){const p=all().find(x=>x.id==id);if(!p)return home();const s=info(p),ns=D.ns[id]||[],ms=(D.m[id]||[]).slice().sort((x,y)=>x.d<y.d?-1:1),lm=ms[ms.length-1],pm=ms[ms.length-2],tt=D.t[id]||{},rr=D.r[id]||[],lr=rr[rr.length-1],E=k=>' <button class="lk" onclick="editT(\''+id+'\',\''+k+'\')">Edit</button>',dm='<span style="color:#6B5D4D">';return wrap('<div class="bar"><a class="lk" href="#/plants">&larr; All plants</a><button class="lk" onclick="share(\''+id+'\')">Share &nearr;</button></div><p class="lab" style="margin-top:12px">Plant</p><h1>'+nm(p)+'</h1><p class="it">'+sub(p)+'</p>'+dvd+'<a class="b" style="display:flex;align-items:center;justify-content:center;min-height:52px;margin-bottom:10px" href="#/photos/'+id+'">Photos</a><div style="display:flex;gap:10px"><button class="b" style="flex:1" onclick="markP(\'w\',\''+id+'\')">'+(D.w[id]==today()?'Watered today &check; &middot; Undo':'Mark as watered')+'</button><button class="b o" style="flex:1" onclick="markP(\'f\',\''+id+'\')">'+(D.f[id]==today()?'Fertilized today &check; &middot; Undo':'Mark as fertilized')+'</button></div><div class="sec"><p class="lab">At a glance</p>'+dvd+'<div class="tb"><div class="k">Location</div><div class="v">'+where(p)+' <button class="lk" onclick="editLoc(\''+id+'\')">Edit</button></div><div class="k">Sun</div><div class="v">'+SUN[s.sun]+'</div><div class="k">First fruit</div><div class="v">'+s.y+'</div><div class="k">Season</div><div class="v">'+s.m+'</div>'+plantedRows(id,s)+'<div class="k">Height</div><div class="v">'+(lm?lm.h+' cm'+(pm?' '+dm+'('+(lm.h>=pm.h?'+':'')+(lm.h-pm.h)+')</span>':''):dm+'add below</span>')+'</div>'+growthRow(p)+'<div class="k">Max size</div><div class="v">'+(tt.m||MX[p.k]||dm+'set</span>')+E('m')+'</div><div class="k">Target size</div><div class="v">'+(tt.t||dm+'set your goal</span>')+E('t')+'</div><div class="k">Min size to fruit</div><div class="v">'+(tt.n||MN[p.k]||dm+(s.y.match(/Orn|-$/)||!MN[p.k]&&p.k?'none (no fruit)':'set')+'</span>')+E('n')+'</div>'+(p.x?'<div class="k">Plants</div><div class="v">'+p.x+'</div>':'')+'</div></div><div class="sec"><p class="lab">Fruit &amp; use</p>'+dvd+'<p class="nt">'+s.u+'</p></div><div class="sec"><p class="lab">Care</p>'+dvd+'<div class="st"><div class="rn">&bull;</div><div><p class="sl">Watering</p><p class="sx">Check every '+wInt(p)+' days. If the top 3-5 cm of soil is dry, water: '+wAmt(p)+'. Last: '+(D.w[id]||'—')+' · Next: '+when(dueW(p))+'</p></div></div><div class="st"><div class="rn">&bull;</div><div><p class="sl">Fertilizer</p><p class="sx">Yara Mila 12-11-18, about '+dose(p)+' every '+fT(p)+'. Soil only, never in drought or flooding. Start low. Last: '+(D.f[id]||'—')+' · Next: '+when(dueF(p))+'</p></div></div><div class="st"><div class="rn">&bull;</div><div><p class="sl">Repotting &amp; moves</p><p class="sx">'+(lr?'Last: '+lr.d+', '+lr.a+' &rarr; '+lr.b:'None logged. Use Edit next to Location when you repot.')+'</p></div></div><div class="st"><div class="rn">&bull;</div><div><p class="sl">Pruning'+'</p><p class="sx">'+(tt.pr?U(tt.pr):PX[p.k]?U(PR[PX[p.k].c][LG]):dm+'set</span>')+' <button class="lk" onclick="editX(\''+id+'\',\'pr\')">Edit</button></p>'+pruneRow(p,id,tt)+'</div></div>'+sprayRow(p,id)+cmRow(p,id)+'<div class="st"><div class="rn">&bull;</div><div><p class="sl">Soil pH'+'</p><p class="sx">'+U(tt.ph||(PX[p.k]?PX[p.k].ph:''))+(tt.ph||PX[p.k]?'':dm+'set</span>')+' <button class="lk" onclick="editX(\''+id+'\',\'ph\')">Edit</button></p></div></div></div><div class="sec"><p class="lab">Fruit season</p>'+dvd+bars(s.m)+'</div>'+harvestSec(id)+'<div class="sec"><p class="lab">Growth</p>'+dvd+chart(id)+'<button class="ad" onclick="addM(\''+id+'\')">Add measurement (cm)</button></div><div class="sec"><p class="lab">Good to know</p>'+dvd+(D.g[id]?'<p class="nt" style="white-space:pre-wrap">'+U(D.g[id])+'</p>':'<p class="nt">Nothing yet.</p>')+'<button class="ad" onclick="editG(\''+id+'\')">'+(D.g[id]?'Edit':'Write a tip')+'</button></div><div class="sec"><p class="lab">Notes</p>'+dvd+(ns.length?ns.map((z,i)=>'<div class="row" style="display:block"><b>'+z.d+'</b> <button class="lk" onclick="editN(\''+id+'\','+i+')">Edit</button> <button class="lk" onclick="delN(\''+id+'\','+i+')">Delete</button><div style="margin-top:4px;white-space:pre-wrap">'+U(z.t)+'</div></div>').join(''):'<p class="nt">No notes yet.</p>')+'<button class="ad" onclick="addN(\''+id+'\')">Add note</button></div><a class="ad" style="display:flex;align-items:center;justify-content:center" href="#/qr/'+id+'">'+L4('QR code','Code QR','Código QR')+'</a><a class="ad" style="display:flex;align-items:center;justify-content:center" target="_blank" rel="noopener" href="'+askQ('I have a '+s.en+' ('+s.es+') in '+where(p)+', '+SUN[s.sun].toLowerCase()+', in Lagunas. My question: ')+'">Ask Claude about this plant</a>'+(p.k?'':'<button class="ad" onclick="editNames(\''+id+'\')">'+L4('Edit names','Modifier les noms','Editar los nombres')+'</button>')+'<button class="ad" style="color:#9A3B2E;border-color:#9A3B2E" onclick="delp(\''+id+'\')">'+L4('Remove this plant','Supprimer cette plante','Quitar esta planta')+'</button>')}
+function due(kind){const f=kind=='w'?dueW:dueF,r=all().filter(p=>diff(f(p))<=0).sort((a,b)=>nm(a).localeCompare(nm(b),LG,{sensitivity:'base'}));return wrap('<p class="lab">Today</p><h1>'+r.length+' to '+(kind=='w'?'water':'feed')+'</h1><p class="it">'+(kind=='w'?'Sample ranges. Water only if the top 3-5 cm of soil is dry':(fPause(today())?L4('Fertilizer is paused until May (dry season)','Engrais en pause jusqu\'en mai (saison sèche)','Abono en pausa hasta mayo (temporada seca)'):'Yara Mila 12-11-18. Start low. Soil only, not in drought or flooding'))+'</p>'+dvd+(r.length?'<button class="b" style="width:100%" onclick="mark(\''+kind+'\')">Mark all done</button>':'<p class="nt">All done for today.</p>')+(kind=='w'?'<button class="ad" onclick="rain()">'+L4('Rained today (ground plants)','Il a plu aujourd\'hui (plantes en terre)','Llovió hoy (plantas en tierra)')+'</button>':'')+(D.u&&D.u.k==kind?'<button class="ad" onclick="undo()">Undo last</button>':'')+'<div style="text-align:left;margin-top:10px">'+r.map(p=>'<div class="row"><a href="#/p/'+p.id+'" style="color:#1F1B16">'+nm(p)+'<small>'+where(p)+' &middot; '+(kind=='w'?wAmt(p):dose(p))+(diff(f(p))<0?' &middot; '+when(f(p)):'')+'</small></a><button class="b o" onclick="mark(\''+kind+'\',\''+p.id+'\')">Done</button></div>').join('')+'</div><a class="ad" style="display:flex;align-items:center;justify-content:center" href="#/cal'+kind+'">See calendar</a>')}
+function mark(kind,id){const f=kind=='w'?dueW:dueF,ids=id?[id]:all().filter(p=>diff(f(p))<=0).map(p=>p.id);D.u={k:kind,i:ids.map(x=>[x,D[kind][x]])};D.pv=D.pv||{};ids.forEach(x=>{if(D[kind][x]&&D[kind][x]!=today())D.pv[kind+x]=D[kind][x];D[kind][x]=today()});save();route()}
+function undo(){if(D.u){D.u.i.forEach(z=>{if(z[1])D[D.u.k][z[0]]=z[1];else delete D[D.u.k][z[0]]});D.u=null;save();route()}}
+let cm=0,cd=null;
+function cal(kind){const f=kind=='w'?dueW:dueF,iv=kind=='w'?wInt:fI,t=new Date(),b=new Date(t.getFullYear(),t.getMonth()+cm,1),y=b.getFullYear(),mo=b.getMonth(),dim=new Date(y,mo+1,0).getDate(),pd=n=>y+'-'+String(mo+1).padStart(2,'0')+'-'+String(n).padStart(2,'0'),first=pd(1),last=pd(dim),map={};all().forEach(p=>{let d=f(p);if(d<today())d=today();while(d<=last){if(d>=first)(map[d]=map[d]||[]).push(p);d=kind=='f'?fAdj(add(d,iv(p,d))):add(d,iv(p,d))}});if(!cd||cd<first||cd>last)cd=(today()>=first&&today()<=last)?today():first;const cells=Array(b.getDay()).fill('<span></span>');for(let n=1;n<=dim;n++){const d=pd(n),c=(map[d]||[]).length;cells.push('<button class="'+(d==cd?'on ':'')+(d==today()?'td':'')+'" onclick="cd=\''+d+'\';route()">'+n+'<small>'+(c||(kind=='f'&&inCm(d)?'●':''))+'</small></button>')}const q2=(map[cd]||[]).slice().sort((x,y)=>nm(x).localeCompare(nm(y),LG,{sensitivity:'base'}));return wrap('<p class="lab">'+(kind=='w'?'Watering':'Fertilizer')+' calendar</p><h1>'+MO[mo]+' '+y+'</h1>'+dvd+(kind=='f'?calNote(mo):'')+'<div style="display:flex;gap:10px;margin-bottom:10px"><button class="b o" style="flex:1" onclick="cm--;cd=null;route()">&larr; Prev</button><button class="b o" style="flex:1" onclick="cm++;cd=null;route()">Next &rarr;</button></div><div class="cg">'+(LG=='fr'?['D','L','M','M','J','V','S']:LG=='es'?['D','L','M','X','J','V','S']:['S','M','T','W','T','F','S']).map(x=>'<b>'+x+'</b>').join('')+cells.join('')+'</div><div class="sec"><p class="lab">'+cd+'</p>'+dvd+'<p class="sx" style="font-weight:700;text-align:left;margin-bottom:6px">'+q2.length+' '+L4(kind=='w'?'to water':'to feed',kind=='w'?'à arroser':'à fertiliser',kind=='w'?'por regar':'por fertilizar')+'</p><div style="text-align:left">'+(kind=='f'&&inCm(cd)?'<a class="row" href="#/today" style="color:#1F1B16"><span>'+L4('Compost + extra mulch','Compost + paillis en plus','Compost + mantillo extra')+'<small>'+L4('All plants','Toutes les plantes','Todas las plantas')+'</small></span></a>':'')+(q2.map(p=>'<a class="row" href="#/p/'+p.id+'" style="color:#1F1B16"><span>'+nm(p)+'<small>'+U(sub(p))+'</small><small>'+where(p)+'</small></span><span>'+(kind=='w'?wAmt(p):dose(p))+'</span></a>').join('')||'<p class="nt">Nothing due.</p>')+'</div></div>')}
+function help(){const t=[['Yellow leaves','Overwatering, poor drainage or hunger. Check the soil, then feed lightly.'],['Leaf drop or wilting','Dry roots, waterlogging or transplant shock. Water deeply, shade for a few days.'],['Brown leaf tips','Salt build-up or dry air. Flush the pot with plain water.'],['No flowers or fruit','Too young, too much shade or too much nitrogen. Check first-fruit years.'],['Flowers or fruit dropping','Water stress or heavy rain. Keep watering even.'],['Pests (scale, mites, ants)','Wipe off, spray neem in the evening, repeat weekly.'],['Seedling collapses','Damping off. Less water, more air, clean soil.'],['Roots circling or poking out','Time to repot into the next size up.']];return wrap('<p class="lab">Troubleshooting</p><h1>Help</h1>'+dvd+t.map((x,i)=>'<div class="st"><div class="rn">'+(i+1)+'</div><div><p class="sl">'+x[0]+'</p><p class="sx">'+x[1]+'</p></div></div>').join('')+'<a class="ad" style="display:flex;align-items:center;justify-content:center" target="_blank" rel="noopener" href="'+askQ('I have a question about one of my fruit trees in Lagunas. ')+'">Ask Claude about a tree</a>')}
+function addpOld(){return wrap('<p class="lab">New plant</p><h1>Add</h1>'+dvd+'<input id="an" placeholder="Name (Spanish)"><input id="ae" placeholder="Name (English)"><select id="al"><option value="G">Ground</option><option value="P">Pot</option><option value="B">Nursery bag</option></select><input id="as" placeholder="Size, e.g. 50 L or 8x12 in"><button class="b" style="width:100%;margin-top:12px" onclick="saveAdd()">Save plant</button>')}
+function rem(){return remNew()}
+function remOld(){const r=all().sort((a,b)=>nm(a).localeCompare(nm(b),LG,{sensitivity:'base'})),h=L.concat(D.x).filter(p=>D.h[p.id]);return wrap('<p class="lab">Remove</p><h1>Remove a plant</h1>'+dvd+'<div style="text-align:left">'+r.map(p=>'<div class="row"><span>'+nm(p)+'<small>'+where(p)+'</small></span><button class="b o" onclick="delp(\''+p.id+'\')">Remove</button></div>').join('')+'</div>'+(h.length?'<div class="sec"><p class="lab">Removed</p>'+dvd+'<div style="text-align:left">'+h.map(p=>'<div class="row"><span>'+nm(p)+'</span><button class="b o" onclick="D.h[\''+p.id+'\']=0;save();route()">Restore</button></div>').join('')+'</div></div>':''))}
+function delp(id){if(confirm(T('Remove this plant page? You can restore it later.'))){D.h[id]=1;save();route()}}
+function saveAddOld(){const es=$('an').value.trim();if(!es)return;const l=$('al').value,sz=$('as').value.trim();D.x.push({id:'x'+Date.now(),k:'',es,en:$('ae').value.trim()||es,loc:l=='G'?'G':l+':'+sz,x:''});save();location.hash='#/plants'}
+function addM(id){const v=prompt(T('Height in cm'));if(v&&+v){(D.m[id]=D.m[id]||[]).push({d:today(),h:+v});save();route()}}
+function note(id){const v=prompt('Note',D.n[id]||'');if(v!==null){D.n[id]=v;save();route()}}
+function share(id){const u=location.href;if(navigator.share)navigator.share({title:'Tree Garden',url:u}).catch(()=>{});else{navigator.clipboard&&navigator.clipboard.writeText(u);alert(T('Link copied'))}}
+function route(){const h=location.hash.slice(2).split('/');if(h[0]=='water'||h[0]=='fert'||h[0]=='backup'){location.hash=h[0]=='backup'?'#/sync':'#/today';return}if(!SYC&&/^(today|water|fert|calw|calf|add|remove|backup)$/.test(h[0])){location.hash='#/';return}$('app').innerHTML=untr(tr(h[0]=='p'?plant(h[1]):h[0]=='photos'?(SYC?photos(h[1]):guestPhotos(h[1])):h[0]=='water'?due('w'):h[0]=='fert'?due('f'):h[0]=='calw'?cal('w'):h[0]=='calf'?cal('f'):h[0]=='help'?help():h[0]=='add'?addp():h[0]=='remove'?rem():h[0]=='sync'?syncPage():h[0]=='today'?todayPage():h[0]=='qr'?qrPage(h[1]):h[0]=='qrs'?qrsPage():h[0]=='backup'?backupPage():h[0]=='plants'?home():front()));if(!SYC&&h[0]!='sync')guestStrip();document.documentElement&&(document.documentElement.lang=LG);if(h[0]=='photos')SYC?loadPh(h[1]):loadGuestPh(h[1]);if(h[0]!=''&&h[0]!=undefined)scrollTo(0,0)}
+
+/* ---- Sync between phones (Firebase Realtime Database, REST) ---- */
+let SYC=null;try{SYC=JSON.parse(localStorage.tgs||'null')}catch(e){}
+let syMsg='',syT=null,syBusy=0,syAgain=0;
+const syUrl=()=>SYC.u.replace(/\/+$/,'')+'/g_'+encodeURIComponent(SYC.c)+'.json';
+const syPack=()=>{const c=Object.assign({},D);delete c.lang;delete c.u;return JSON.stringify(c)};
+function syNorm(){D.m=D.m||{};D.w=D.w||{};D.f=D.f||{};D.n=D.n||{};D.x=D.x||[];D.h=D.h||{};D.l=D.l||{};D.r=D.r||{};D.t=D.t||{};D.g=D.g||{};D.ns=D.ns||{};D.pv=D.pv||{};D.pd=D.pd||{};D.pl=D.pl||{};D.hv=D.hv||{};D.pu=D.pu||{};D.sp=D.sp||{};D.si=D.si||{};D.cm=D.cm||{};D.u=D.u||null}
+async function syGet(){const r=await fetch(syUrl(),{cache:'no-store'});if(!r.ok)throw 0;return r.json()}
+async function syPut(){const ts=D.ts||Date.now();D.ts=ts;localStorage.tg=JSON.stringify(D);const r=await fetch(syUrl(),{method:'PUT',body:JSON.stringify({ts:ts,d:syPack()})});if(!r.ok)throw 0}
+function syAdopt(doc){const keep=D.lang,c=JSON.parse(doc.d);Object.keys(D).forEach(k=>delete D[k]);Object.assign(D,c);D.lang=keep;D.ts=doc.ts;syNorm();localStorage.tg=JSON.stringify(D)}
+const syTime=()=>{const d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')};
+async function sync(){if(!SYC)return;if(syBusy){syAgain=1;return}syBusy=1;let ch=0;try{const r=await syGet();if(r&&r.ts>(D.ts||0)){syAdopt(r);ch=1}else if(!r||(D.ts||0)>r.ts)await syPut();syMsg='Synced at '+syTime()}catch(e){syMsg='Could not sync. Will retry.'}syBusy=0;if(ch||location.hash=='#/sync')route();if(syAgain){syAgain=0;sync()}phSync()}
+
+const phU=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7),b2d=b=>new Promise(r=>{const f=new FileReader();f.onload=()=>r(f.result);f.readAsDataURL(b)});
+let phBusy=0;
+async function phSync(){if(!SYC||phBusy)return;phBusy=1;let ch=0;try{const base=SYC.u.replace(/\/+$/,'')+'/g_'+encodeURIComponent(SYC.c)+'_ph',pd=D.pd||{};let loc=await tx('readonly',s=>s.getAll());
+for(const z of loc){if(!z.u){z.u=phU();await tx('readwrite',s=>s.put(z))}}
+for(const z of loc){if(pd[z.u]){await tx('readwrite',s=>s.delete(z.id));ch=1}}
+loc=loc.filter(z=>!pd[z.u]);
+const rr=await fetch(base+'.json?shallow=true',{cache:'no-store'});if(!rr.ok)throw 0;const rk=Object.keys(await rr.json()||{});
+for(const k of rk)if(pd[k])await fetch(base+'/'+k+'.json',{method:'PUT',body:'null'});
+const lu=new Set(loc.map(z=>z.u));
+for(const z of loc){if(!rk.includes(z.u)){const r=await fetch(base+'/'+z.u+'.json',{method:'PUT',body:JSON.stringify({pid:z.pid,d:z.d,img:await b2d(z.blob)})});if(!r.ok)throw 0}}
+for(const k of rk){if(!lu.has(k)&&!pd[k]){const r=await fetch(base+'/'+k+'.json',{cache:'no-store'});if(!r.ok)throw 0;const o=await r.json();if(o&&o.img){const blob=await (await fetch(o.img)).blob();await tx('readwrite',s=>s.add({pid:o.pid,d:o.d,blob:blob,u:k}));ch=1}}}
+if(D.ga&&D.ga.k){const gb=GURL+'/v_'+D.ga.k,ix=(await (await fetch(gb+'_ix.json',{cache:'no-store'})).json())||{},valid=new Set(rk.concat(loc.map(z=>z.u)).filter(k=>!pd[k]));
+for(const k of Object.keys(ix)){if(!valid.has(k)){await fetch(gb+'_ph/'+ix[k]+'/'+k+'.json',{method:'PUT',body:'null'});await fetch(gb+'_ix/'+k+'.json',{method:'PUT',body:'null'})}}
+for(const z of loc){if(!ix[z.u]){const r=await fetch(gb+'_ph/'+z.pid+'/'+z.u+'.json',{method:'PUT',body:JSON.stringify({d:z.d,img:await b2d(z.blob)})});if(!r.ok)throw 0;await fetch(gb+'_ix/'+z.u+'.json',{method:'PUT',body:JSON.stringify(z.pid)})}}}
+}catch(e){}phBusy=0;if(ch&&/^#\/photos\//.test(location.hash))loadPh(location.hash.split('/')[2])}
+function syKick(){if(!SYC)return;clearTimeout(syT);syT=setTimeout(sync,700)}
+function syncPage(){const c=SYC,rc=Math.random().toString(36).slice(2,10)+Math.random().toString(36).slice(2,10);return wrap('<p class="lab">Sync</p><h1>Phones</h1><p class="it">Same data on every phone</p>'+dvd+(c?'<p class="sx"><b>Connected</b></p><p class="nt" style="margin:8px 0;word-break:break-all">'+U(c.u)+'</p><p class="nt" style="margin:8px 0">'+U(c.c)+'</p><button class="b" style="width:100%;margin-top:10px" onclick="sync()">Sync now</button><button class="ad" onclick="syOff()">Disconnect</button>'+gBlock()+bkBlock():'<p class="nt" style="margin-bottom:10px">Use the same link and secret code on every phone. Photos are synced too.</p><input id="sy_u" placeholder="Database link" autocapitalize="off" autocorrect="off"><input id="sy_c" placeholder="Secret code" autocapitalize="off" autocorrect="off" value="'+rc+'"><button class="b" style="width:100%;margin-top:12px" onclick="syOn()">Connect and sync</button>')+'<p class="sx" style="margin-top:14px;color:#6B5D4D">'+(syMsg?U(T(syMsg.replace(/ at \d\d:\d\d$/,''))+(/ at (\d\d:\d\d)$/.test(syMsg)?' '+syMsg.match(/\d\d:\d\d$/)[0]:'')):'')+'</p>')}
+async function syOn(){let u=$('sy_u').value.trim(),c=$('sy_c').value.trim().replace(/[^A-Za-z0-9_-]/g,'');if(!/^https:\/\/[^\s]+$/.test(u)||c.length<8){alert(T('Check the link and the secret code (8 characters or more).'));return}SYC={u:u,c:c};try{const r=await syGet();if(r){if(confirm(T('Data found online. OK = use the online data on this phone. Cancel = keep this phone data and replace the online data.')))syAdopt(r);else{D.ts=Date.now();await syPut()}}else{D.ts=D.ts||Date.now();await syPut()}localStorage.tgs=JSON.stringify(SYC);syMsg='Synced at '+syTime();phSync()}catch(e){SYC=null;syMsg='Could not connect. Check the link.'}route()}
+function syOff(){if(confirm(T('Disconnect this phone? Your data stays on the phone.'))){SYC=null;localStorage.removeItem('tgs');syMsg='';route()}}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)sync()});setInterval(()=>{if(!document.hidden)sync()},60000);
+addEventListener('hashchange',route);route();sync();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script></body></html>
