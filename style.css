@@ -32,3 +32,4 @@ input:not([type=file]):not([type=search]),select,textarea{display:block;width:10
 #lang button:last-child{border-radius:0 14px 14px 0}
 #lang button.on{background:var(--gold);color:#fff;border-color:var(--gold)}
 #toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);max-width:90%;background:#26211c;color:#faf0e7;padding:10px 16px;border-radius:20px;font:13px sans-serif;z-index:5;display:none;text-align:center}
+.lnk{display:block;margin:6px auto 30px;background:none;border:0;color:var(--soft);text-decoration:underline;font:14px sans-serif;cursor:pointer}.qr{display:block;width:min(260px,70%);margin:20px auto;border-radius:8px;border:1px solid #e6d3b3}
