@@ -1,11 +1,11 @@
 const app=document.getElementById('app'),back=document.getElementById('back'),search=document.getElementById('search');
 const CATS=["Breakfast & Snacks","Drinks","Salads","Main Dishes","Desserts"];
 const UI={
-en:{summary:"Summary",search:"Search recipes or ingredients…",ingredients:"Ingredients",prep:"Preparation",know:"Good to know",by:"Recipe by ",recipe:"Recipe",add:"+ Add a recipe",edit:"Edit",del:"Delete",confirmDel:"Delete this recipe?",addTitle:"Add a recipe",editTitle:"Edit recipe",title:"Title",cat:"Category",byOpt:"Recipe by (optional)",ingLbl:"Ingredients",ingHelp:"one per line: quantity | ingredient (a line in capitals = section title)",stepsLbl:"Preparation",stepsHelp:"one step per line",notesLbl:"Good to know",notesHelp:"one note per line",save:"Save recipe",share:"Share the app (QR code)",shareTxt:"Scan this code with the other phone's camera to open the app. Recipes are shared automatically. Then choose \"Add to Home Screen\".",reset:"Reset to original",translating:"Translating to the other languages…",txDone:"Translated to the other languages ✓",txPartial:"Some lines could not be translated and were copied as written.",confirmReset:"Remove your changes to this recipe?",needTitle:"Please enter a title.",
+en:{summary:"Summary",search:"Search recipes or ingredients…",ingredients:"Ingredients",prep:"Preparation",know:"Good to know",by:"Recipe by ",recipe:"Recipe",add:"+ Add a recipe",edit:"Edit",del:"Delete",confirmDel:"Delete this recipe?",addTitle:"Add a recipe",editTitle:"Edit recipe",title:"Title",cat:"Category",byOpt:"Recipe by (optional)",ingLbl:"Ingredients",ingHelp:"one per line: quantity | ingredient (a line in capitals = section title)",stepsLbl:"Preparation",stepsHelp:"one step per line",notesLbl:"Good to know",notesHelp:"one note per line",save:"Save recipe",share:"Share the app (QR code)",bk:"Backup / Restore",bkTxt:"Backup saves your added and edited recipes in a file on this phone. Restore puts them back from such a file.",bkBtn:"Save a backup",rsBtn:"Restore from a backup",rsOk:"Restored ✓",rsBad:"This file is not a valid backup.",rsConfirm:"Restore this backup? Your recipes will be replaced by the ones in the file.",shareTxt:"Scan this code with the other phone's camera to open the app. Recipes are shared automatically. Then choose \"Add to Home Screen\".",reset:"Reset to original",translating:"Translating to the other languages…",txDone:"Translated to the other languages ✓",txPartial:"Some lines could not be translated and were copied as written.",confirmReset:"Remove your changes to this recipe?",needTitle:"Please enter a title.",
  cats:{}},
-fr:{summary:"Sommaire",search:"Rechercher une recette ou un ingrédient…",ingredients:"Ingrédients",prep:"Préparation",know:"Bon à savoir",by:"Recette de ",recipe:"Recette",add:"+ Ajouter une recette",edit:"Modifier",del:"Supprimer",confirmDel:"Supprimer cette recette ?",addTitle:"Ajouter une recette",editTitle:"Modifier la recette",title:"Titre",cat:"Catégorie",byOpt:"Recette de (facultatif)",ingLbl:"Ingrédients",ingHelp:"un par ligne : quantité | ingrédient (une ligne en majuscules = titre de section)",stepsLbl:"Préparation",stepsHelp:"une étape par ligne",notesLbl:"Bon à savoir",notesHelp:"une note par ligne",save:"Enregistrer la recette",share:"Partager l'app (code QR)",shareTxt:"Scannez ce code avec la caméra de l'autre téléphone pour ouvrir l'app. Les recettes sont partagées automatiquement. Ensuite, choisissez « Ajouter à l'écran d'accueil ».",reset:"Rétablir l'original",translating:"Traduction vers les autres langues…",txDone:"Traduit dans les autres langues ✓",txPartial:"Certaines lignes n'ont pas pu être traduites et ont été copiées telles quelles.",confirmReset:"Annuler vos modifications de cette recette ?",needTitle:"Veuillez entrer un titre.",
+fr:{summary:"Sommaire",search:"Rechercher une recette ou un ingrédient…",ingredients:"Ingrédients",prep:"Préparation",know:"Bon à savoir",by:"Recette de ",recipe:"Recette",add:"+ Ajouter une recette",edit:"Modifier",del:"Supprimer",confirmDel:"Supprimer cette recette ?",addTitle:"Ajouter une recette",editTitle:"Modifier la recette",title:"Titre",cat:"Catégorie",byOpt:"Recette de (facultatif)",ingLbl:"Ingrédients",ingHelp:"un par ligne : quantité | ingrédient (une ligne en majuscules = titre de section)",stepsLbl:"Préparation",stepsHelp:"une étape par ligne",notesLbl:"Bon à savoir",notesHelp:"une note par ligne",save:"Enregistrer la recette",share:"Partager l'app (code QR)",bk:"Sauvegarde / Restauration",bkTxt:"La sauvegarde enregistre vos recettes ajoutées et modifiées dans un fichier sur ce téléphone. La restauration les remet à partir d'un tel fichier.",bkBtn:"Faire une sauvegarde",rsBtn:"Restaurer une sauvegarde",rsOk:"Restauré ✓",rsBad:"Ce fichier n'est pas une sauvegarde valide.",rsConfirm:"Restaurer cette sauvegarde ? Vos recettes seront remplacées par celles du fichier.",shareTxt:"Scannez ce code avec la caméra de l'autre téléphone pour ouvrir l'app. Les recettes sont partagées automatiquement. Ensuite, choisissez « Ajouter à l'écran d'accueil ».",reset:"Rétablir l'original",translating:"Traduction vers les autres langues…",txDone:"Traduit dans les autres langues ✓",txPartial:"Certaines lignes n'ont pas pu être traduites et ont été copiées telles quelles.",confirmReset:"Annuler vos modifications de cette recette ?",needTitle:"Veuillez entrer un titre.",
  cats:{"Breakfast & Snacks":"Déjeuners et collations","Drinks":"Boissons","Salads":"Salades","Main Dishes":"Plats principaux","Desserts":"Desserts"}},
-es:{summary:"Índice",search:"Buscar recetas o ingredientes…",ingredients:"Ingredientes",prep:"Preparación",know:"Es bueno saber",by:"Receta de ",recipe:"Receta",add:"+ Agregar una receta",edit:"Editar",del:"Eliminar",confirmDel:"¿Eliminar esta receta?",addTitle:"Agregar una receta",editTitle:"Editar receta",title:"Título",cat:"Categoría",byOpt:"Receta de (opcional)",ingLbl:"Ingredientes",ingHelp:"uno por línea: cantidad | ingrediente (una línea en mayúsculas = título de sección)",stepsLbl:"Preparación",stepsHelp:"un paso por línea",notesLbl:"Es bueno saber",notesHelp:"una nota por línea",save:"Guardar receta",share:"Compartir la app (código QR)",shareTxt:"Escanea este código con la cámara del otro teléfono para abrir la app. Las recetas se comparten automáticamente. Luego elige «Añadir a la pantalla de inicio».",reset:"Restablecer original",translating:"Traduciendo a los otros idiomas…",txDone:"Traducido a los otros idiomas ✓",txPartial:"Algunas líneas no se pudieron traducir y se copiaron tal cual.",confirmReset:"¿Quitar tus cambios en esta receta?",needTitle:"Por favor escribe un título.",
+es:{summary:"Índice",search:"Buscar recetas o ingredientes…",ingredients:"Ingredientes",prep:"Preparación",know:"Es bueno saber",by:"Receta de ",recipe:"Receta",add:"+ Agregar una receta",edit:"Editar",del:"Eliminar",confirmDel:"¿Eliminar esta receta?",addTitle:"Agregar una receta",editTitle:"Editar receta",title:"Título",cat:"Categoría",byOpt:"Receta de (opcional)",ingLbl:"Ingredientes",ingHelp:"uno por línea: cantidad | ingrediente (una línea en mayúsculas = título de sección)",stepsLbl:"Preparación",stepsHelp:"un paso por línea",notesLbl:"Es bueno saber",notesHelp:"una nota por línea",save:"Guardar receta",share:"Compartir la app (código QR)",bk:"Copia de seguridad / Restaurar",bkTxt:"La copia guarda tus recetas añadidas y editadas en un archivo en este teléfono. Restaurar las devuelve desde ese archivo.",bkBtn:"Hacer una copia",rsBtn:"Restaurar una copia",rsOk:"Restaurado ✓",rsBad:"Este archivo no es una copia válida.",rsConfirm:"¿Restaurar esta copia? Tus recetas serán reemplazadas por las del archivo.",shareTxt:"Escanea este código con la cámara del otro teléfono para abrir la app. Las recetas se comparten automáticamente. Luego elige «Añadir a la pantalla de inicio».",reset:"Restablecer original",translating:"Traduciendo a los otros idiomas…",txDone:"Traducido a los otros idiomas ✓",txPartial:"Algunas líneas no se pudieron traducir y se copiaron tal cual.",confirmReset:"¿Quitar tus cambios en esta receta?",needTitle:"Por favor escribe un título.",
  cats:{"Breakfast & Snacks":"Desayunos y meriendas","Drinks":"Bebidas","Salads":"Ensaladas","Main Dishes":"Platos principales","Desserts":"Postres"}}};
 const roman=n=>['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX'][n]||n+1;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -42,12 +42,31 @@ function home(q=''){
     const rs=list.filter(r=>r.cat===c);if(!rs.length)return;
     h+=`<h2 class="cat">${esc(cl(c))}</h2>`+rs.map(r=>`<button class="item" data-id="${r.id}">${esc(r.title)}</button>`).join('');
   });
-  if(!q)h+=`<button class="add" id="add">${t('add')}</button><button class="lnk" id="share">${t('share')}</button>`;
+  if(!q)h+=`<button class="add" id="add">${t('add')}</button><button class="lnk" id="share">${t('share')}</button><button class="lnk" id="backup">${t('bk')}</button>`;
   app.innerHTML=h;scrollTo(0,0);
 }
 function shareView(){
   view.name='share';back.hidden=false;
   app.innerHTML=`<h1>${t('share')}</h1><img class="qr" src="qr.png" alt="QR code"><p class="note">${esc(t('shareTxt'))}</p><p class="note">puravida1702.github.io/Marilyn-s-recipe</p>`;scrollTo(0,0)}
+function backupView(){
+  view.name='backup';back.hidden=false;
+  app.innerHTML=`<h1>${t('bk')}</h1><p class="note">${esc(t('bkTxt'))}</p>
+  <button class="add" id="dobackup">${t('bkBtn')}</button>
+  <button class="add" id="dorestore">${t('rsBtn')}</button><input type="file" id="rsfile" accept=".json,application/json" hidden>`;scrollTo(0,0)}
+function doBackup(){
+  const data=JSON.stringify({app:'marilyns-recipe',date:new Date().toISOString(),custom:cache.custom,ovr:cache.ovr},null,1);
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));
+  a.download='marilyns-recipe-backup-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove()}
+function doRestore(file){
+  const rd=new FileReader();
+  rd.onload=()=>{
+    let d;try{d=JSON.parse(rd.result);if(d.app!=='marilyns-recipe'||!Array.isArray(d.custom)||typeof d.ovr!=='object')throw 0}catch(e){alert(t('rsBad'));return}
+    if(!confirm(t('rsConfirm')))return;
+    custom().filter(r=>!d.custom.some(x=>x.id===r.id)).forEach(r=>delCustom(r.id));
+    Object.keys(ovr()).filter(k=>!(k in d.ovr)).forEach(delOvr);
+    d.custom.forEach(putCustom);Object.keys(d.ovr).forEach(k=>putOvr(k,d.ovr[k]));
+    home();toast(t('rsOk'),2500)};
+  rd.readAsText(file)}
 function show(id){
   const raw=find(id);if(!raw)return home();
   const r=tr(raw);view.name='show';view.id=id;back.hidden=false;
@@ -163,7 +182,7 @@ function setLang(l,first){
   lang=l;save('lang',l);document.documentElement.lang=l;
   search.placeholder=t('search');back.textContent='‹ '+t('summary');
   [...lb.children].forEach(b=>b.classList.toggle('on',b.dataset.l===l));
-  if(d)form(d);else if(view.name==='show')show(view.id);else if(view.name==='share')shareView();else home(search.value);
+  if(d)form(d);else if(view.name==='show')show(view.id);else if(view.name==='share')shareView();else if(view.name==='backup')backupView();else home(search.value);
 }
 lb.addEventListener('click',e=>{const l=e.target.dataset.l;if(l)setLang(l)});
 
@@ -172,11 +191,15 @@ app.addEventListener('click',e=>{
   if(b)return show(b.dataset.id);
   if(x.id==='add')return form();
   if(x.id==='share')return shareView();
+  if(x.id==='backup')return backupView();
+  if(x.id==='dobackup')return doBackup();
+  if(x.id==='dorestore')return $('rsfile').click();
   if(x.id==='save')return saveForm(x.dataset.id);
   if(x.dataset.edit)return form(tr(find(x.dataset.edit)));
   if(x.dataset.reset&&confirm(t('confirmReset'))){delOvr(x.dataset.reset);return show(x.dataset.reset)}
   if(x.dataset.del&&confirm(t('confirmDel'))){delCustom(x.dataset.del);home()}
 });
+app.addEventListener('change',e=>{if(e.target.id==='rsfile'&&e.target.files[0])doRestore(e.target.files[0])});
 back.onclick=()=>{search.value='';home()};
 search.oninput=()=>home(search.value);
 setLang(lang,true);
