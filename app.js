@@ -47,7 +47,7 @@ function home(q=''){
 }
 function shareView(){
   view.name='share';back.hidden=false;
-  app.innerHTML=`<h1>${t('share')}</h1><img class="qr" src="qr.png" alt="QR code"><p class="note">${esc(t('shareTxt'))}</p><p class="note">puravida1702.github.io/Marilyn-s-recipe</p>`;scrollTo(0,0)}
+  app.innerHTML=`<h1>${t('share')}</h1><img class="qr" src="qr.png" alt="QR code"><p class="note">${esc(t('shareTxt'))}</p><p class="note">marilyn-s-recipe-app.github.io/Marilyn-s-recipe</p>`;scrollTo(0,0)}
 function backupView(){
   view.name='backup';back.hidden=false;
   app.innerHTML=`<h1>${t('bk')}</h1><p class="note">${esc(t('bkTxt'))}</p>
