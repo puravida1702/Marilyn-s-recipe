@@ -1,2 +1,2 @@
-{"name":"Marilyn's Recipe","short_name":"Marilyn's","start_url":".","scope":".","display":"standalone","background_color":"#faf0e7","theme_color":"#faf0e7",
+{"id":"/Marilyn-s-recipe/","name":"Marilyn's Recipe","short_name":"Marilyn's","start_url":"/Marilyn-s-recipe/","scope":"/Marilyn-s-recipe/","display":"standalone","background_color":"#faf0e7","theme_color":"#faf0e7",
 "icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png"},{"src":"icon-512.png","sizes":"512x512","type":"image/png"},{"src":"maskable-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}]}
